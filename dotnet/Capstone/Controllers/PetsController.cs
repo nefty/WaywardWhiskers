@@ -38,5 +38,17 @@ namespace Capstone.Controllers
         {
             return Ok(petDAO.AddPet(pet));
         }
+
+        [HttpPut]
+        public ActionResult<bool> UpdatePet(Pet pet)
+        {
+            return Ok(petDAO.UpdatePet(pet));
+        }
+
+        [HttpDelete("{petId}")]
+        public ActionResult<bool> DeletePet(int petId)
+        {
+            return Ok(petDAO.DeletePet(petId));
+        }
     }
 }

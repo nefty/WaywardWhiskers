@@ -12,7 +12,7 @@ namespace Capstone.DAO.Interfaces
 
         IEnumerable<Pet> GetAllPets();
         Pet GetPet(int petId);
-        //bool UpdatePet(Pet pet);
+        bool UpdatePet(Pet pet);
         bool DeletePet(int petId);
     }
 }
