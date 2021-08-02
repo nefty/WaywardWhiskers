@@ -1,0 +1,73 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Capstone.DAO.Interfaces;
+using Capstone.Models;
+using System.Data.SqlClient;
+
+namespace Capstone.DAO
+{
+    public class PetSqlDAO : IPetDAO
+    {
+        private readonly string connectionString;
+
+        private readonly string sqlGetPet = "SELECT * FROM pets WHERE pet_id = @petId";
+
+        public PetSqlDAO(string dbConnectionString)
+        {
+            connectionString = dbConnectionString;
+        }
+
+        //public bool AddPet(Pet pet)
+        //{
+
+        //}
+
+        //public IEnumerable<Pet> GetPets()
+        //{
+
+        //}
+
+        public Pet GetPet(int petId)
+        {
+            Pet result = new Pet();
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand(sqlGetPet, conn);
+                    cmd.Parameters.AddWithValue("@petId", petId);
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    if (reader.HasRows && reader.Read())
+                    {
+                        result.Name = Convert.ToString(reader["pet_name"]);
+                        result.Type = Convert.ToString(reader["pet_type"]);
+                        result.Breed = Convert.ToString(reader["pet_breed"]);
+                        result.Age = Convert.ToInt32(reader["pet_age"]);
+                        result.Description = Convert.ToString(reader["pet_description"]);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                
+            }
+
+            return result;
+        }
+
+        //public bool UpdatePet(Pet pet)
+        //{
+
+        //}
+
+        //public bool DeletePet(int petId)
+        //{
+
+        //}
+    }
+}
