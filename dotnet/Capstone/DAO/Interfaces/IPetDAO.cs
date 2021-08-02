@@ -10,7 +10,7 @@ namespace Capstone.DAO.Interfaces
     {
         //bool AddPet(Pet pet);
 
-        //IEnumerable<Pet> GetPets();
+        IEnumerable<Pet> GetAllPets();
         Pet GetPet(int petId);
         //bool UpdatePet(Pet pet);
         //bool DeletePet(int petId);

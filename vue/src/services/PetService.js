@@ -2,7 +2,8 @@ import axios from 'axios';
 
 
 export default {
-    getPets() {
+    getAllPets() {
+        console.log("Reached Get All Pets in PetService")
         return axios.get('/pets');
     },
     getPet(petID) {

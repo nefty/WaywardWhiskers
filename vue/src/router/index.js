@@ -7,6 +7,7 @@ import Login from '../views/Login.vue'
 import Logout from '../views/Logout.vue'
 import Register from '../views/Register.vue'
 import PetDetails from '../views/PetDetails.vue'
+import PetList from '@/components/PetList.vue'
 
 Vue.use(Router)
 
@@ -59,6 +60,14 @@ const router = new Router({
       path: "/pets/:id",
       name: "pet-details",
       component: PetDetails,
+      meta: {
+        requiresAuth: false
+      }
+    },
+    {
+      path: "/pets/",
+      name: "pets-list",
+      component: PetList,
       meta: {
         requiresAuth: false
       }
