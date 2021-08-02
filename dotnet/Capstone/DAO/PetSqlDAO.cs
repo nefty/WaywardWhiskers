@@ -13,6 +13,7 @@ namespace Capstone.DAO
         private readonly string connectionString;
 
         private readonly string sqlGetPet = "SELECT * FROM pets WHERE pet_id = @petId";
+        private readonly string sqlGetAllPets = "SELECT * FROM pets";
 
         public PetSqlDAO(string dbConnectionString)
         {
@@ -55,6 +56,38 @@ namespace Capstone.DAO
             catch (Exception ex)
             {
                 
+            }
+
+            return result;
+        }
+
+        public IEnumerable<Pet> GetAllPets()
+        {
+            List<Pet> result = new List<Pet>();
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand(sqlGetAllPets, conn);
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.HasRows && reader.Read())
+                    {
+                        Pet pet = new Pet();
+                        pet.Name = Convert.ToString(reader["pet_name"]);
+                        pet.Type = Convert.ToString(reader["pet_type"]);
+                        pet.Breed = Convert.ToString(reader["pet_breed"]);
+                        pet.Age = Convert.ToInt32(reader["pet_age"]);
+                        pet.Description = Convert.ToString(reader["pet_description"]);
+                        result.Add(pet);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
             }
 
             return result;

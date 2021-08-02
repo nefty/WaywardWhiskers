@@ -20,11 +20,17 @@ namespace Capstone.Controllers
         {
             this.petDAO = petDAO;
         }
+        [HttpGet]
+        public ActionResult<List<Pet>> GetAllPets()
+        {
+            return Ok(petDAO.GetAllPets());
+        }
 
         [HttpGet("{petId}")]
         public ActionResult<Pet> GetPet(int petId)
         {
             return Ok(petDAO.GetPet(petId));
         }
+
     }
 }
