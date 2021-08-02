@@ -8,11 +8,11 @@ namespace Capstone.DAO.Interfaces
 {
     public interface IPetDAO
     {
-        //bool AddPet(Pet pet);
+        bool AddPet(Pet pet);
 
         IEnumerable<Pet> GetAllPets();
         Pet GetPet(int petId);
         //bool UpdatePet(Pet pet);
-        //bool DeletePet(int petId);
+        bool DeletePet(int petId);
     }
 }

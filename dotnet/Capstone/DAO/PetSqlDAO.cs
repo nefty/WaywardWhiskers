@@ -14,21 +14,45 @@ namespace Capstone.DAO
 
         private readonly string sqlGetPet = "SELECT * FROM pets WHERE pet_id = @petId";
         private readonly string sqlGetAllPets = "SELECT * FROM pets";
+        private readonly string sqlAddPet = "INSERT INTO pets(pet_name, pet_type, pet_breed, pet_age, pet_description, pet_image_url, agency_id) " +
+                                            "VALUES (@petName, @petType, @petBreed, @petAge, @petDescription, @petUrl, @agencyId)";
 
         public PetSqlDAO(string dbConnectionString)
         {
             connectionString = dbConnectionString;
         }
 
-        //public bool AddPet(Pet pet)
-        //{
+        public bool AddPet(Pet pet)
+        {
+            bool result = false;
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
 
-        //}
+                    SqlCommand cmd = new SqlCommand(sqlAddPet, conn);
+                    cmd.Parameters.AddWithValue("@petName", pet.Name);
+                    cmd.Parameters.AddWithValue("@petType", pet.Type);
+                    cmd.Parameters.AddWithValue("@petBreed", pet.Breed);
+                    cmd.Parameters.AddWithValue("@petAge", pet.Age);
+                    cmd.Parameters.AddWithValue("@petDescription", pet.Description);
+                    cmd.Parameters.AddWithValue("@petURL", pet.ImageUrl);
+                    cmd.Parameters.AddWithValue("@agencyId", pet.AgencyId);
 
-        //public IEnumerable<Pet> GetPets()
-        //{
+                    int rows = cmd.ExecuteNonQuery();
+                    if (rows > 0)
+                        result = true;
+                }
+            }
+            catch (Exception ex)
+            {
 
-        //}
+            }
+            return result;
+
+        }
+
 
         public Pet GetPet(int petId)
         {
@@ -55,7 +79,7 @@ namespace Capstone.DAO
             }
             catch (Exception ex)
             {
-                
+
             }
 
             return result;
@@ -98,9 +122,29 @@ namespace Capstone.DAO
 
         //}
 
-        //public bool DeletePet(int petId)
-        //{
+        public bool DeletePet(int petId)
+        {
+            bool result = false;
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
 
-        //}
+                    SqlCommand cmd = new SqlCommand(sqlDeletePet, conn);
+                    cmd.Parameters.AddWithValue("@petId", petId);
+
+                    int rows = cmd.ExecuteNonQuery();
+                    if (rows > 0)
+                        result = true;
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return result;
+
+        }
     }
 }

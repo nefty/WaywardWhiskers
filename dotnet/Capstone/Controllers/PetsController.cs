@@ -31,6 +31,12 @@ namespace Capstone.Controllers
         {
             return Ok(petDAO.GetPet(petId));
         }
-
+       
+        //todo Add Authorization
+        [HttpPost]
+        public ActionResult<Pet> AddPet(Pet pet)
+        {
+            return Ok(petDAO.AddPet(pet));
+        }
     }
 }
