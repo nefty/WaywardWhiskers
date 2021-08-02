@@ -26,13 +26,13 @@ export default {
     },
     created() {
         PetService
-        .getPet(this.$route.params.petID)
-        .then(() => {
-            this.$store.commit("SET_ACTIVE_PET", this.$route.params.petID);
+            .getPet(this.$route.params.petID)
+            .then(() => {
+                this.$store.commit("SET_ACTIVE_PET", this.$route.params.petID);
 
-            this.pet = this.$store.state.pets.find(pet => pet.petID == this.$store.state.activePet);
-            return this.pet;
-        })
+                this.pet = this.$store.state.pets.find(pet => pet.petID == this.$store.state.activePet);
+                return this.pet;
+            })
     }
     
 
