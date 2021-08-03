@@ -78,7 +78,7 @@
           v-model.number="editedPet.agencyId"
         />
       </div>
-
+      <router-link v-bind:to="{ name: 'pets-list' }">
       <input type="submit" class="btn btn-success" />
       <input
         type="button"
@@ -86,6 +86,7 @@
         class="btn btn-secondary"
         value="Cancel"
       />
+      </router-link>
     </form>
   </div>
 </template>
