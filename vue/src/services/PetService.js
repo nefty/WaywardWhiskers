@@ -13,6 +13,10 @@ export default {
         console.log(pet);
         return axios.post('/pets', pet);
     },
+    updatePet(pet) {
+        console.log(pet);
+        return axios.put('/pets', pet)
+    },
     deletePet(petId) {
         console.log("Reached DeletePet in PetServices");
         console.log(petId);

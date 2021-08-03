@@ -17,22 +17,27 @@
           <td>{{ pet.age }}</td>
           <td>{{ pet.type }}</td>
           <td>{{ pet.breed }}</td>
-          <td>{{pet.id}}</td>
+          <td>{{ pet.id }}</td>
           <td>
-            <button class="btn btn-warning" >Edit</button>
+            <router-link v-bind:to="{name: 'edit-pet', params: {id: pet.id}}">
+              <button class="btn btn-warning" >Edit</button>
+            </router-link>
             <button class="btn btn-danger" v-on:click="deletePet(pet.id)" >Delete</button>
           </td>
         </tr>
       </tbody>
     </table>
+    <add-pet />
   </div>
 </template>
 
 <script>
 import PetService from "@/services/PetService.js";
+import AddPet from '../components/AddPet.vue';
 
 export default {
   name: "pets-list",
+  components: { AddPet },
   computed: {
     pets() {
       return this.$store.state.pets;

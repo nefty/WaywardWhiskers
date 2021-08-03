@@ -1,11 +1,132 @@
 <template>
-  <div></div>
+  <div class="container">
+
+    <form v-on:submit.prevent="onSubmit" >
+      <div class="form-group">
+        <label for="name">Name: </label>
+        <input
+          required
+          type="text"
+          id="name"
+          name="name"
+          class="form-control"
+        />
+      </div>
+      <div class="form-group">
+        <label for="type">Type: </label>
+        <input
+          required
+          type="text"
+          id="type"
+          name="type"
+          class="form-control"
+        />
+      </div>
+      <div class="form-group">
+        <label for="breed">Breed: </label>
+        <input
+          required
+          type="text"
+          id="breed"
+          name="breed"
+          class="form-control"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="age">Age: </label>
+        <input
+          type="number"
+          id="age"
+          name="age"
+          class="form-control"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="description">Description: </label>
+        <input
+          required
+          type="text"
+          id="description"
+          name="description"
+          class="form-control"
+        />
+      </div>
+      <div class="form-group">
+        <label for="image">Image URL: </label>
+        <input
+          type="text"
+          id="image"
+          name="image"
+          class="form-control"
+        />
+      </div>
+      <div class="form-group">
+          <label for="agency_id">Agency ID:</label>
+          <input
+          type="number"
+          id="agency_id"
+          name="agency_id"
+          class="form-control"
+        />
+      </div>
+
+      <input type="submit" class="btn btn-success" />
+      <input
+        type="button"
+        v-on:click.prevent="resetForm"
+        class="btn"
+        value="Cancel"
+      />
+    </form>
+  </div>
 </template>
 
 <script>
-export default {
+import PetService from '../services/PetService.js'
 
-}
+export default {
+  name: "edit-pet",
+  data() {
+    return {
+      editedPet: {},
+    };
+  },
+
+  computed: {
+    pet() {
+      return this.$store.state.pets.find(pet => pet.id === this.$route.params)
+    }
+  },
+
+  methods: {
+    onSubmit() {
+      this.$store.commit("UPDATE_PET", this.editedPet);
+
+      PetService.updatePet(this.editedPet)
+        .then((response) => {
+          console.log("promise was success", response);
+          this.$router.push({ name: "pets-list" });
+        })
+        .catch((error) => {
+         
+          if (error.response) {
+            console.log("HTTP Response Code: ", error.response.data.status);
+            console.log("Description: ", error.response.data.title);
+          } else {
+            console.log("Network Error");
+          }
+        });
+
+      this.resetForm();
+    },
+
+    resetForm() {
+      this.editedPet = {};
+    },
+  },
+};
 </script>
 
 <style>
