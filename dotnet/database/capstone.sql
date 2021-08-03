@@ -51,6 +51,16 @@ CREATE TABLE pets (
 	agency_id int FOREIGN KEY REFERENCES agencies(agency_id)
 )
 
+CREATE TABLE traits (
+trait_id int IDENTITY(1000,1) PRIMARY KEY,
+trait_name nvarchar(30) NOT NULL
+)
+
+CREATE TABLE pet_traits (
+pet_id int FOREIGN KEY REFERENCES pets(pet_id),
+trait_id int FOREIGN KEY REFERENCES traits(trait_id)
+)
+
 --populate default data
 -- user/password
 INSERT INTO users (username, password_hash, salt, user_role) VALUES ('user','Jg45HuwT7PZkfuKTz6IB90CtWY4=','LHxP4Xh7bN0=','user');
