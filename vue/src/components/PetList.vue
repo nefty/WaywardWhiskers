@@ -19,8 +19,8 @@
           <td>{{ pet.breed }}</td>
           <td>{{pet.id}}</td>
           <td>
-            <button class="btn btn-warning" v-bind:key="pet.id">Edit</button>
-            <button class="btn btn-danger" v-on:click="deletePet(pet.id)" v-bind:key="pet.id">Delete</button>
+            <button class="btn btn-warning" >Edit</button>
+            <button class="btn btn-danger" v-on:click="deletePet(pet.id)" >Delete</button>
           </td>
         </tr>
       </tbody>

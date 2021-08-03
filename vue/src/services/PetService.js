@@ -10,6 +10,7 @@ export default {
         return axios.get(`/pets/${petID}`)
     },
     addPet(pet) {
+        console.log(pet);
         return axios.post('/pets', pet);
     },
     deletePet(petId) {

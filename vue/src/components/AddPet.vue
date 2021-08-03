@@ -19,17 +19,6 @@
           v-model="newPet.name"
         />
       </div>
-
-      <div class="form-group">
-        <label for="age">Age: </label>
-        <input
-          type="number"
-          id="age"
-          name="age"
-          class="form-control"
-          v-model="newPet.age"
-        />
-      </div>
       <div class="form-group">
         <label for="type">Type: </label>
         <input
@@ -54,6 +43,28 @@
       </div>
 
       <div class="form-group">
+        <label for="age">Age: </label>
+        <input
+          type="number"
+          id="age"
+          name="age"
+          class="form-control"
+          v-model="newPet.age"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="description">Description: </label>
+        <input
+          required
+          type="text"
+          id="description"
+          name="description"
+          class="form-control"
+          v-model="newPet.description"
+        />
+      </div>
+      <div class="form-group">
         <label for="image">Image URL: </label>
         <input
           type="text"
@@ -73,17 +84,6 @@
           v-model="newPet.agencyId"
         />
       </div>
-      <div class="form-group">
-        <label for="description">Description: </label>
-        <input
-          required
-          type="text"
-          id="description"
-          name="description"
-          class="form-control"
-          v-model="newPet.description"
-        />
-      </div>
 
       <input type="submit" class="btn btn-success" />
       <input
@@ -97,7 +97,7 @@
 </template>
 
 <script>
-import petService from "@/services/PetService.js";
+import PetService from "../services/PetService.js";
 
 export default {
   name: "PetAdd",
@@ -113,7 +113,7 @@ export default {
     onSubmit() {
       this.$store.commit("ADD_PET", this.newPet);
 
-      petService
+      PetService
         .addPet(this.newPet)
         .then((response) => {
           console.log("promise was success", response);
