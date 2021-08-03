@@ -9,4 +9,12 @@ export default {
     getPet(petID) {
         return axios.get(`/pets/${petID}`)
     },
+    addPet(pet) {
+        console.log("Reached addPet in PetService");
+        console.log(pet);
+        return axios.post('/pets', pet);
+    },
+    deletePet(petId) {
+        return axios.delete(`/pets/${petId}`)
+    }
 }
