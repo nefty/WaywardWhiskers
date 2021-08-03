@@ -111,7 +111,6 @@ export default {
 
   methods: {
     onSubmit() {
-        console.log(this.newPet)
       this.$store.commit("ADD_PET", this.newPet);
 
       petService

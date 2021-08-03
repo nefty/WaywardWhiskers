@@ -44,8 +44,6 @@ export default new Vuex.Store({
       state.activePet = petId;
     },
     SET_PETS(state, pets) {
-      console.log("Reached SET_PETS in Store")
-      console.log(pets);
       state.pets = pets;
     },
     ADD_PET(state, pet){

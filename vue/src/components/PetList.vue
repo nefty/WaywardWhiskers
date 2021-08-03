@@ -12,7 +12,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(pet, index) in pets" v-bind:key="index">
+        <tr v-for="(pet) in pets" v-bind:key="pet.id">
           <td>{{ pet.name }}</td>
           <td>{{ pet.age }}</td>
           <td>{{ pet.type }}</td>
@@ -20,7 +20,7 @@
           <td>{{pet.id}}</td>
           <td>
             <button class="btn btn-warning" v-bind:key="pet.id">Edit</button>
-            <button class="btn btn-danger" v-on:click="deletePet" v-bind:key="pet.id">Delete</button>
+            <button class="btn btn-danger" v-on:click="deletePet(pet.id)" v-bind:key="pet.id">Delete</button>
           </td>
         </tr>
       </tbody>
@@ -35,14 +35,11 @@ export default {
   name: "pets-list",
   computed: {
     pets() {
-      console.log("Reached Computed in PetList");
-      console.log(this.$store.state.pets);
       return this.$store.state.pets;
     },
   },
   created() {
     PetService.getAllPets().then((response) => {
-      console.log(response.data);
       this.$store.commit("SET_PETS", response.data);
     });
   },
