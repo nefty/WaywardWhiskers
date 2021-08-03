@@ -10,6 +10,7 @@
           id="name"
           name="name"
           class="form-control"
+          v-model="editedPet.name"
         />
       </div>
       <div class="form-group">
@@ -20,6 +21,7 @@
           id="type"
           name="type"
           class="form-control"
+          v-model="editedPet.type"
         />
       </div>
       <div class="form-group">
@@ -30,6 +32,7 @@
           id="breed"
           name="breed"
           class="form-control"
+          v-model="editedPet.breed"
         />
       </div>
 
@@ -40,6 +43,7 @@
           id="age"
           name="age"
           class="form-control"
+          v-model.number="editedPet.age"
         />
       </div>
 
@@ -51,6 +55,7 @@
           id="description"
           name="description"
           class="form-control"
+          v-model="editedPet.description"
         />
       </div>
       <div class="form-group">
@@ -60,6 +65,7 @@
           id="image"
           name="image"
           class="form-control"
+          v-model="editedPet.imageUrl"
         />
       </div>
       <div class="form-group">
@@ -69,14 +75,15 @@
           id="agency_id"
           name="agency_id"
           class="form-control"
+          v-model.number="editedPet.agencyId"
         />
       </div>
 
       <input type="submit" class="btn btn-success" />
       <input
         type="button"
-        v-on:click.prevent="resetForm"
-        class="btn"
+        v-on:click.prevent="returnToPets"
+        class="btn btn-secondary"
         value="Cancel"
       />
     </form>
@@ -102,6 +109,7 @@ export default {
 
   methods: {
     onSubmit() {
+      this.editedPet.id = this.$route.params.id
       this.$store.commit("UPDATE_PET", this.editedPet);
 
       PetService.updatePet(this.editedPet)
@@ -125,6 +133,10 @@ export default {
     resetForm() {
       this.editedPet = {};
     },
+
+    returnToPets() {
+      this.$router.push({name: "pets-list" });
+    }
   },
 };
 </script>
