@@ -89,7 +89,7 @@
       <input
         type="button"
         v-on:click.prevent="resetForm"
-        class="btn btn-success"
+        class="btn btn-secondary"
         value="Cancel"
       />
     </form>
