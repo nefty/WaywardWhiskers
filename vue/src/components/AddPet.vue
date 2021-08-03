@@ -97,7 +97,7 @@
 </template>
 
 <script>
-import petService from "@/services/PetService.js";
+import PetService from "@/services/PetService.js";
 
 export default {
   name: "PetAdd",
@@ -113,7 +113,7 @@ export default {
     onSubmit() {
       this.$store.commit("ADD_PET", this.newPet);
 
-      petService
+      PetService
         .addPet(this.newPet)
         .then((response) => {
           console.log("promise was success", response);
