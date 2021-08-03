@@ -49,7 +49,7 @@
           id="age"
           name="age"
           class="form-control"
-          v-model="newPet.age"
+          v-model.number="newPet.age"
         />
       </div>
 
@@ -81,7 +81,7 @@
           id="agency_id"
           name="agency_id"
           class="form-control"
-          v-model="newPet.agencyId"
+          v-model.number="newPet.agencyId"
         />
       </div>
 
@@ -113,8 +113,7 @@ export default {
     onSubmit() {
       this.$store.commit("ADD_PET", this.newPet);
 
-      PetService
-        .addPet(this.newPet)
+      PetService.addPet(this.newPet)
         .then((response) => {
           console.log("promise was success", response);
           this.$router.push({ name: "pets-list" });
