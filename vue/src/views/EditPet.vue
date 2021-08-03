@@ -69,7 +69,7 @@
         />
       </div>
       <div class="form-group">
-          <label for="agency_id">Agency ID:</label>
+          <label for="agency_id">Agency ID: {{pet.id}}</label>
           <input
           type="number"
           id="agency_id"
@@ -101,10 +101,9 @@ export default {
     };
   },
 
-  computed: {
-    pet() {
-      return this.$store.state.pets.find(pet => pet.id === this.$route.params)
-    }
+  
+  created(){
+    this.editedPet = this.$store.state.pets.find(pet => pet.id === this.$route.params.id);
   },
 
   methods: {
