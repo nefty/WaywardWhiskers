@@ -10,6 +10,7 @@
           id="name"
           name="name"
           class="form-control"
+          v-model="editedPet.name"
         />
       </div>
       <div class="form-group">
@@ -20,6 +21,7 @@
           id="type"
           name="type"
           class="form-control"
+          v-model="editedPet.type"
         />
       </div>
       <div class="form-group">
@@ -30,6 +32,7 @@
           id="breed"
           name="breed"
           class="form-control"
+          v-model="editedPet.breed"
         />
       </div>
 
@@ -40,6 +43,7 @@
           id="age"
           name="age"
           class="form-control"
+          v-model.number="editedPet.age"
         />
       </div>
 
@@ -51,6 +55,7 @@
           id="description"
           name="description"
           class="form-control"
+          v-model="editedPet.description"
         />
       </div>
       <div class="form-group">
@@ -60,6 +65,7 @@
           id="image"
           name="image"
           class="form-control"
+          v-model="editedPet.imageUrl"
         />
       </div>
       <div class="form-group">
@@ -69,16 +75,18 @@
           id="agency_id"
           name="agency_id"
           class="form-control"
+          v-model.number="editedPet.agecyId"
         />
       </div>
-
+      <router-link v-bind:to="{ name: 'pets-list' }">
       <input type="submit" class="btn btn-success" />
       <input
         type="button"
-        v-on:click.prevent="resetForm"
-        class="btn"
+        v-on:click="resetForm"
+        class="btn btn-secondary"
         value="Cancel"
       />
+      </router-link>
     </form>
   </div>
 </template>
