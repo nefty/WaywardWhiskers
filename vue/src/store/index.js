@@ -47,10 +47,10 @@ export default new Vuex.Store({
       state.pets = pets;
     },
     ADD_PET(state, pet){
-      const nextId = state.pets.reduce((max, item) => {
-        return (item.id > max) ? max = item.id : max;
-      }, -1)
-      pet.id = nextId + 1;
+      // const nextId = state.pets.reduce((max, item) => {
+      //   return (item.id > max) ? max = item.id : max;
+      // }, 0)
+      // pet.id = nextId + 1;
       state.pets.push(pet)
     },
     DELETE_PET(state, petId){
