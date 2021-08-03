@@ -75,14 +75,14 @@
           id="agency_id"
           name="agency_id"
           class="form-control"
-          v-model.number="editedPet.agecyId"
+          v-model.number="editedPet.agencyId"
         />
       </div>
       <router-link v-bind:to="{ name: 'pets-list' }">
       <input type="submit" class="btn btn-success" />
       <input
         type="button"
-        v-on:click="resetForm"
+        v-on:click.prevent="returnToPets"
         class="btn btn-secondary"
         value="Cancel"
       />
@@ -110,6 +110,7 @@ export default {
 
   methods: {
     onSubmit() {
+      this.editedPet.id = this.$route.params.id
       this.$store.commit("UPDATE_PET", this.editedPet);
 
       PetService.updatePet(this.editedPet)
@@ -133,6 +134,10 @@ export default {
     resetForm() {
       this.editedPet = {};
     },
+
+    returnToPets() {
+      this.$router.push({name: "pets-list" });
+    }
   },
 };
 </script>

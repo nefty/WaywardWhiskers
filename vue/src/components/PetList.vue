@@ -19,7 +19,7 @@
           <td>{{ pet.type }}</td>
           <td>{{ pet.breed }}</td>
           <td>
-            <router-link v-bind:to="{name: 'edit-pet', params: {id: pet.id}}">
+            <router-link :to="{name: 'edit-pet', params: {id: pet.id}}">
               <button class="btn btn-warning" >Edit</button>
             </router-link>
             <button class="btn btn-danger" v-on:click="deletePet(pet.id)" >Delete</button>

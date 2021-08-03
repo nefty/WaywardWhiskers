@@ -15,7 +15,7 @@ export default {
     },
     updatePet(pet) {
         console.log(pet);
-        return axios.put(`/editpet/${pet.petId}`, pet)
+        return axios.put('/pets', pet)
     },
     deletePet(petId) {
         console.log("Reached DeletePet in PetServices");
