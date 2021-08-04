@@ -19,7 +19,7 @@ namespace Capstone.DAO
         private readonly string sqlUpdatePet = "UPDATE pets SET pet_name = @petName, pet_type = @petType, pet_breed = @petBreed, pet_age = @petAge, " +
                                                "pet_description = @petDescription, pet_image_url = @petUrl, agency_id = @agencyId WHERE pet_id = @petId;";
         private readonly string sqlDeletePet = "DELETE FROM pets WHERE pet_id = @petId";
-
+        private readonly string SqlAssignTraits = "INSERT INTO pet_traits (pet_id, trait_id) VALUES (@petId, @dogSize), (@petId, @dogEnergy), (@petId, @traitOne), (@petId, @traitTwo);";
         public PetSqlDAO(string dbConnectionString)
         {
             connectionString = dbConnectionString;

@@ -7,10 +7,13 @@
 </template>
 
 <script>
-import Criteria from "@/components/Criteria.vue"
+
+import Criteria from '@/components/Criteria.vue'
 
 export default {
   name: "home",
-  components: {Criteria}
+
+components: {Criteria}
+
 }
 </script>
