@@ -78,7 +78,6 @@
           v-model.number="editedPet.agencyId"
         />
       </div>
-      <router-link v-bind:to="{ name: 'pets-list' }">
       <input type="submit" class="btn btn-success" />
       <input
         type="button"
@@ -86,7 +85,6 @@
         class="btn btn-secondary"
         value="Cancel"
       />
-      </router-link>
     </form>
   </div>
 </template>
@@ -104,11 +102,14 @@ export default {
 
   
   created(){
+    console.log("reached created method");
     this.editedPet = this.$store.state.pets.find(pet => pet.id === this.$route.params.id);
+    console.log(this.editedPet);
   },
 
   methods: {
     onSubmit() {
+      console.log("reached onSubmit method");
       this.editedPet.id = this.$route.params.id
       this.$store.commit("UPDATE_PET", this.editedPet);
 
@@ -128,6 +129,7 @@ export default {
         });
 
       this.resetForm();
+      this.returnToPets();
     },
 
     resetForm() {
