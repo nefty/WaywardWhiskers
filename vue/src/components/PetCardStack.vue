@@ -1,18 +1,27 @@
 <template>
   <div>
-      <pet-card v-for="pet in pets" v-bind:key="pet.id" v-bind:currentPet="pet" />
+      <pet-card v-for="pet in pets" v-bind:currentPet="pet" v-bind:key="pet.id"  />
   </div>
 </template>
 
 <script>
 import PetCard from "./PetCard.vue";
+import PetService from "@/services/PetService.js"
 export default {
     name: "pet-card-stack",
-    pets: [],
+    
   components: { PetCard },
-  created(){
-      this.pets = this.$store.state.pets;
-  }
+  computed: {
+      pets() {
+          return this.$store.state.pets;
+      },
+  },
+  created() {
+    PetService.getAllPets().then((response) => {
+      this.$store.commit("SET_PETS", response.data);
+    });
+  },
+  
 };
 </script>
 

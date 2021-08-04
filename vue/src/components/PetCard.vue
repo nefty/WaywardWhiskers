@@ -1,4 +1,6 @@
 <template>
+<vue-swing @throwout="throwout" @throwin="throwin" :config="config">
+
     <b-card
       v-bind:title="currentPet.name"
       v-bind:img-src="currentPet.imageUrl"
@@ -17,16 +19,16 @@
         >Toggle Collapse
       </b-button>
     </b-card>
+</vue-swing>
 </template>
 
 <script>
 export default {
   name: "pet-card",
-  currentPet: {},
-  created(){
-    var randomNumber = Math.floor(Math.random() * this.$store.state.pets.length);
-    this.currentPet = this.$store.state.pets[randomNumber];
-  }
+  props: {
+    currentPet: Object,
+  },
+  
 };
 </script>
 
