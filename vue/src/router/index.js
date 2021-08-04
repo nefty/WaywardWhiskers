@@ -9,6 +9,7 @@ import Register from '../views/Register.vue'
 import PetDetails from '../views/PetDetails.vue'
 import PetList from '@/components/PetList.vue'
 import EditPet from '@/views/EditPet.vue'
+import Criteria from '@/components/Criteria.vue'
 
 Vue.use(Router)
 
@@ -77,6 +78,14 @@ const router = new Router({
       path: "/pets/",
       name: "pets-list",
       component: PetList,
+      meta: {
+        requiresAuth: false
+      }
+    },
+    {
+      path: '/criteria',
+      name: 'criteria',
+      component: Criteria,
       meta: {
         requiresAuth: false
       }
