@@ -69,7 +69,7 @@
         />
       </div>
       <div class="form-group">
-          <label for="agency_id">Agency ID: </label>
+          <label for="agency_id">Agency ID:</label>
           <input
           type="number"
           id="agency_id"
