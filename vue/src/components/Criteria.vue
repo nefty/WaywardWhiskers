@@ -16,16 +16,26 @@
               </select>
       <label>Breed: </label>
       <select name="breed" id="breed">
-      <option v-for="pet in this.$store" v-bind:key="pet.id"> {{pet.breed}} </option>
+      <option v-for="pet in this.$store.state.pets" v-bind:key="pet.id"> {{pet.breed}} </option>
       </select>
   </div>
 </template>
 
 <script>
-
+import PetService from "@/services/PetService.js"
 
 export default {
     name: "Criteria",
+    computed: {
+    pets() {
+      return this.$store.state.pets;
+    },
+  },
+    created() {
+    PetService.getAllPets().then((response) => {
+      this.$store.commit("SET_PETS", response.data);
+    });
+    },
 
     data() {
         
