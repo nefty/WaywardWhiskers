@@ -83,11 +83,11 @@ const router = new Router({
       }
     },
     {
-      path: '/criteria',
-      name: 'criteria',
+      path: '/petsearch',
+      name: 'petsearch',
       component: Criteria,
       meta: {
-        requiresAuth: false
+        requiresAuth: true
       }
     }
   ]

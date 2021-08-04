@@ -2,9 +2,9 @@
   <div class="container">
       <label>Type:  </label>
               <select class="filter" name="type" id="type">
-                  <option value=""></option>
-                  <option value="dog">Dog</option>
-                  <option value="cat">Cat</option>
+                  <option v-on:click="criteria = ''"></option>
+                  <option v-on:click="criteria = 'dog'">Dog</option>
+                  <option v-on:click="crieteria = 'cat'">Cat</option>
               </select>
       <label>Age Range: </label>
       <select class="filter" name="type" id="type">
@@ -28,6 +28,11 @@ export default {
         let pets = this.$store.state.pets;
       return pets;
     },
+    filteredPets() {
+      return this.pets.filter(pet => {
+        return this.filter === "" ? true : this.filter === pet.rating;
+      });
+    }
     
   },
   created() {
