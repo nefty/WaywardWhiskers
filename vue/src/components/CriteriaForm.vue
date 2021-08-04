@@ -21,7 +21,7 @@
 import PetService from "@/services/PetService.js"
 
 export default {
-    name: "Criteria",
+    name: "criteria-form",
 
   computed: {
     pets() {
