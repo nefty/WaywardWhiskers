@@ -2,8 +2,8 @@
 <vue-swing @throwout="throwout" @throwin="throwin" :config="config">
 
     <b-card
-      v-bind:title="currentPet.name"
-      v-bind:img-src="currentPet.imageUrl"
+      v-bind:title="pet.name"
+      v-bind:img-src="pet.imageUrl"
       img-alt="Image"
       img-top
       tag="article"
@@ -12,10 +12,10 @@
     >
       <b-collapse id="collapse-1">
         <b-card>
-          <p class="card-text">{{ currentPet.description }}</p>
+          <p class="card-text">{{ pet.description }}</p>
         </b-card>
       </b-collapse>
-      <b-button v-bind:key="currentPet.id" v-b-toggle.collapse-1 variant="primary"
+      <b-button v-bind:key="pet.id" v-b-toggle.collapse-1 variant="primary"
         >Toggle Collapse
       </b-button>
     </b-card>
@@ -26,7 +26,14 @@
 export default {
   name: "pet-card",
   props: {
-    currentPet: Object,
+    pet: {
+      type: Object,
+      required: true
+  },
+    isCurrent: {
+      type: Boolean,
+      required: true
+    }
   },
   
 };

@@ -1,6 +1,6 @@
 <template>
   <div>
-      <pet-card v-for="pet in pets" v-bind:currentPet="pet" v-bind:key="pet.id"  />
+      <pet-card v-for="pet in pets" v-bind:pet="pet" v-bind:key="pet.id"  />
   </div>
 </template>
 
