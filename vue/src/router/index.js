@@ -9,7 +9,8 @@ import Register from '../views/Register.vue'
 import PetDetails from '../views/PetDetails.vue'
 import PetList from '@/components/PetList.vue'
 import EditPet from '@/views/EditPet.vue'
-import Criteria from '@/components/Criteria.vue'
+import CriteriaForm from '@/components/CriteriaForm.vue'
+import PetMatcher from '@/views/PetMatcher.vue'
 
 Vue.use(Router)
 
@@ -84,8 +85,16 @@ const router = new Router({
     },
     {
       path: '/criteria',
-      name: 'criteria',
-      component: Criteria,
+      name: 'criteria-form',
+      component: CriteriaForm,
+      meta: {
+        requiresAuth: false
+      }
+    },
+    {
+      path: '/petmatcher',
+      name: 'pet-matcher',
+      component: PetMatcher,
       meta: {
         requiresAuth: false
       }

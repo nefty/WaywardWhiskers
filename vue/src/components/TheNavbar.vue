@@ -16,6 +16,9 @@
             <router-link class="nav-link" v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''">Logout</router-link>
              <router-link class="nav-link" v-bind:to="{ name: 'login' }" v-else>Login</router-link>
           </b-nav-item>
+          <b-nav-item>
+            <router-link class="nav-link" v-bind:to="{ name: 'pet-matcher' }">Pet Matcher</router-link>
+          </b-nav-item>
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>

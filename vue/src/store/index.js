@@ -21,7 +21,7 @@ export default new Vuex.Store({
     token: currentToken || '',
     user: currentUser || {},
     pets: [],
-    activePet: 0,
+    activePet: {},
   },
   mutations: {
     SET_AUTH_TOKEN(state, token) {
