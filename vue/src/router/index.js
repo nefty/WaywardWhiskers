@@ -96,7 +96,7 @@ const router = new Router({
       name: 'pet-matcher',
       component: PetMatcher,
       meta: {
-        requiresAuth: false
+        requiresAuth: true
       }
     }
   ]

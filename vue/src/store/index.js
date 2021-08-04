@@ -59,6 +59,9 @@ export default new Vuex.Store({
     },
     DELETE_PET(state, petId) {
       state.pets = this.state.pets.filter(pet => pet.id != petId);
+    },
+    UPDATE_CRITERIA(state, criteria) {
+      state.criteria = criteria;
     }
   }
 })

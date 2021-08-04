@@ -14,7 +14,7 @@ namespace Capstone.DAO
 
         private readonly string sqlGetUser = "SELECT user_id, username, password_hash, salt, user_role FROM users WHERE username = @username";
         private readonly string sqlGetUsers = "SELECT user_id, username, user_role FROM users";
-
+        private readonly string sqlUpdateUserRole = "UPDATE users SET user_role = 'admin' WHERE user_id = @user_id";
         public UserSqlDAO(string dbConnectionString)
         {
             connectionString = dbConnectionString;
