@@ -1,6 +1,6 @@
 <template>
     <b-card
-      v-bind:title="currentPet.name"
+      v-bind:title="currentPet.name + ', ' + currentPet.age"
       v-bind:img-src="currentPet.imageUrl"
       img-alt="Image"
       img-top
@@ -17,7 +17,7 @@
         >Toggle Collapse</b-button
       >
     </b-card>
-</template>
+</template>npm run
 
 <script>
 export default {

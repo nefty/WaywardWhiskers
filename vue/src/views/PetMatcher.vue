@@ -6,7 +6,7 @@
 import PetCard from '../components/PetCard.vue'
 export default {
     name: "pet-matcher",
-  components: { PetCard },
+  components: { PetCard},
 
 }
 </script>
