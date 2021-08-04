@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <b-container>
     <table class="table table-bordered table-hover">
       <thead>
         <tr>
@@ -28,7 +28,7 @@
       </tbody>
     </table>
     <add-pet />
-  </div>
+  </b-container>
 </template>
 
 <script>

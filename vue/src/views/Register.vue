@@ -1,5 +1,5 @@
 <template>
-  <div id="register" class="text-center">
+  <b-container id="register" class="text-center">
     <form class="form-register" @submit.prevent="register">
       <h1 class="h3 mb-3 font-weight-normal">Create Account</h1>
       <div class="alert alert-danger" role="alert" v-if="registrationErrors">
@@ -37,7 +37,7 @@
         Create Account
       </button>
     </form>
-  </div>
+  </b-container>
 </template>
 
 <script>
