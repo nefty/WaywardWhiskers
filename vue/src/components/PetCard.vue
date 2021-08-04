@@ -14,8 +14,8 @@
         </b-card>
       </b-collapse>
       <b-button v-bind:key="currentPet.id" v-b-toggle.collapse-1 variant="primary"
-        >Toggle Collapse</b-button
-      >
+        >Toggle Collapse
+      </b-button>
     </b-card>
 </template>
 
