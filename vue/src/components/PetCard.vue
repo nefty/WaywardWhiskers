@@ -1,6 +1,4 @@
 <template>
-<vue-swing @throwout="throwout" @throwin="throwin" :config="config">
-
     <b-card
       v-bind:title="pet.name"
       v-bind:img-src="pet.imageUrl"
@@ -19,7 +17,6 @@
         >Toggle Collapse
       </b-button>
     </b-card>
-</vue-swing>
 </template>
 
 <script>
@@ -28,12 +25,8 @@ export default {
   props: {
     pet: {
       type: Object,
-      required: true
-  },
-    isCurrent: {
-      type: Boolean,
-      required: true
-    }
+      required: true,
+    },
   },
   
 };
@@ -49,8 +42,10 @@ export default {
   align-items: center;
   justify-content: center;
   margin: auto;
+  
 }
 .mb-2 img {
   height: 60%;
 }
+
 </style>
