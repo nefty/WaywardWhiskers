@@ -1,5 +1,7 @@
 <template>
     <b-card
+      elevation="2"
+      bg-variant="light"
       v-bind:title="pet.name"
       v-bind:img-src="pet.imageUrl"
       img-alt="Image"
@@ -56,6 +58,7 @@ export default {
   justify-content: center;
   margin: auto;
   display: flex;
+  
   
 }
 .mb-2 img {

@@ -26,5 +26,9 @@ export default {
         let userId = this.$store.state.user.userId;
         console.log(userId, petId);
         return axios.post(`/matchpet/${petId}`)
+    },
+    getPetsBasedOnSearchCriteria(filter){
+        console.log(filter);
+        return axios.get('/search/', filter)
     }
 }
