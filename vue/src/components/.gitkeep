@@ -6,3 +6,7 @@
     var randomNumber = Math.floor(Math.random() * this.$store.state.pets.length);
     this.currentPet = this.$store.state.pets[randomNumber];
   }
+
+
+  v-for="pet in pets"
+      v-bind:key="pet.id"

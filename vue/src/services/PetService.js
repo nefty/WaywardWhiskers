@@ -21,5 +21,10 @@ export default {
         console.log("Reached DeletePet in PetServices");
         console.log(petId);
         return axios.delete(`/pets/${petId}`)
+    },
+    addPetToPetMatches(petId){
+        let userId = this.$store.state.user.userId;
+        console.log(userId, petId);
+        return axios.post(`/matchpet/${petId}`)
     }
 }
