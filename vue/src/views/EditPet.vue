@@ -1,7 +1,7 @@
 <template>
   <div class="container">
 
-    <form v-on:submit.prevent="onSubmit" >
+    <form v-on:submit="onSubmit" >
       <div class="form-group">
         <label for="name">Name: </label>
         <input
@@ -68,7 +68,7 @@
           v-model="editedPet.imageUrl"
         />
       </div>
-      <div class="form-group">
+      <!-- <div class="form-group">
           <label for="agency_id">Agency ID:</label>
           <input
           type="number"
@@ -77,11 +77,11 @@
           class="form-control"
           v-model.number="editedPet.agencyId"
         />
-      </div>
+      </div> -->
       <input type="submit" class="btn btn-success" />
       <input
         type="button"
-        v-on:click.prevent="returnToPets"
+        v-on:click="returnToPets"
         class="btn btn-secondary"
         value="Cancel"
       />

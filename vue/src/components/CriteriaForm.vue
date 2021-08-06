@@ -2,17 +2,16 @@
   <div class="container">
       <label>Type:  </label>
               <select class="filter" name="type" id="type">
-                  <option v-on:click="criteria = ''"></option>
-                  <option v-on:click="criteria = 'dog'">Dog</option>
-                  <option v-on:click="crieteria = 'cat'">Cat</option>
+                  <option v-on:click="type = ''"></option>
+                  <option v-on:click="type = 'dog'">Dog</option>
+                  <option v-on:click="type = 'cat'">Cat</option>
               </select>
       <label>Age Range: </label>
-      <select class="filter" name="type" id="type">
-                  <option value=""></option>
-                  <option value="baby">&lt;1</option>
-                  <option value="young">1-3</option>
-                  <option value="adult">3-5</option>
-                  <option value="senior">6+</option>
+      <select class="filter" name="age-group" id="age-group">
+                  <option v-on:click="ageGroup=''"></option>
+                  <option v-on:click="ageGroup='baby'">Baby</option>
+                  <option v-on:click="ageGroup='young-adult'">Young Adult</option>
+                  <option v-on:click="ageGroup='senior'">Senior</option>
               </select>
   </div>
 </template>
@@ -30,7 +29,7 @@ export default {
     },
     filteredPets() {
       return this.pets.filter(pet => {
-        return this.filter === "" ? true : this.filter === pet.rating;
+        return this.filter === "" ? true : this.filter === pet.id;
       });
     }
     

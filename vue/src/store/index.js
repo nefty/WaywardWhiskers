@@ -10,7 +10,9 @@ Vue.use(Vuex)
  * exists you should set the header so that it will be attached to each request
  */
 const currentToken = localStorage.getItem('token')
-const currentUser = JSON.parse(localStorage.getItem('user'));
+const currentUser = JSON.parse(localStorage.getItem('user'))
+const currentAgency = localStorage.getItem('agency')
+const currentPet = localStorage.getItem('pet')
 
 if(currentToken != null) {
   axios.defaults.headers.common['Authorization'] = `Bearer ${currentToken}`;
@@ -21,7 +23,10 @@ export default new Vuex.Store({
     token: currentToken || '',
     user: currentUser || {},
     pets: [],
-    activePet: {},
+    activePet: currentPet || {},
+    users: [],
+    agencies: [],
+    agency: currentAgency || {}
   },
   mutations: {
     SET_AUTH_TOKEN(state, token) {
@@ -32,6 +37,16 @@ export default new Vuex.Store({
     SET_USER(state, user) {
       state.user = user;
       localStorage.setItem('user',JSON.stringify(user));
+    },
+    SET_USERS(state, users) {
+      state.users = users;
+    },
+    DELETE_USER(state, userId) {
+      state.users = this.state.users.filter(user => user.id != userId);
+    },
+    UPDATE_USER_ROLE(state, editedPet, role) {
+      state.pets = this.state.pets.filter(pet => pet.id != editedPet.id);
+      state.pets = state.pets.push(editedPet, role);
     },
     LOGOUT(state) {
       localStorage.removeItem('token');
@@ -47,10 +62,6 @@ export default new Vuex.Store({
       state.pets = pets;
     },
     ADD_PET(state, pet) {
-      // const nextId = state.pets.reduce((max, item) => {
-      //   return (item.id > max) ? max = item.id : max;
-      // }, 0)
-      // pet.id = nextId + 1;
       state.pets.push(pet)
     },
     UPDATE_PET(state, editedPet) {
@@ -60,8 +71,21 @@ export default new Vuex.Store({
     DELETE_PET(state, petId) {
       state.pets = this.state.pets.filter(pet => pet.id != petId);
     },
-    UPDATE_CRITERIA(state, criteria) {
-      state.criteria = criteria;
+    SET_ACTIVE_AGENCY(state, agencyId) {
+      state.agency = agencyId;
+    },
+    SET_AGENCIES(state, agencies) {
+      state.agencies = agencies;
+    },
+    ADD_AGENCY(state, agency) {
+      state.pets.push(agency)
+    },
+    UPDATE_AGENCY(state, editedAgency) {
+      state.agencies = this.state.agencies.filter(agency => agency.id != editedAgency.id);
+      state.agencies = state.agencies.push(editedAgency);
+    },
+    DELETE_AGENCY(state, agencyId) {
+      state.agencies = this.state.agencies.filter(agency => agency.id != agencyId);
     }
   }
 })

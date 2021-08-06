@@ -7,9 +7,13 @@ namespace Capstone.Models
 {
     public class Agency
     {
-        public int Id { get; }
-        public string Name { get; private set; }
-        public string Address { get; private set; }
-        public string Description { get; private set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Address { get; set; }
+        public string Address2 { get; set; }
+        public string City { get; set; }
+        public string State { get; set; }
+        public int PostalCode { get; set; }
+        public string Description { get; set; }
     }
 }

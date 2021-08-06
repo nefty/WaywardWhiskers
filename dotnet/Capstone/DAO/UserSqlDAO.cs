@@ -12,9 +12,9 @@ namespace Capstone.DAO
     {
         private readonly string connectionString;
 
-        private readonly string sqlGetUser = "SELECT user_id, username, password_hash, salt, user_role FROM users WHERE username = @username";
+        private readonly string sqlGetUserByName = "SELECT user_id, username, password_hash, salt, user_role FROM users WHERE username = @username";
+        private readonly string sqlGetUserById = "SELECT user_id, username, password_hash, salt, user_role FROM users WHERE user_id = @userId";
         private readonly string sqlGetUsers = "SELECT user_id, username, user_role FROM users";
-        private readonly string sqlUpdateUserRole = "UPDATE users SET user_role = 'admin' WHERE user_id = @user_id";
         public UserSqlDAO(string dbConnectionString)
         {
             connectionString = dbConnectionString;
@@ -30,8 +30,35 @@ namespace Capstone.DAO
                 {
                     conn.Open();
 
-                    SqlCommand cmd = new SqlCommand(sqlGetUser, conn);
+                    SqlCommand cmd = new SqlCommand(sqlGetUserByName, conn);
                     cmd.Parameters.AddWithValue("@username", username);
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    if (reader.Read())
+                    {
+                        returnUser = GetUserFromReader(reader);
+                    }
+                }
+            }
+            catch (SqlException)
+            {
+                throw;
+            }
+
+            return returnUser;
+        }
+        public User GetUser(int userId)
+        {
+            User returnUser = null;
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand(sqlGetUserById, conn);
+                    cmd.Parameters.AddWithValue("@userId", userId);
                     SqlDataReader reader = cmd.ExecuteReader();
 
                     if (reader.Read())

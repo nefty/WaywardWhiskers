@@ -11,6 +11,11 @@ import PetList from '@/components/PetList.vue'
 import EditPet from '@/views/EditPet.vue'
 import CriteriaForm from '@/components/CriteriaForm.vue'
 import PetMatcher from '@/views/PetMatcher.vue'
+import Admin from '@/views/Admin.vue'
+import Restricted from '@/views/Restricted.vue'
+import UserList from '@/components/UserList.vue'
+import ChangeRole from '@/components/ChangeRole.vue'
+import AgencyList from '@/components/AgencyList.vue'
 
 Vue.use(Router)
 
@@ -32,7 +37,17 @@ const router = new Router({
       name: 'home',
       component: Home,
       meta: {
-        requiresAuth: false
+        requiresAuth: false,
+        requiresAdmin: false
+      }
+    },
+    {
+      path: '/restricted',
+      name: 'restricted',
+      component: Restricted,
+      meta: {
+        requiresAuth: false,
+        requiresAdmin: false
       }
     },
     {
@@ -40,7 +55,8 @@ const router = new Router({
       name: "login",
       component: Login,
       meta: {
-        requiresAuth: false
+        requiresAuth: false,
+        requiresAdmin: false
       }
     },
     {
@@ -48,7 +64,8 @@ const router = new Router({
       name: "logout",
       component: Logout,
       meta: {
-        requiresAuth: false
+        requiresAuth: false,
+        requiresAdmin: false
       }
     },
     {
@@ -56,7 +73,8 @@ const router = new Router({
       name: "register",
       component: Register,
       meta: {
-        requiresAuth: false
+        requiresAuth: false,
+        requiresAdmin: false
       }
     },
     {
@@ -64,7 +82,8 @@ const router = new Router({
       name: "pet-details",
       component: PetDetails,
       meta: {
-        requiresAuth: false
+        requiresAuth: true,
+        requiresAdmin: false
       }
     },
     {
@@ -72,7 +91,8 @@ const router = new Router({
       name: "edit-pet",
       component: EditPet,
       meta: {
-        requiresAuth: false
+        requiresAuth: true,
+        requiresAdmin: false
       }
     },
     {
@@ -80,7 +100,8 @@ const router = new Router({
       name: "pets-list",
       component: PetList,
       meta: {
-        requiresAuth: false
+        requiresAuth: true,
+        requiresAdmin: false
       }
     },
     {
@@ -88,7 +109,8 @@ const router = new Router({
       name: 'criteria-form',
       component: CriteriaForm,
       meta: {
-        requiresAuth: false
+        requiresAuth: true,
+        requiresAdmin: false
       }
     },
     {
@@ -96,19 +118,65 @@ const router = new Router({
       name: 'pet-matcher',
       component: PetMatcher,
       meta: {
-        requiresAuth: false
+        requiresAuth: true,
+        requiresAdmin: false
       }
+    },
+    {
+    path: '/admin',
+    name: 'admin',
+    component: Admin,
+    meta: {
+      requiresAuth: true,
+      requiresAdmin: true
     }
+  },
+  {
+    path: '/admin/users',
+    name: 'user-list',
+    component: UserList,
+    meta: {
+      requiresAuth: true,
+      requiresAdmin: true
+    }
+  },
+  {
+    path: '/admin/users/:userId',
+    name: 'role-change',
+    component: ChangeRole,
+    meta: {
+      requiresAuth: true,
+      requiresAdmin: true
+    }
+  },
+  {
+  path: '/agency',
+    name: 'agency-list',
+    component: AgencyList,
+    meta: {
+      requiresAuth: true,
+      requiresAgency: true
+    }
+  }
   ]
 })
 
 router.beforeEach((to, from, next) => {
   // Determine if the route requires Authentication
   const requiresAuth = to.matched.some(x => x.meta.requiresAuth);
+  const requiresAdmin = to.matched.some(x => x.meta.requiresAdmin);
+  const requiresAgency = to.matched.some(x => x.meta.requiresAgency);
 
   // If it does and they are not logged in, send the user to "/login"
   if (requiresAuth && store.state.token === '') {
     next("/login");
+  } else if(store.state.user.role == 'admin') {
+    next();
+  }
+   else if(requiresAdmin && store.state.user.role != 'admin') {
+    next("/restricted");
+  } else if(requiresAgency && store.state.user.role != 'agency') {
+    next("/restricted");
   } else {
     // Else let them go to their next destination
     next();

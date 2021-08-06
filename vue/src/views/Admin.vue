@@ -1,10 +1,15 @@
 <template>
-    <div></div>
+    <div>
+        <admin-navigation />
+    </div>
 </template>
 
 <script>
-export default {
+import AdminNavigation from '../components/AdminNavigation.vue'
 
+export default {
+name: 'admin',
+components: {AdminNavigation}
 }
 </script>
 

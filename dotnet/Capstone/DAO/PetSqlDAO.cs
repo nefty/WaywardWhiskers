@@ -13,7 +13,7 @@ namespace Capstone.DAO
         private readonly string connectionString;
 
         private readonly string sqlGetPet = "SELECT * FROM pets WHERE pet_id = @petId";
-        private readonly string sqlGetAllPets = "SELECT * FROM pets";
+        private readonly string sqlGetAllPets = "SELECT * FROM pets ORDER BY agency_id";
         private readonly string sqlAddPet = "INSERT INTO pets(pet_name, pet_type, pet_breed, pet_age, pet_description, pet_image_url, agency_id) " +
                                             "VALUES (@petName, @petType, @petBreed, @petAge, @petDescription, @petUrl, @agencyId)";
         private readonly string sqlUpdatePet = "UPDATE pets SET pet_name = @petName, pet_type = @petType, pet_breed = @petBreed, pet_age = @petAge, " +

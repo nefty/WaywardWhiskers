@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Capstone.Models;
 
 namespace Capstone.DAO.Interfaces
 {
-   public interface IAdmin
+   public interface IAdminDAO
     {
+        bool UpdateUserRole(User user);
+        bool DeleteUser(int userId);
     }
 }
