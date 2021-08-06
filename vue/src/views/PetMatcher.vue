@@ -2,7 +2,7 @@
   <div>
 
       <!-- <pet-card /> -->
-<pet-card-stack :cards="cards"/>      
+<pet-card-stack />      
   </div>
 </template>
 
@@ -12,11 +12,6 @@ import PetCardStack from "@/components/PetCardStack.vue";
 export default {
   components: { PetCardStack },
   name: "pet-matcher",
-  data() {
-    return {
-      cards: this.$store.state.pets
-    }
-  }
 };
 </script>
 

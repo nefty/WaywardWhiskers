@@ -1,14 +1,13 @@
 <template>
   <div>
         <vue-swing
-          @throwout="throwout"
           @throwin="throwin"
           :config="config"
-          class="cards"
-          
-        >
-          <pet-card v-for="pet in pets"
+          v-for="pet in pets"
+          @throwout="throwout(pet.id)"
           :key="pet.id"
+        >
+          <pet-card 
           :pet="pet"  class="card"/>
         </vue-swing>
   
@@ -18,32 +17,15 @@
 <script>
 import PetCard from "./PetCard.vue";
 import PetService from "@/services/PetService.js";
-import Swing from 'swing'
 
 
 export default {
   name: "pet-card-stack",
-  props: {
-    cards: {
-      type: Array,
-    }
-  },
-  mounted(){
-
-  },
   components: { PetCard},
   computed: {
     pets() {
       return this.$store.state.pets;
-    },
-    currentPet() {
-      return this.$store.state.pets[this.$store.state.pets.length - 1];
-    },
-    stack(){
-      var stack = Swing.Stack();
-      
-      return stack;
-    }
+    },   
     
   },
   created() {
@@ -81,11 +63,8 @@ export default {
   },
   methods: {
     throwin() {},
-    throwout() {
-      const index = this.$store.state.pets.findIndex(
-        (x) => x.id === this.currentPet.id
-      );
-      this.$store.state.pets.splice(index, 1);
+    throwout(petId) {
+      this.$store.commit("ADD_PET_TO_MATCHED", petId)
     },
     
   },
@@ -93,7 +72,5 @@ export default {
 </script>
 
 <style scoped>
-.card {
-  position: relative;
-}
+
 </style>

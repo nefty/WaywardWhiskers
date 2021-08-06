@@ -22,6 +22,7 @@ export default new Vuex.Store({
     user: currentUser || {},
     pets: [],
     activePet: {},
+    matchedPets: [],
   },
   mutations: {
     SET_AUTH_TOKEN(state, token) {
@@ -62,6 +63,10 @@ export default new Vuex.Store({
     },
     UPDATE_CRITERIA(state, criteria) {
       state.criteria = criteria;
+    },
+    ADD_PET_TO_MATCHED(state, petId){
+      state.matchedPets.push(petId);
+      console.log(state.matchedPets);
     }
   }
 })
