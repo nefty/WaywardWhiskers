@@ -25,13 +25,16 @@
         </tr>
       </tbody>
     </table>
+    <add-agency />
   </b-container>
 </template>
 
 <script>
 import AgencyService from "@/services/AgencyService.js";
+import AddAgency from './AddAgency.vue';
 
 export default {
+  components: { AddAgency },
   name: "agency-list",
   computed: {
     agencies() {

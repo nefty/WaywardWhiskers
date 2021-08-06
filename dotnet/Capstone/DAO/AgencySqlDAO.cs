@@ -12,8 +12,8 @@ namespace Capstone.DAO
     public class AgencySqlDAO : IAgencyDAO
     {
         private readonly string connectionString;
-        private readonly string sqlGetAgency = "SELECT * FROM agencies WHERE agency_id = @agencyId";
-        private readonly string sqlGetAllAgencies = "SELECT agency_id, agency_name, address, address2, state, city_name, postal_code, agency_description FROM agencies JOIN cities ON agencies.city_id = cities.city_id";
+        private readonly string sqlGetAgency = "SELECT agency_id, agency_name, address, address2, state, city_name, postal_code, agency_description FROM agencies JOIN cities ON agencies.city_id = cities.city_id WHERE agency_id = @agencyId";
+        private readonly string sqlGetAllAgencies = "SELECT agency_id, agency_name, address, address2, state, postal_code, agency_description, city_name FROM agencies JOIN cities ON agencies.city_id = cities.city_id";
         private readonly string sqlAddAgency = "INSERT INTO agencies(agency_name, address, address2, state, city_id, postal_code, agency_description) " +
                                             "VALUES (@agencyName, @agencyAddress, @address2, @agencyState, (SELECT city_id FROM cities WHERE city_name = @agencyCity) , @postalCode, @agencyDescription)";
         private readonly string sqlUpdateAgency = "UPDATE agencies SET agency_name = @agencyName, address = @agencyAddress, address2 = @address2, state = @agencyState, " +
@@ -38,7 +38,14 @@ namespace Capstone.DAO
                     SqlCommand cmd = new SqlCommand(sqlAddAgency, conn);
                     cmd.Parameters.AddWithValue("@agencyName", agency.Name);
                     cmd.Parameters.AddWithValue("@agencyAddress", agency.Address);
-                    cmd.Parameters.AddWithValue("@address2", agency.Address2);
+                    if (agency.Address2 == null)
+                    {
+                        cmd.Parameters.AddWithValue("@address2", "");
+                    }
+                    else
+                    {
+                        cmd.Parameters.AddWithValue("@address2", agency.Address2);
+                    }
                     cmd.Parameters.AddWithValue("@agencyState", agency.State);
                     cmd.Parameters.AddWithValue("@agencyCity", agency.City);
                     cmd.Parameters.AddWithValue("@postalCode", agency.PostalCode);
@@ -51,7 +58,7 @@ namespace Capstone.DAO
             }
             catch (Exception ex)
             {
-
+                Console.WriteLine(ex.Message);
             }
             return result;
 
@@ -88,7 +95,8 @@ namespace Capstone.DAO
             }
             catch (Exception ex)
             {
-
+                result = new List<Agency>();
+                Console.Write(ex.Message);
             }
             return result;
         }

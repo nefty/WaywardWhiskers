@@ -7,7 +7,7 @@
       >Add Agency</a
     >
 
-    <form v-on:submit.prevent="onSubmit" v-if="isFormShown">
+    <form v-on:submit="onSubmit" v-if="isFormShown">
       <div class="form-group">
         <label for="name">Agency Name </label>
         <input
@@ -90,7 +90,7 @@
       <input type="submit" class="btn btn-success" />
       <input
         type="button"
-        v-on:click.prevent="resetForm"
+        v-on:click="resetForm"
         class="btn btn-secondary"
         value="Cancel"
       />
