@@ -23,6 +23,7 @@ export default new Vuex.Store({
     pets: [],
     activePet: {},
     matchedPets: [],
+    rejectedPets: [],
   },
   mutations: {
     SET_AUTH_TOKEN(state, token) {
@@ -67,6 +68,10 @@ export default new Vuex.Store({
     ADD_PET_TO_MATCHED(state, petId){
       state.matchedPets.push(petId);
       console.log(state.matchedPets);
+    },
+    ADD_PET_TO_REJECTED(state, petId){
+      state.rejectedPets.push(petId);
+      console.log(state.rejectedPets);
     }
   }
 })

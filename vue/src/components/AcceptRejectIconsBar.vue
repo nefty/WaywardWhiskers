@@ -5,7 +5,7 @@
         <b-icon icon="heart-fill" scale="2"  class="heart-button" style="color: #FF69B4" @click="addPetToMatched(pet.id)"></b-icon>
       </b-col>
       <b-col>
-        <b-icon icon="x-circle" scale="2"  variant="danger" class="skip-button"></b-icon>
+        <b-icon icon="x-circle-fill" scale="2"  variant="danger" class="skip-button" @click="addPetToRejected(pet.id)"></b-icon>
       </b-col>
     </b-row>
   </b-container>
@@ -18,6 +18,9 @@ export default {
   methods: {
       addPetToMatched(petId){
           this.$store.commit("ADD_PET_TO_MATCHED", petId);
+      },
+      addPetToRejected(petId){
+          this.$store.commit("ADD_PET_TO_REJECTED", petId);
       }
   },
   created(){
