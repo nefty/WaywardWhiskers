@@ -164,7 +164,7 @@ const router = new Router({
     }
   },
   {
-    path: '/admin/users/:id',
+    path: '/changerole/:id',
     name: 'role-change',
     component: ChangeRole,
     meta: {
