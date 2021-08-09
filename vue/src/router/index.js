@@ -16,6 +16,7 @@ import Restricted from '@/views/Restricted.vue'
 import UserList from '@/components/UserList.vue'
 import ChangeRole from '@/components/ChangeRole.vue'
 import AgencyList from '@/components/AgencyList.vue'
+import EditAgency from '@/views/EditAgency.vue'
 
 Vue.use(Router)
 
@@ -141,7 +142,7 @@ const router = new Router({
     }
   },
   {
-    path: '/admin/users/:userId',
+    path: '/admin/users/:id',
     name: 'role-change',
     component: ChangeRole,
     meta: {
@@ -156,6 +157,15 @@ const router = new Router({
     meta: {
       requiresAuth: true,
       requiresAgency: true
+    }
+  },
+  {
+    path: "/editagency/:id",
+    name: "edit-agency",
+    component: EditAgency,
+    meta: {
+      requiresAuth: true,
+      requiresAdmin: true
     }
   }
   ]

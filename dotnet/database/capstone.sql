@@ -73,7 +73,4 @@ INSERT INTO agencies (agency_name, address, state, city_id, postal_code, agency_
 INSERT INTO pets (pet_name, pet_type, pet_breed, pet_age, pet_description, pet_image_url, agency_id)
 VALUES ('Bobo', 'Dog', 'GSD', 3, 'A good boy', 'https://pet-uploads.adoptapet.com/d/7/5/552365685.jpg', 1);
 
-INSERT INTO traits (trait_name)
-VALUES('X-Small'), ('Small'), ('Medium'), ('Large'), ('X-Large'), ('XX-Large'), ('High Energy'), ('Medium Energy'), ('Low Energy'), ('Affectionate'), ('Dominant'), ('Submissive'), ('Nervous'), ('Territorial'), ('Easy-Going')
-
 GO

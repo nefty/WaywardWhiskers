@@ -17,7 +17,7 @@ namespace Capstone.DAO
         private readonly string sqlAddAgency = "INSERT INTO agencies(agency_name, address, address2, state, city_id, postal_code, agency_description) " +
                                             "VALUES (@agencyName, @agencyAddress, @address2, @agencyState, (SELECT city_id FROM cities WHERE city_name = @agencyCity) , @postalCode, @agencyDescription)";
         private readonly string sqlUpdateAgency = "UPDATE agencies SET agency_name = @agencyName, address = @agencyAddress, address2 = @address2, state = @agencyState, " +
-                                               "city_id = (SELECT city_id FROM cities WHERE city_name = @agencyCity), postal_code = @postalCode, agency_description = @agencyDescription;";
+                                               "city_id = (SELECT city_id FROM cities WHERE city_name = @agencyCity), postal_code = @postalCode, agency_description = @agencyDescription WHERE agency_id = @agencyId;";
         private readonly string sqlDeleteAgency = "DELETE FROM pets WHERE agency_id = @agencyId; " +
                                                   "DELETE FROM agencies WHERE agency_id = @agencyId;";
 
@@ -145,12 +145,19 @@ namespace Capstone.DAO
                     SqlCommand cmd = new SqlCommand(sqlUpdateAgency, conn);
                     cmd.Parameters.AddWithValue("@agencyName", agency.Name);
                     cmd.Parameters.AddWithValue("@agencyAddress", agency.Address);
-                    cmd.Parameters.AddWithValue("@address2", agency.Address2);
+                    if (agency.Address2 == null)
+                    {
+                        cmd.Parameters.AddWithValue("@address2", "");
+                    }
+                    else
+                    {
+                        cmd.Parameters.AddWithValue("@address2", agency.Address2);
+                    }
                     cmd.Parameters.AddWithValue("@agencyState", agency.State);
                     cmd.Parameters.AddWithValue("@agencyCity", agency.City);
                     cmd.Parameters.AddWithValue("@postalCode", agency.PostalCode);
                     cmd.Parameters.AddWithValue("@agencyDescription", agency.Description);
-
+                    cmd.Parameters.AddWithValue("@agencyId", agency.Id);
                     int rows = cmd.ExecuteNonQuery();
                     if (rows > 0)
                         result = true;

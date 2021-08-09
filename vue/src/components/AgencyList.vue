@@ -17,7 +17,7 @@
           <td>{{ agency.city }}, {{agency.state}}</td>
           <td>{{ agency.description }}</td>
           <td>
-            <router-link :to="{name: 'edit-agency', params: {id: agency.Id}}">
+            <router-link :to="{name: 'edit-agency', params: {id: agency.id}}">
               <button class="btn btn-warning" >Edit</button>
             </router-link>
             <button class="btn btn-danger" v-on:click="deleteAgency(agency.id)" >Delete</button>
@@ -34,8 +34,8 @@ import AgencyService from "@/services/AgencyService.js";
 import AddAgency from './AddAgency.vue';
 
 export default {
-  components: { AddAgency },
   name: "agency-list",
+  components: { AddAgency },
   computed: {
     agencies() {
       return this.$store.state.agencies;

@@ -2,13 +2,13 @@
 
       <div class="form-group">
     <form v-on:submit.prevent="onSubmit" >
-        <h3>Please Select A Role</h3>
-  <input type="radio" name='role' v-model="role" value='user'>User
-  <input type="radio" name='role' v-model="role" value='agency'>Agency
-  <input type="radio" name='role' v-model="role" value='admin' v-if="$store.state.user.role == 'admin'">Admin
-  
-  <br />
-  <span>value: {{role}}</span>
+        <h3>Please Select A Role For "{{editedUser.username}}"</h3>
+  <select class="form-control" @change="changeSelectedRole($event)">
+    <option value="" selected disabled>Choose</option>
+    <option v-for="role in roles" :value="role.id" :key="role.id">{{ role.name }}</option>
+  </select>
+  <br><br>
+  <p><span>Selected role: {{ selectedRole  }}</span></p>
   <br />
       <input type="submit" class="btn btn-success" />
       <input
@@ -28,27 +28,35 @@ name: 'role-change',
 data() {
     return {
       editedUser: {},
-      role: ''
+      roles: [
+        {name: "user", id: 1},
+        {name: "agency",  id: 2},
+        {name: "admin", id: 3}
+      ],
+      selectedRole: null
     };
   },
 
   
   created(){
     console.log("reached created method");
-    this.editedUser = this.$store.state.users.find(user => user.userId === this.$route.params.userId);
+    this.editedUser = this.$store.state.users.find(user => user.userId === this.$route.params.id);
     console.log(this.editedUser);
   },
 
   methods: {
+    changeSelectedRole(event) {
+      this.selectedRole = event.target.options[event.target.options.selectedIndex].text
+    },
     onSubmit() {
       console.log("reached onSubmit method");
-      this.editedUser.id = this.$route.params.userId
+      this.editedUser.role = this.selectedRole;
       this.$store.commit("UPDATE_USER_ROLE", this.editedUser);
 
       UserService.updateUserRole(this.editedUser)
         .then((response) => {
           console.log("promise was success", response);
-          this.$router.push({ name: "user-list" });
+          this.$router.go({ name: "user-list" });
         })
         .catch((error) => {
          
