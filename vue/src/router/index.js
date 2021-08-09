@@ -16,6 +16,7 @@ import Restricted from '@/views/Restricted.vue'
 import UserList from '@/components/UserList.vue'
 import ChangeRole from '@/components/ChangeRole.vue'
 import AgencyList from '@/components/AgencyList.vue'
+import ForgotPassword from '@/views/ForgotPassword.vue'
 
 Vue.use(Router)
 
@@ -72,6 +73,15 @@ const router = new Router({
       path: "/register",
       name: "register",
       component: Register,
+      meta: {
+        requiresAuth: false,
+        requiresAdmin: false
+      }
+    },
+    {
+      path: "/forgotpassword",
+      name: 'forgot-password',
+      component: ForgotPassword,
       meta: {
         requiresAuth: false,
         requiresAdmin: false

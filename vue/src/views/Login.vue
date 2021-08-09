@@ -31,7 +31,9 @@
         v-model="user.password"
         required
       />
-      <router-link :to="{ name: 'register' }">Need an account?</router-link>
+      <router-link :to="{ name: 'register' }">Need an account?</router-link> |
+      <router-link :to="{ name: 'forgot-password' }">Forgot Password?</router-link>
+
       <button type="submit" class="btn btn-lg btn-primary btn-block">Sign in</button>
     </form>
   </b-container>
