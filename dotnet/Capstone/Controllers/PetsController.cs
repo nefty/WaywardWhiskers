@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Capstone.Models;
-using Capstone.DAO;
 using Capstone.DAO.Interfaces;
 
 namespace Capstone.Controllers
@@ -17,10 +16,12 @@ namespace Capstone.Controllers
     public class PetsController : ControllerBase
     {
         private IPetDAO petDAO;
+        private IPictureDAO pictureDAO;
 
-        public PetsController(IPetDAO petDAO)
+        public PetsController(IPetDAO petDAO, IPictureDAO pictureDAO)
         {
             this.petDAO = petDAO;
+            this.pictureDAO = pictureDAO;
         }
         [HttpGet]
         public ActionResult<List<Pet>> GetAllPets()
@@ -34,6 +35,12 @@ namespace Capstone.Controllers
             return Ok(petDAO.GetPet(petId));
         }
        
+        [HttpGet("{petId}/pictures")]
+        public ActionResult<IEnumerable<Picture>> GetPetPictures(int petId)
+        {
+            return Ok(pictureDAO.GetPetPictures(petId));
+        }
+
         //todo Add Authorization
         [HttpPost]
         public ActionResult<Pet> AddPet(Pet pet)

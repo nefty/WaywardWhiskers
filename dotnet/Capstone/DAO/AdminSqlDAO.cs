@@ -41,7 +41,7 @@ namespace Capstone.DAO
             }
             catch (Exception ex)
             {
-
+                Console.WriteLine(ex.Message);
             }
             return result;
         }
@@ -65,7 +65,7 @@ namespace Capstone.DAO
             }
             catch (Exception ex)
             {
-
+                Console.WriteLine(ex.Message);
             }
             return result;
 

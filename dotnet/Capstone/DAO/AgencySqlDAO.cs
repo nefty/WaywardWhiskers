@@ -12,12 +12,15 @@ namespace Capstone.DAO
     public class AgencySqlDAO : IAgencyDAO
     {
         private readonly string connectionString;
-        private readonly string sqlGetAgency = "SELECT agency_id, agency_name, address, address2, state, city_name, postal_code, agency_description FROM agencies JOIN cities ON agencies.city_id = cities.city_id WHERE agency_id = @agencyId";
-        private readonly string sqlGetAllAgencies = "SELECT agency_id, agency_name, address, address2, state, postal_code, agency_description, city_name FROM agencies JOIN cities ON agencies.city_id = cities.city_id";
-        private readonly string sqlAddAgency = "INSERT INTO agencies(agency_name, address, address2, state, city_id, postal_code, agency_description) " +
-                                            "VALUES (@agencyName, @agencyAddress, @address2, @agencyState, (SELECT city_id FROM cities WHERE city_name = @agencyCity) , @postalCode, @agencyDescription)";
-        private readonly string sqlUpdateAgency = "UPDATE agencies SET agency_name = @agencyName, address = @agencyAddress, address2 = @address2, state = @agencyState, " +
-                                               "city_id = (SELECT city_id FROM cities WHERE city_name = @agencyCity), postal_code = @postalCode, agency_description = @agencyDescription WHERE agency_id = @agencyId;";
+
+        private readonly string sqlGetAgency = "SELECT * FROM agencies WHERE agency_id = @agencyId;";
+        private readonly string sqlGetAllAgencies = "SELECT * FROM agencies;";
+        private readonly string sqlAddAgency =
+            "INSERT INTO agencies(agency_id, name, street, city, state, postal_code, email, phone, lat, lon, about, url) " +
+            "VALUES (@AgencyId, @Name, @Street, @City, @State, @PostalCode, @Email, @Phone, @Lat, @Lon, @About, @Url);";
+        private readonly string sqlUpdateAgency =
+            "UPDATE agencies SET agency_id = @AgencyId, name = @Name, street = @Street, city = @City, state = @State, " +
+            "postal_code = @PostalCode, email = @Email, phone = @Phone, lat = @Lat, lon = @Lon, about = @About, url = @Url;";
         private readonly string sqlDeleteAgency = "DELETE FROM pets WHERE agency_id = @agencyId; " +
                                                   "DELETE FROM agencies WHERE agency_id = @agencyId;";
 
@@ -36,20 +39,7 @@ namespace Capstone.DAO
                     conn.Open();
 
                     SqlCommand cmd = new SqlCommand(sqlAddAgency, conn);
-                    cmd.Parameters.AddWithValue("@agencyName", agency.Name);
-                    cmd.Parameters.AddWithValue("@agencyAddress", agency.Address);
-                    if (agency.Address2 == null)
-                    {
-                        cmd.Parameters.AddWithValue("@address2", "");
-                    }
-                    else
-                    {
-                        cmd.Parameters.AddWithValue("@address2", agency.Address2);
-                    }
-                    cmd.Parameters.AddWithValue("@agencyState", agency.State);
-                    cmd.Parameters.AddWithValue("@agencyCity", agency.City);
-                    cmd.Parameters.AddWithValue("@postalCode", agency.PostalCode);
-                    cmd.Parameters.AddWithValue("@agencyDescription", agency.Description);
+                    AddAgencyParameters(agency, cmd);
 
                     int rows = cmd.ExecuteNonQuery();
                     if (rows > 0)
@@ -60,8 +50,8 @@ namespace Capstone.DAO
             {
                 Console.WriteLine(ex.Message);
             }
-            return result;
 
+            return result;
         }
 
         public IEnumerable<Agency> GetAllAgencies()
@@ -78,28 +68,18 @@ namespace Capstone.DAO
 
                     while (reader.HasRows && reader.Read())
                     {
-                        Agency agency = new Agency();
-                        agency.Id = Convert.ToInt32(reader["agency_id"]);
-                        agency.Name = Convert.ToString(reader["agency_name"]);
-                        agency.Address = Convert.ToString(reader["address"]);
-                        agency.Address2 = Convert.ToString(reader["address2"]);
-                        agency.City = Convert.ToString(reader["city_name"]);
-                        agency.State = Convert.ToString(reader["state"]);
-                        agency.PostalCode = Convert.ToInt32(reader["postal_code"]);
-                        agency.Description = Convert.ToString(reader["agency_description"]);
-                        result.Add(agency);
-
+                        result.Add(ReadAgency(reader));
                     }
-
                 }
             }
             catch (Exception ex)
             {
-                result = new List<Agency>();
                 Console.Write(ex.Message);
             }
+
             return result;
         }
+
         public Agency GetAgency(int agencyId)
         {
             Agency result = new Agency();
@@ -115,24 +95,18 @@ namespace Capstone.DAO
 
                     if (reader.HasRows && reader.Read())
                     {
-                        result.Id = Convert.ToInt32(reader["agency_id"]);
-                        result.Name = Convert.ToString(reader["agency_name"]);
-                        result.Address = Convert.ToString(reader["address"]);
-                        result.Address2 = Convert.ToString(reader["address2"]);
-                        result.City = Convert.ToString(reader["city_name"]);
-                        result.State = Convert.ToString(reader["state"]);
-                        result.PostalCode = Convert.ToInt32(reader["postal_code"]);
-                        result.Description = Convert.ToString(reader["agency_description"]);
+                        result = ReadAgency(reader);
                     }
                 }
             }
             catch (Exception ex)
             {
-
+                Console.WriteLine(ex.Message);
             }
 
             return result;
         }
+
         public bool UpdateAgency(Agency agency)
         {
             bool result = false;
@@ -143,21 +117,8 @@ namespace Capstone.DAO
                     conn.Open();
 
                     SqlCommand cmd = new SqlCommand(sqlUpdateAgency, conn);
-                    cmd.Parameters.AddWithValue("@agencyName", agency.Name);
-                    cmd.Parameters.AddWithValue("@agencyAddress", agency.Address);
-                    if (agency.Address2 == null)
-                    {
-                        cmd.Parameters.AddWithValue("@address2", "");
-                    }
-                    else
-                    {
-                        cmd.Parameters.AddWithValue("@address2", agency.Address2);
-                    }
-                    cmd.Parameters.AddWithValue("@agencyState", agency.State);
-                    cmd.Parameters.AddWithValue("@agencyCity", agency.City);
-                    cmd.Parameters.AddWithValue("@postalCode", agency.PostalCode);
-                    cmd.Parameters.AddWithValue("@agencyDescription", agency.Description);
-                    cmd.Parameters.AddWithValue("@agencyId", agency.Id);
+                    AddAgencyParameters(agency, cmd);
+
                     int rows = cmd.ExecuteNonQuery();
                     if (rows > 0)
                         result = true;
@@ -165,10 +126,10 @@ namespace Capstone.DAO
             }
             catch (Exception ex)
             {
-
+                Console.WriteLine(ex.Message);
             }
-            return result;
 
+            return result;
         }
 
         public bool DeleteAgency(int agencyId)
@@ -190,9 +151,46 @@ namespace Capstone.DAO
             }
             catch (Exception ex)
             {
-
+                Console.WriteLine(ex.Message);
             }
             return result;
+        }
+
+        // Helper Methods
+        private void AddAgencyParameters(Agency agency, SqlCommand cmd)
+        {
+            cmd.Parameters.AddWithValue("@AgencyId", agency.AgencyId);
+            cmd.Parameters.AddWithValue("@Name", agency.Name);
+            cmd.Parameters.AddWithValue("@Stree", agency.Street);
+            cmd.Parameters.AddWithValue("@City", agency.City);
+            cmd.Parameters.AddWithValue("@State", agency.State);
+            cmd.Parameters.AddWithValue("@PostalCode", agency.PostalCode);
+            cmd.Parameters.AddWithValue("@Email", agency.Email);
+            cmd.Parameters.AddWithValue("@Phone", agency.Phone);
+            cmd.Parameters.AddWithValue("@Lat", agency.Lat);
+            cmd.Parameters.AddWithValue("@Lon", agency.Lon);
+            cmd.Parameters.AddWithValue("@About", agency.About);
+            cmd.Parameters.AddWithValue("@Url", agency.Url);
+        }
+
+        private Agency ReadAgency(SqlDataReader reader)
+        {
+            Agency agency = new Agency();
+
+            agency.AgencyId = Convert.ToInt32(reader["agency_id"]);
+            agency.Name = Convert.ToString(reader["name"]);
+            agency.Street = Convert.ToString(reader["street"]);
+            agency.City = Convert.ToString(reader["city"]);
+            agency.State = Convert.ToString(reader["state"]);
+            agency.PostalCode = Convert.ToString(reader["postal_code"]);
+            agency.Email = Convert.ToString(reader["email"]);
+            agency.Phone = Convert.ToString(reader["phone"]);
+            agency.Lat = Convert.ToDouble(reader["lat"]);
+            agency.Lon = Convert.ToDouble(reader["lon"]);
+            agency.About = Convert.ToString(reader["about"]);
+            agency.Url = Convert.ToString(reader["url"]);
+
+            return agency;
         }
     }
 }
