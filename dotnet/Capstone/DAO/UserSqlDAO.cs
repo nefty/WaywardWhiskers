@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.IO;
 using Capstone.DAO.Interfaces;
 using Capstone.Models;
 using Capstone.Security;
@@ -14,7 +15,7 @@ namespace Capstone.DAO
 
         private readonly string sqlGetUserByName = "SELECT user_id, username, password_hash, salt, user_role FROM users WHERE username = @username";
         private readonly string sqlGetUserById = "SELECT user_id, username, password_hash, salt, user_role FROM users WHERE user_id = @userId";
-        private readonly string sqlGetUsers = "SELECT user_id, username, user_role FROM users";
+        private readonly string sqlGetUsers = "SELECT user_id, username, email, password_reset_code, user_role FROM users";
         public UserSqlDAO(string dbConnectionString)
         {
             connectionString = dbConnectionString;
@@ -116,12 +117,15 @@ namespace Capstone.DAO
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-
-                    SqlCommand cmd = new SqlCommand("INSERT INTO users (username, email, password_hash, salt, user_role) VALUES (@username, @email, @password_hash, @salt, @user_role)", conn);
+                    string randomString = Path
+                        .GetRandomFileName()
+                        .Replace(".", "");
+                    SqlCommand cmd = new SqlCommand("INSERT INTO users (username, email, password_hash, salt, password_reset_code, user_role) VALUES (@username, @email, @password_hash, @salt, @resetCode, @user_role)", conn);
                     cmd.Parameters.AddWithValue("@username", username);
                     cmd.Parameters.AddWithValue("@email", email);
                     cmd.Parameters.AddWithValue("@password_hash", hash.Password);
                     cmd.Parameters.AddWithValue("@salt", hash.Salt);
+                    cmd.Parameters.AddWithValue("@resetCode", randomString);
                     cmd.Parameters.AddWithValue("@user_role", role);
                     cmd.ExecuteNonQuery();
                 }
@@ -153,6 +157,8 @@ namespace Capstone.DAO
             User u = new User()
             {
                 UserId = Convert.ToInt32(reader["user_id"]),
+                Email = Convert.ToString(reader["email"]),
+                PasswordResetCode = Convert.ToString(reader["password_reset_code"]),
                 Username = Convert.ToString(reader["username"]),
                 Role = Convert.ToString(reader["user_role"]),
             };
