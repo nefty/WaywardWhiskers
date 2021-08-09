@@ -1,13 +1,7 @@
 <template>
   <div class="container">
-    <a
-      v-on:click="isFormShown = true"
-      v-if="!isFormShown"
-      class="btn btn-success"
-      >Add Agency</a
-    >
 
-    <form v-on:submit="onSubmit" v-if="isFormShown">
+    <form v-on:submit="onSubmit">
       <div class="form-group">
         <label for="name">Agency Name </label>
         <input
@@ -16,7 +10,7 @@
           id="name"
           name="name"
           class="form-control"
-          v-model="newAgency.name"
+          v-model="editedAgency.name"
         />
       </div>
       <div class="form-group">
@@ -27,7 +21,7 @@
           id="adress"
           name="adress"
           class="form-control"
-          v-model="newAgency.address"
+          v-model="editedAgency.address"
         />
       </div>
       <div class="form-group">
@@ -37,7 +31,7 @@
           id="address2"
           name="address2"
           class="form-control"
-          v-model="newAgency.address2"
+          v-model="editedAgency.address2"
         />
       </div>
 
@@ -49,7 +43,7 @@
           id="city"
           name="city"
           class="form-control"
-          v-model.number="newAgency.city"
+          v-model.number="editedAgency.city"
         />
       </div>
 
@@ -61,7 +55,7 @@
           id="state"
           name="state"
           class="form-control"
-          v-model="newAgency.state"
+          v-model="editedAgency.state"
         />
       </div>
       <div class="form-group">
@@ -72,7 +66,7 @@
           id="postal-code"
           name="postal-code"
           class="form-control"
-          v-model.number="newAgency.postalCode"
+          v-model.number="editedAgency.postalCode"
         />
       </div>
       <div class="form-group">
@@ -83,14 +77,14 @@
           id="description"
           name="description"
           class="form-control"
-          v-model.number="newAgency.description"
+          v-model.number="editedAgency.description"
         />
       </div>
 
       <input type="submit" class="btn btn-success" />
       <input
         type="button"
-        v-on:click="resetForm"
+        v-on:click="returnToAgency"
         class="btn btn-secondary"
         value="Cancel"
       />
@@ -99,23 +93,30 @@
 </template>
 
 <script>
-import AgencyService from "../services/AgencyService.js";
+import AgencyService from '../services/AgencyService.js'
 
 export default {
-  name: "agency-add",
+  name: "edit-agency",
   data() {
     return {
-      newAgency: {},
-
-      isFormShown: false,
+      editedAgency: {},
     };
+  },
+
+  
+  created(){
+    console.log("reached created method");
+    this.editedAgency = this.$store.state.agencies.find(agency => agency.id === this.$route.params.id);
+    console.log(this.editedAgency);
   },
 
   methods: {
     onSubmit() {
-      this.$store.commit("ADD_AGENCY", this.newAgency);
+      console.log("reached onSubmit method");
+      this.editedAgency.id = this.$route.params.id
+      this.$store.commit("UPDATE_AGENCY", this.editedAgency);
 
-      AgencyService.addAgency(this.newAgency)
+      AgencyService.updateAgency(this.editedAgency)
         .then((response) => {
           console.log("promise was success", response);
           this.$router.go({ name: "agency-list" });
@@ -129,14 +130,12 @@ export default {
             console.log("Network Error");
           }
         });
-
-      this.resetForm();
+      this.returnToAgency();
     },
 
-    resetForm() {
-      this.newAgency = {};
-      this.isFormShown = false;
-    },
+    returnToAgency() {
+      this.$router.push({name: "agency-list" });
+    }
   },
 };
 </script>

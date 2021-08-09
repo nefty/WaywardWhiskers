@@ -11,7 +11,7 @@ Vue.use(Vuex)
  */
 const currentToken = localStorage.getItem('token')
 const currentUser = JSON.parse(localStorage.getItem('user'))
-const currentAgency = localStorage.getItem('agency')
+
 
 if(currentToken != null) {
   axios.defaults.headers.common['Authorization'] = `Bearer ${currentToken}`;
@@ -24,7 +24,7 @@ export default new Vuex.Store({
     pets: [],
     users: [],
     agencies: [],
-    agency: currentAgency || {},
+    activeAgency: {},
     activePet: {},
     matchedPets: [],
     rejectedPets: [],
@@ -46,9 +46,9 @@ export default new Vuex.Store({
     DELETE_USER(state, userId) {
       state.users = this.state.users.filter(user => user.id != userId);
     },
-    UPDATE_USER_ROLE(state, editedPet, role) {
-      state.pets = this.state.pets.filter(pet => pet.id != editedPet.id);
-      state.pets = state.pets.push(editedPet, role);
+    UPDATE_USER_ROLE(state, editedUser) {
+      state.users = this.state.users.filter(user => user.userId != editedUser.userId);
+      state.users = state.users.push(editedUser);
     },
     LOGOUT(state) {
       localStorage.removeItem('token');
@@ -74,7 +74,7 @@ export default new Vuex.Store({
       state.pets = this.state.pets.filter(pet => pet.id != petId);
     },
     SET_ACTIVE_AGENCY(state, agencyId) {
-      state.agency = agencyId;
+      state.activeAgency = agencyId;
     },
     SET_AGENCIES(state, agencies) {
       state.agencies = agencies;

@@ -116,7 +116,7 @@ export default {
       PetService.updatePet(this.editedPet)
         .then((response) => {
           console.log("promise was success", response);
-          this.$router.push({ name: "pets-list" });
+          this.$router.go({ name: "pets-list" });
         })
         .catch((error) => {
          
@@ -137,7 +137,7 @@ export default {
     },
 
     returnToPets() {
-      this.$router.push({name: "pets-list" });
+      this.$router.go({name: "pets-list" });
     }
   },
 };

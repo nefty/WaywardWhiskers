@@ -116,7 +116,7 @@ export default {
       PetService.addPet(this.newPet)
         .then((response) => {
           console.log("promise was success", response);
-          this.$router.push({ name: "pets-list" });
+          // this.$router.push({ name: "pets-list" });
         })
         .catch((error) => {
          

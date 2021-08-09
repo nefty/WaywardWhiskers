@@ -33,13 +33,13 @@ namespace Capstone.Controllers
         }
 
         [HttpGet("{userId}")]
-        public ActionResult<Pet> GetUser(int userId)
+        public ActionResult<User> GetUser(int userId)
         {
             return Ok(userDAO.GetUser(userId));
         }
 
         //todo [Authorize(Roles ="admin")]
-        [HttpPut("users/role")]
+        [HttpPut]
         public ActionResult<bool> UpdateUserRole(User user)
         {
             return Ok(adminDAO.UpdateUserRole(user));

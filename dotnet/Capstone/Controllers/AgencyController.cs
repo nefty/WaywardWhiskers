@@ -42,7 +42,7 @@ namespace Capstone.Controllers
         }
 
         [HttpPut]
-        public ActionResult<bool> UpdatePet(Agency agency)
+        public ActionResult<bool> UpdateAgency(Agency agency)
         {
             return Ok(agencyDAO.UpdateAgency(agency));
         }

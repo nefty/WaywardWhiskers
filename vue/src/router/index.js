@@ -16,6 +16,10 @@ import Restricted from '@/views/Restricted.vue'
 import UserList from '@/components/UserList.vue'
 import ChangeRole from '@/components/ChangeRole.vue'
 import AgencyList from '@/components/AgencyList.vue'
+import EditAgency from '@/views/EditAgency.vue'
+import ForgotPassword from '@/views/ForgotPassword.vue'
+import ResetPassword from '@/views/ResetPassword.vue'
+
 
 Vue.use(Router)
 
@@ -76,6 +80,25 @@ const router = new Router({
         requiresAuth: false,
         requiresAdmin: false
       }
+    },
+    {
+      path: "/forgotpassword",
+      name: 'forgot-password',
+      component: ForgotPassword,
+      meta: {
+        requiresAuth: false,
+        requiresAdmin: false
+      }
+    },
+    {
+      path: "/resetpassword/:resetCode",
+      name: "reset-password",
+      component: ResetPassword,
+      meta: {
+        requiresAuth: false,
+        requiresAdmin: false
+      }
+
     },
     {
       path: "/pets/:id",
@@ -141,7 +164,7 @@ const router = new Router({
     }
   },
   {
-    path: '/admin/users/:userId',
+    path: '/admin/users/:id',
     name: 'role-change',
     component: ChangeRole,
     meta: {
@@ -156,6 +179,15 @@ const router = new Router({
     meta: {
       requiresAuth: true,
       requiresAgency: true
+    }
+  },
+  {
+    path: "/editagency/:id",
+    name: "edit-agency",
+    component: EditAgency,
+    meta: {
+      requiresAuth: true,
+      requiresAdmin: true
     }
   }
   ]
