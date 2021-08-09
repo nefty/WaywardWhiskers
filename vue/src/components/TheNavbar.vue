@@ -2,6 +2,7 @@
   <div id="navbar">
     <b-navbar toggleable="lg" type="light" variant="light">
       <b-navbar-brand>
+        <img :src="require('../assets/logo.png')" />
         <router-link class="navbar-brand" v-bind:to="{ name: 'home' }"
           >Wayward Whiskers</router-link
         >

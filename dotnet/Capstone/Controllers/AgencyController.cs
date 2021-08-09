@@ -29,7 +29,7 @@ namespace Capstone.Controllers
         }
 
         [HttpGet("{agencyId}")]
-        public ActionResult<Pet> GetPet(int agencyId)
+        public ActionResult<Agency> GetAgency(int agencyId)
         {
             return Ok(agencyDAO.GetAgency(agencyId));
         }
