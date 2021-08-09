@@ -18,8 +18,10 @@ GO
 CREATE TABLE users (
 	user_id int IDENTITY(1,1) NOT NULL,
 	username varchar(50) NOT NULL,
+	email varchar(50) NOT NULL,
 	password_hash varchar(200) NOT NULL,
 	salt varchar(200) NOT NULL,
+	password_reset_code varchar(50) NOT NULL,
 	user_role varchar(50) NOT NULL
 	CONSTRAINT PK_user PRIMARY KEY (user_id)
 )
@@ -63,9 +65,9 @@ trait_id int FOREIGN KEY REFERENCES traits(trait_id)
 
 --populate default data
 -- user/password
-INSERT INTO users (username, password_hash, salt, user_role) VALUES ('user','Jg45HuwT7PZkfuKTz6IB90CtWY4=','LHxP4Xh7bN0=','user');
+INSERT INTO users (username, email, password_hash, salt, password_reset_code, user_role) VALUES ('user', 'user@user.com', 'Jg45HuwT7PZkfuKTz6IB90CtWY4=','LHxP4Xh7bN0=', 'ssrpcgg4b3c','user');
 --admin/password
-INSERT INTO users (username, password_hash, salt, user_role) VALUES ('admin','YhyGVQ+Ch69n4JMBncM4lNF/i9s=', 'Ar/aB2thQTI=','admin');
+INSERT INTO users (username, email, password_hash, salt, password_reset_code, user_role) VALUES ('admin', 'admin@admin.com','YhyGVQ+Ch69n4JMBncM4lNF/i9s=', 'Ar/aB2thQTI=', 'ssrp48g4b3c', 'admin');
 
 INSERT INTO cities (city_name) VALUES ('Columbus');
 INSERT INTO agencies (agency_name, address, state, city_id, postal_code, agency_description) VALUES ('Franklin County Dog Shelter & Adoption Center', '4340 Tamarack Blvd', 'Ohio', 1, '43229', 'We provide compassionate care for impounded animals at the shelter, as well as adoption and lost dog services to the community. We also educate the public and teach dog owners to be more responsible citizens.');

@@ -16,5 +16,6 @@ export default {
         console.log("Reached Delete User in UserService");
         console.log(userId);
         return axios.delete(`/admin/${userId}`)
-    }
+    },
+    
 }

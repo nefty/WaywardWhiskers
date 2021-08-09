@@ -6,6 +6,8 @@
           <th scope ="col">ID</th>
           <th scope="col">Username</th>
           <th scope="col">Role</th>
+          <th scope="col">Email</th>
+          <th scope="col">RESET CODE</th>
           <th scope="col">Edit</th>
         </tr>
       </thead>
@@ -14,6 +16,8 @@
           <td>{{user.userId}}</td>
           <td>{{ user.username }}</td>
           <td>{{ user.role }}</td>
+          <td>{{user.email}}</td>
+          <td>{{ user.passwordResetCode }}</td>
           <td>
              <router-link :to="{name: 'role-change', params: {id: user.userId}}">
               <button class="btn btn-warning" >Change Role</button>
