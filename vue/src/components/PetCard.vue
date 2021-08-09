@@ -3,7 +3,7 @@
       elevation="2"
       bg-variant="light"
       v-bind:title="pet.name"
-      v-bind:img-src="pet.imageUrl"
+      v-bind:img-src="pet.primaryImageUrl"
       img-alt="Image"
       tag="article"
       style="max-width: 20rem"
@@ -14,7 +14,7 @@
     >
       <b-collapse id="collapse-1">
         <b-card>
-          <p class="card-text">{{ pet.description }}</p>
+          <p class="card-text">{{ pet.descriptionText }}</p>
         </b-card>
       </b-collapse>
       <b-button v-b-toggle.collapse-1 variant="primary"
