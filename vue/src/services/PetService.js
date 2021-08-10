@@ -3,11 +3,14 @@ import axios from 'axios';
 
 export default {
     getAllPets() {
-        console.log("Reached Get All Pets in PetService")
+        console.log("Reached Get All Pets in PetService");
         return axios.get('/pets');
     },
-    getPet(petID) {
-        return axios.get(`/pets/${petID}`)
+    getPet(petId) {
+        return axios.get(`/pets/${petId}`);
+    },
+    getPetPictures(petId) {
+        return axios.get(`/pets/${petId}/pictures`);
     },
     addPet(pet) {
         console.log(pet);
@@ -27,8 +30,8 @@ export default {
         console.log(userId, petId);
         return axios.post(`/matchpet/${petId}`)
     },
-    getPetsBasedOnSearchCriteria(filter){
-        console.log(filter);
-        return axios.get('/search/', filter)
+    getFilteredPets(searchCriteria){
+        console.log(searchCriteria);
+        return axios.get('/pets/filter/', searchCriteria)
     }
 }
