@@ -202,6 +202,12 @@ export default {
         {name: "None", id: 0},
         {name: "Species Specific", id: 1}
       ],
+            ageGroupOptions: [
+          { text: "Baby", value: "Baby" },
+          { text: "Young", value: "Young" },
+          { text: "Adult", value: "Adult" },
+          { text: "Senior", value: "Senior" },
+        ],
       ageGroups: [
         {name: "baby", desc:"<6 months", id: 0},
         {name: "young", desc:"6 months - 2 years", id: 1},
