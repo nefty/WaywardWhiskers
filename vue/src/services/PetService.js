@@ -32,6 +32,7 @@ export default {
     },
     getFilteredPets(searchCriteria){
         console.log(searchCriteria);
-        return axios.get('/pets/filter/', searchCriteria)
+        console.log("Reached getFilteredPets");
+        return axios.post('/user/pets/filter/', searchCriteria)
     }
 }

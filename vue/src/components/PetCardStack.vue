@@ -15,7 +15,6 @@
 
 <script>
 import PetCard from "./PetCard.vue";
-import PetService from "@/services/PetService.js";
 import VueSwing from "vue-swing";
 
 export default {
@@ -25,13 +24,13 @@ export default {
     pets() {
       return this.$store.state.pets;
     },
+    filter() {
+      return this.$store.state.filter;
+    },
   },
   created() {
-    PetService.getAllPets().then((response) => {
-      
-      this.$store.commit("SET_PETS", response.data);
-    });
-    this.petsTestArray = this.$store.state.pets;
+    console.log("Created PetCardStack component");
+    console.log(this.pets);
   },
   data() {
     return {

@@ -13,22 +13,27 @@ namespace Capstone.DAO
         private Random rand = new Random();
         private readonly string connectionString;
 
-        private readonly string sqlGetPet = "SELECT * FROM pets WHERE pet_id = @PetId";
-        private readonly string sqlGetAllPets = "SELECT pets.*, species.name AS species_name, breeds.name AS breed_name FROM pets JOIN species ON pets.species_id = species.species_id " +
-                                                "JOIN breeds ON pets.breed_id = breeds.breed_id ORDER BY agency_id;";
-        private readonly string sqlGetLikedPets = "SELECT * FROM pets " +
+        private readonly string sqlGetPet = "SELECT pets.*, species.name AS species_name, breeds.name AS breed_name FROM pets " +
+            "JOIN species ON pets.species_id = species.species_id " +
+            "JOIN breeds ON pets.breed_id = breeds.breed_id WHERE pet_id = @PetId";
+        private readonly string sqlGetAllPets = "SELECT pets.*, species.name AS species_name, breeds.name AS breed_name FROM pets " +
+            "JOIN species ON pets.species_id = species.species_id " +
+            "JOIN breeds ON pets.breed_id = breeds.breed_id;";
+        private readonly string sqlGetLikedPets = "SELECT pets.*, species.name AS species_name, breeds.name AS breed_name FROM pets " +
+            "JOIN species ON pets.species_id = species.species_id " +
+            "JOIN breeds ON pets.breed_id = breeds.breed_id " +
             "JOIN user_pet ON user_pet.pet_id = pets.pet_id " +
             "JOIN users ON users.user_id = user_pet.user_id " +
             "WHERE users.user_id = @userId;";
-        private string sqlGetFilteredPetsPrefix = "SELECT pet_id, species_id, breed_id, agency_id, primary_image_id, primary_image_url, " +
-            "thumbnail_url, name, description_text, sex, age_group, age_string, activity_level, exercise_needs, " +
-            "owner_experience, size_group, vocal_level " +
-            "FROM pets WHERE 1=1 ";
+        private string sqlGetFilteredPetsPrefix = "SELECT pets.*, " +
+            "species.name AS species_name, breeds.name AS breed_name " +
+            "FROM pets JOIN species ON pets.species_id = species.species_id " +
+            "JOIN breeds ON pets.breed_id = breeds.breed_id WHERE 1=1 ";
         private readonly string sqlGetFilteredPetsSuffix = "EXCEPT " +
-            "SELECT pets.pet_id, species_id, breed_id, agency_id, primary_image_id, primary_image_url, " +
-            "thumbnail_url, name, description_text, sex, age_group, age_string, activity_level, exercise_needs, " +
-            "owner_experience, size_group, vocal_level " +
-            "FROM pets " +
+            "SELECT pets.*, " +
+            "species.name AS species_name, breeds.name AS breed_name " +
+            "FROM pets JOIN species ON pets.species_id = species.species_id " +
+            "JOIN breeds ON pets.breed_id = breeds.breed_id " +
             "JOIN user_pet ON user_pet.pet_id = pets.pet_id " +
             "JOIN users ON users.user_id = user_pet.user_id " +
             "WHERE user_pet.user_id = @UserId";
@@ -303,20 +308,20 @@ namespace Capstone.DAO
 
             if (search.SpeciesId != 0)
             {
-                cmd.CommandText += " AND species_id = @SpeciesId ";
+                cmd.CommandText += " AND pets.species_id = @SpeciesId ";
                 cmd.Parameters.AddWithValue("@SpeciesId", search.SpeciesId);
             }
-            if (search.BreedIds != null)
+            if (search.BreedIds.Count > 0)
             {
                 cmd.CommandText += " AND ( 1=0";
                 for (int i = 0; i < search.BreedIds.Count; i++)
                 {
-                    cmd.CommandText += $" OR breed_id = @breedId{i}";
+                    cmd.CommandText += $" OR pets.breed_id = @breedId{i}";
                     cmd.Parameters.AddWithValue($"@breedId{i}", search.BreedIds[i]);
                 }
                 cmd.CommandText += ") ";
             }
-            if (search.AgencyIds != null)
+            if (search.AgencyIds.Count > 0)
             {
                 cmd.CommandText += " AND ( 1=0";
                 for (int i = 0; i < search.AgencyIds.Count; i++)
@@ -326,12 +331,12 @@ namespace Capstone.DAO
                 }
                 cmd.CommandText += ") ";
             }
-            if (search.Sex != null)
+            if (search.Sex != "")
             {
                 cmd.CommandText += $" AND sex = @sex ";
                 cmd.Parameters.AddWithValue("@sex", search.Sex);
             }
-            if (search.AgeGroups != null)
+            if (search.AgeGroups.Count > 0)
             {
                 cmd.CommandText += " AND ( 1=0";
                 for (int i = 0; i < search.AgeGroups.Count; i++)
@@ -341,7 +346,7 @@ namespace Capstone.DAO
                 }
                 cmd.CommandText += ") ";
             }
-            if (search.ActivityLevels != null)
+            if (search.ActivityLevels.Count > 0)
             {
                 cmd.CommandText += " AND ( 1=0";
                 for (int i = 0; i < search.ActivityLevels.Count; i++)
@@ -351,7 +356,7 @@ namespace Capstone.DAO
                 }
                 cmd.CommandText += ") ";
             }
-            if (search.AllExerciseNeeds != null)
+            if (search.AllExerciseNeeds.Count > 0)
             {
                 cmd.CommandText += " AND ( 1=0";
                 for (int i = 0; i < search.AllExerciseNeeds.Count; i++)
@@ -361,7 +366,7 @@ namespace Capstone.DAO
                 }
                 cmd.CommandText += ") ";
             }
-            if (search.OwnerExperiences != null)
+            if (search.OwnerExperiences.Count > 0)
             {
                 cmd.CommandText += " AND ( 1=0";
                 for (int i = 0; i < search.OwnerExperiences.Count; i++)
@@ -371,7 +376,7 @@ namespace Capstone.DAO
                 }
                 cmd.CommandText += ") ";
             }
-            if (search.SizeGroups != null)
+            if (search.SizeGroups.Count > 0)
             {
                 cmd.CommandText += " AND ( 1=0";
                 for (int i = 0; i < search.SizeGroups.Count; i++)
@@ -381,7 +386,7 @@ namespace Capstone.DAO
                 }
                 cmd.CommandText += ") ";
             }
-            if (search.VocalLevels != null)
+            if (search.VocalLevels.Count > 0)
             {
                 cmd.CommandText += " AND ( 1=0";
                 for (int i = 0; i < search.VocalLevels.Count; i++)

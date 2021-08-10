@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <b-card title="Find Your Purrfect Furry Friend!" class="mb-3" bg-variant="light">
-      <b-form @submit="onSubmit" @reset="onReset">
+      <b-form @submit.prevent="onSubmit" @reset="onReset">
         <b-form-group id="species" label="Species:" label-for="input-species">
           <b-form-select
             id="input-species"
@@ -128,6 +128,7 @@
 </template>
 
 <script>
+import PetService from "@/services/PetService.js";
 import SpeciesService from "@/services/SpeciesService.js";
 import BreedService from "@/services/BreedService.js";
 import AgencyService from "@/services/AgencyService.js";
@@ -212,6 +213,11 @@ export default {
   methods: {
     onSubmit() {
       this.$store.commit("SET_SEARCH_CRITERIA", this.filter);
+      console.log(this.$store.state.filter);
+
+      PetService.getFilteredPets(this.filter).then((response) => {
+        this.$store.commit("SET_PETS", response.data);
+      });
       this.$router.push('/petmatcher')
     },
     onReset() {},
