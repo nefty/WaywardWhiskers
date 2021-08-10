@@ -36,7 +36,7 @@
         
         <b-form-group id="agencies" label="Agencies:" label-for="input-agencies">
           <b-form-select
-            id="input-breed"
+            id="input-agencies"
             v-model="filter.agencyIds"
             :options="agencies"
             value-field="agencyId"
@@ -61,14 +61,64 @@
         </b-form-group>
         
         <b-form-group id="age-groups" label="Age Groups:" label-for="input-age-groups">
-          <b-form-radio-group
+          <b-form-checkbox-group
             id="input-age-groups"
-            v-model="filter.sex"
-            :options="sexOptions"
-          ></b-form-radio-group>
-          <div class="mt-3">Selected: <strong>{{ filter.sex }}</strong></div>
+            v-model="filter.ageGroups"
+            :options="ageGroupOptions"
+            name="age-group-checkbox"
+          ></b-form-checkbox-group>
+          <div class="mt-3">Selected: <strong>{{ filter.ageGroups }}</strong></div>
         </b-form-group>
         
+        <b-form-group id="activity-levels" label="Activity Levels:" label-for="input-activity-levels">
+          <b-form-checkbox-group
+            id="input-activity-levels"
+            v-model="filter.activityLevels"
+            :options="activityLevelOptions"
+            name="activity-level-checkbox"
+          ></b-form-checkbox-group>
+          <div class="mt-3">Selected: <strong>{{ filter.activityLevels }}</strong></div>
+        </b-form-group>
+
+        <b-form-group id="exercise-needs" label="Exercise Needs:" label-for="input-exercise-needs">
+          <b-form-checkbox-group
+            id="input-exercise-needs"
+            v-model="filter.allExerciseNeeds"
+            :options="exerciseNeedsOptions"
+            name="exercise-needs-checkbox"
+          ></b-form-checkbox-group>
+          <div class="mt-3">Selected: <strong>{{ filter.allExerciseNeeds }}</strong></div>
+        </b-form-group>
+
+        <b-form-group id="owner-experience" label="Owner Experience Required:" label-for="input-owner-experience">
+          <b-form-checkbox-group
+            id="input-owner-experience"
+            v-model="filter.ownerExperiences"
+            :options="ownerExperienceOptions"
+            name="owner-experience-checkbox"
+          ></b-form-checkbox-group>
+          <div class="mt-3">Selected: <strong>{{ filter.ownerExperiences }}</strong></div>
+        </b-form-group>
+
+        <b-form-group id="size-group" label="Size Group:" label-for="input-size-group">
+          <b-form-checkbox-group
+            id="input-size-group"
+            v-model="filter.sizeGroups"
+            :options="sizeGroupOptions"
+            name="size-group-checkbox"
+          ></b-form-checkbox-group>
+          <div class="mt-3">Selected: <strong>{{ filter.ownerExperiences }}</strong></div>
+        </b-form-group>
+
+        <b-form-group id="vocal-level" label="Vocal Level:" label-for="input-vocal-level">
+          <b-form-checkbox-group
+            id="input-vocal-level"
+            v-model="filter.vocalLevels"
+            :options="vocalLevelOptions"
+            name="vocal-level-checkbox"
+          ></b-form-checkbox-group>
+          <div class="mt-3">Selected: <strong>{{ filter.vocalLevels }}</strong></div>
+        </b-form-group>
 
         <b-button type="submit" variant="primary">Submit</b-button>
 
@@ -87,21 +137,43 @@ export default {
   data() {
     return {
       sexOptions: [
-          { value: "Male", text: "Male" },
-          { value: "Female", text: "Female" },
-        ],
+        "Male",
+        "Female"
+      ],
       ageGroupOptions: [
-          { text: "Baby", value: "Baby" },
-          { text: "Young", value: "Young" },
-          { text: "Adult", value: "Adult" },
-          { text: "Senior", value: "Senior" },
-        ],
+        "Baby",
+        "Young",
+        "Adult",
+        "Senior"
+      ],
       activityLevelOptions: [
-          { text: "Not Active", value: "Not Active" },
-          { text: "Slightly Active", value: "Slightly Active" },
-          { text: "Moderately Active", value: "Moderately Active" },
-          { text: "Highly Active", value: "Highly Active" },
-        ],
+        "Not Active",
+        "Slightly Active",
+        "Moderately Active",
+        "Highly Active"
+      ],
+      exerciseNeedsOptions: [
+        "Not Required",
+        "Low",
+        "Moderate",
+        "High"
+      ],
+      ownerExperienceOptions: [
+        "None",
+        "Species",
+        "Breed"
+      ],
+      sizeGroupOptions: [          
+        "Small",
+        "Medium",
+        "Large",
+        "X-Large"
+      ],
+      vocalLevelOptions: [
+        "Quiet",
+        "Some",
+        "Lots"
+      ],
       filter: {
         userId: 0,
         speciesId: 0,
