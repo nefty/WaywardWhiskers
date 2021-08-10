@@ -2,7 +2,8 @@
   <div class="container">
 
     <form v-on:submit="onSubmit" >
-      <div class="form-group">
+
+      <div class="form-group required-field">
         <label for="name">Name: </label>
         <input
           required
@@ -13,18 +14,8 @@
           v-model="editedPet.name"
         />
       </div>
-      <div class="form-group">
-        <label for="type">Type: </label>
-        <input
-          required
-          type="text"
-          id="type"
-          name="type"
-          class="form-control"
-          v-model="editedPet.type"
-        />
-      </div>
-      <div class="form-group">
+
+      <div class="form-group required-field">
         <label for="breed">Breed: </label>
         <input
           required
@@ -32,22 +23,87 @@
           id="breed"
           name="breed"
           class="form-control"
-          v-model="editedPet.breed"
+          v-model="editedPet.breedId"
         />
       </div>
 
       <div class="form-group">
-        <label for="age">Age: </label>
+        <label for="ageString">Age: (ex: 1 year 7 months) </label>
         <input
-          type="number"
-          id="age"
+          type="text"
+          id="ageString"
+          name="ageString"
+          class="form-control"
+          v-model="editedPet.ageString"
+        />
+      </div>
+      <div class="form-group required-field">
+        <label for="ageGroup">Age Group: </label>
+        <input
+        required
+          type="text"
+          id="ageGroup"
           name="age"
           class="form-control"
-          v-model.number="editedPet.age"
+          v-model="editedPet.age"
         />
       </div>
-
-      <div class="form-group">
+      <div class="form-group required-field">
+        <label for="activityLevel">Activity Level: </label>
+        <input
+          required
+          type="text"
+          id="activityLevel"
+          name="activityLevel"
+          class="form-control"
+          v-model="editedPet.activityLevel"
+        />
+      </div>
+      <div class="form-group required-field">
+        <label for="exerciseNeeds">Exercise Needs: </label>
+        <input
+          required
+          type="text"
+          id="exerciseNeeds"
+          name="exerciseNeeds"
+          class="form-control"
+          v-model="editedPet.exerciseNeeds"
+        />
+      </div>
+      <div class="form-group required-field">
+        <label for="ownerExperience">Owner Experience Required?: </label>
+        <input
+          required
+          type="text"
+          id="ownerExperience"
+          name="ownerExperience"
+          class="form-control"
+          v-model="editedPet.ownerExperience"
+        />
+      </div>
+      <div class="form-group required-field">
+        <label for="sizeGroup">Size Group: </label>
+        <input
+          required
+          type="text"
+          id="sizeGroup"
+          name="sizeGroup"
+          class="form-control"
+          v-model="editedPet.sizeGroup"
+        />
+      </div>
+      <div class="form-group required-field">
+        <label for="vocalLevel">Vocal Level: </label>
+        <input
+          required
+          type="text"
+          id="vocalLevel"
+          name="vocalLevel"
+          class="form-control"
+          v-model="editedPet.vocalLevel"
+        />
+      </div>
+      <div class="form-group required-field">
         <label for="description">Description: </label>
         <input
           required
@@ -55,29 +111,30 @@
           id="description"
           name="description"
           class="form-control"
-          v-model="editedPet.description"
+          v-model="editedPet.descriptionText"
+        />
+      </div>
+      <div class="form-group required-field">
+        <label for="image">Primary Image URL: </label>
+        <input
+          required
+          type="text"
+          id="primaryImage"
+          name="primaryImage"
+          class="form-control"
+          v-model="editedPet.PrimaryImageUrl"
         />
       </div>
       <div class="form-group">
-        <label for="image">Image URL: </label>
+        <label for="thumbnail">Thumbnail URL: </label>
         <input
           type="text"
-          id="image"
-          name="image"
+          id="thumbnail"
+          name="thumbnail"
           class="form-control"
-          v-model="editedPet.imageUrl"
+          v-model="editedPet.ThumbnailUrl"
         />
       </div>
-      <!-- <div class="form-group">
-          <label for="agency_id">Agency ID:</label>
-          <input
-          type="number"
-          id="agency_id"
-          name="agency_id"
-          class="form-control"
-          v-model.number="editedPet.agencyId"
-        />
-      </div> -->
       <input type="submit" class="btn btn-success" />
       <input
         type="button"
@@ -103,14 +160,14 @@ export default {
   
   created(){
     console.log("reached created method");
-    this.editedPet = this.$store.state.pets.find(pet => pet.id === this.$route.params.id);
+    this.editedPet = this.$store.state.pets.find(pet => pet.petId === this.$route.params.id);
     console.log(this.editedPet);
   },
 
   methods: {
     onSubmit() {
       console.log("reached onSubmit method");
-      this.editedPet.id = this.$route.params.id
+      this.editedPet.petId = this.$route.params.id
       this.$store.commit("UPDATE_PET", this.editedPet);
 
       PetService.updatePet(this.editedPet)
@@ -137,7 +194,7 @@ export default {
     },
 
     returnToPets() {
-      this.$router.go({name: "pets-list" });
+      this.$router.push({name: "pets-list" });
     }
   },
 };

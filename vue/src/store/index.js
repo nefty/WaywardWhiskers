@@ -69,11 +69,11 @@ export default new Vuex.Store({
       state.pets.push(pet)
     },
     UPDATE_PET(state, editedPet) {
-      state.pets = this.state.pets.filter(pet => pet.id != editedPet.id);
+      state.pets = this.state.pets.filter(pet => pet.petId != editedPet.petId);
       state.pets = state.pets.push(editedPet);
     },
     DELETE_PET(state, petId) {
-      state.pets = this.state.pets.filter(pet => pet.id != petId);
+      state.pets = this.state.pets.filter(pet => pet.petId != petId);
     },
     SET_ACTIVE_AGENCY(state, agencyId) {
       state.activeAgency = agencyId;

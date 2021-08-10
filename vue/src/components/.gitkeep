@@ -1,5 +1,5 @@
 <vue-swing @throwout="throwout" @throwin="throwin" :config="config">
-      <pet-card v-for="pet in this.$store.state.pets" v-bind:key="pet.id" />
+      <pet-card v-for="pet in this.$store.state.pets" v-bind:key="pet.petId" />
     </vue-swing>
 
     created(){
@@ -9,4 +9,4 @@
 
 
   v-for="pet in pets"
-      v-bind:key="pet.id"
+      v-bind:key="pet.petId"

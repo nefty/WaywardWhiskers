@@ -12,17 +12,17 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(pet) in pets" v-bind:key="pet.id">
-          <td><img :src="pet.thumbnailUrl" alt="Img"></td>
+        <tr v-for="(pet) in pets" v-bind:key="pet.petId">
+          <td><img class="thumbnail" :src="pet.thumbnailUrl" alt="Img"></td>
           <td>{{ pet.name }}</td>
-          <td>{{ pet.ageString }}</td>
-          <td>{{ pet.speciesId }}</td>
-          <td>{{ pet.breedId }}</td>
+          <td>{{ pet.ageGroup }}</td>
+          <td>{{ pet.species }}</td>
+          <td>{{ pet.breed }}</td>
           <td>
-            <router-link :to="{name: 'edit-pet', params: {id: pet.id}}">
+            <router-link :to="{name: 'edit-pet', params: {id: pet.petId}}">
               <button class="btn btn-warning" >Edit</button>
             </router-link>
-            <button class="btn btn-danger" v-on:click="deletePet(pet.id)" >Delete</button>
+            <button class="btn btn-danger" v-on:click="deletePet(pet.petId)" >Delete</button>
           </td>
         </tr>
       </tbody>
@@ -60,4 +60,11 @@ export default {
 </script>
 
 <style>
+.table {
+  text-align: center;
+}
+.thumbnail {
+  max-height: 100px;
+  max-width: 100px
+}
 </style>

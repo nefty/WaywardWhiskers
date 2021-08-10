@@ -4,9 +4,9 @@
       @throwin="throwin"
       :config="config"
       v-for="pet in pets"
-      @throwoutright="throwoutMatch(pet.id)"
-      @throwoutleft="throwoutReject(pet.id)"
-      :key="pet.id"
+      @throwoutright="throwoutMatch(pet.petId)"
+      @throwoutleft="throwoutReject(pet.petId)"
+      :key="pet.petId"
     >
       <pet-card :pet="pet" class="card" />
     </vue-swing>

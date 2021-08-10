@@ -8,7 +8,7 @@
             scale="2"
             class="heart-button"
             style="color: #ff69b4"
-            @click="addPetToMatched(pet.id)"
+            @click="addPetToMatched(pet.petId)"
           ></b-icon>
         </b-button>
       </b-col>
@@ -19,7 +19,7 @@
             scale="2"
             variant="danger"
             class="skip-button"
-            @click="addPetToRejected(pet.id)"
+            @click="addPetToRejected(pet.petId)"
           ></b-icon>
         </b-button>
       </b-col>

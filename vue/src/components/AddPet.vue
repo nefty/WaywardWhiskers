@@ -8,16 +8,14 @@
     >
 
     <form v-on:submit.prevent="onSubmit" v-if="isFormShown">
-      <div class="form-group required-field">
-        <label for="agency_id">Agency ID:</label>
-        <input
-          type="number"
-          id="agency_id"
-          name="agency_id"
-          class="form-control"
-          v-model.number="newPet.agencyId"
-        />
+            <div class="form-group required-field">
+        <label for="agency_id">Agency: </label>
+  <select required class="form-control" @change="changeAgency($event)">
+    <option value="" selected disabled>Choose</option>
+    <option v-for="agency in agencies" :value="agency.agencyId" :key="agency.agencyId">{{ agency.name }}</option>
+  </select>
       </div>
+
       <div class="form-group required-field">
         <label for="name">Name: </label>
         <input
@@ -31,14 +29,10 @@
       </div>
       <div class="form-group required-field">
         <label for="species">Species: </label>
-        <input
-          required
-          type="text"
-          id="species"
-          name="species"
-          class="form-control"
-          v-model.number="newPet.speciesId"
-        />
+     <select required class="form-control" @change="changeSpecies($event)">
+    <option value="" selected disabled>Choose</option>
+    <option v-for="pet in pets" :value="pet.speciesId" :key="pet.speciesId">{{ pet.species }}</option>
+  </select>
       </div>
       <div class="form-group required-field">
         <label for="breed">Breed: </label>
@@ -62,7 +56,7 @@
           v-model="newPet.sex"
         />
       </div>
-      <div class="form-group required-field">
+      <div class="form-group">
         <label for="ageString">Age: (ex: 1 year 7 months) </label>
         <input
           type="text"
@@ -74,13 +68,10 @@
       </div>
       <div class="form-group required-field">
         <label for="ageGroup">Age Group: </label>
-        <input
-          type="text"
-          id="ageGroup"
-          name="age"
-          class="form-control"
-          v-model="newPet.age"
-        />
+  <select required class="form-control" @change="changeAge($event)">
+    <option value="" selected disabled>Choose</option>
+    <option v-for="age in ageGroups" :value="age.name" :key="age.id">{{ age.name }} ({{age.desc}})</option>
+  </select>
       </div>
       <div class="form-group required-field">
         <label for="activityLevel">Activity Level: </label>
@@ -104,17 +95,15 @@
           v-model="newPet.exerciseNeeds"
         />
       </div>
+
       <div class="form-group required-field">
         <label for="ownerExperience">Owner Experience Required?: </label>
-        <input
-          required
-          type="text"
-          id="ownerExperience"
-          name="ownerExperience"
-          class="form-control"
-          v-model="newPet.ownerExperience"
-        />
+  <select required class="form-control" @change="changeExperience($event)">
+    <option value="" selected disabled>Choose</option>
+    <option v-for="experience in experienceTypes" :value="experience.id" :key="experience.id">{{ experience.name }}</option>
+  </select>
       </div>
+
       <div class="form-group required-field">
         <label for="sizeGroup">Size Group: </label>
         <input
@@ -126,6 +115,7 @@
           v-model="newPet.sizeGroup"
         />
       </div>
+
       <div class="form-group required-field">
         <label for="vocalLevel">Vocal Level: </label>
         <input
@@ -137,6 +127,7 @@
           v-model="newPet.descriptionText"
         />
       </div>
+
       <div class="form-group required-field">
         <label for="description">Description: </label>
         <input
@@ -148,6 +139,7 @@
           v-model="newPet.descriptionText"
         />
       </div>
+
       <div class="form-group required-field">
         <label for="image">Primary Image URL: </label>
         <input
@@ -159,6 +151,7 @@
           v-model="newPet.PrimaryImageUrl"
         />
       </div>
+
       <div class="form-group">
         <label for="thumbnail">Thumbnail URL: </label>
         <input
@@ -169,6 +162,7 @@
           v-model="newPet.ThumbnailUrl"
         />
       </div>
+
       <div>
         <p class="required-field">Required field</p>
       </div>
@@ -186,18 +180,63 @@
 
 <script>
 import PetService from "../services/PetService.js";
+import AgencyService from "@/services/AgencyService.js";
 
 export default {
   name: "PetAdd",
+    computed: {
+    agencies() {
+      return this.$store.state.agencies;
+    },
+    pets() {
+      return this.$store.state.pets;
+    },
+  },
   data() {
     return {
       newPet: {},
 
       isFormShown: false,
+
+      experienceTypes: [
+        {name: "None", id: 0},
+        {name: "Species Specific", id: 1}
+      ],
+            ageGroupOptions: [
+          { text: "Baby", value: "Baby" },
+          { text: "Young", value: "Young" },
+          { text: "Adult", value: "Adult" },
+          { text: "Senior", value: "Senior" },
+        ],
+      ageGroups: [
+        {name: "baby", desc:"<6 months", id: 0},
+        {name: "young", desc:"6 months - 2 years", id: 1},
+        {name: "adult", desc:"2 years - 6 years", id: 2},
+        {name: "senior", desc:"6+ years", id: 3}
+      ],
+      energyLevels: [
+
+      ]
     };
   },
-
+created() {
+    AgencyService.getAllAgencies().then((response) => {
+      this.$store.commit("SET_AGENCIES", response.data); 
+    });
+    PetService.getAllPets().then((response) => {
+      this.$store.commit("SET_PETS", response.data);
+    });
+  },
   methods: {
+        changeExperience(event) {
+      this.newpet.ownerExperience = event.target.options[event.target.options.selectedIndex].text
+    },
+    changeSpecies(event) {
+      this.newpet.speciesId = event.target.options[event.target.options.selectedIndex].text
+    },
+    changeAge(event) {
+      this.newpet.ageGroup = event.target.options[event.target.options.selectedIndex].text
+    },
     onSubmit() {
       this.$store.commit("ADD_PET", this.newPet);
 
