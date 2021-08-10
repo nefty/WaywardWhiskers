@@ -22,7 +22,7 @@ namespace Capstone.DAO
             "VALUES (@AgencyId, @Name, @Street, @City, @State, @PostalCode, @Email, @Phone, @Lat, @Lon, @About, @Url);";
         private readonly string sqlUpdateAgency =
             "UPDATE agencies SET agency_id = @AgencyId, name = @Name, street = @Street, city = @City, state = @State, " +
-            "postal_code = @PostalCode, email = @Email, phone = @Phone, lat = @Lat, lon = @Lon, about = @About, url = @Url;";
+            "postal_code = @PostalCode, email = @Email, phone = @Phone, lat = @Lat, lon = @Lon, about = @About, url = @Url WHERE agency_id = @AgencyId ;";
         private readonly string sqlDeleteAgency = "DELETE FROM pets WHERE agency_id = @agencyId; " +
                                                   "DELETE FROM agencies WHERE agency_id = @agencyId;";
 
@@ -171,7 +171,7 @@ namespace Capstone.DAO
                 cmd.Parameters.AddWithValue("@AgencyId", agency.AgencyId);
             }
             cmd.Parameters.AddWithValue("@Name", agency.Name);
-            cmd.Parameters.AddWithValue("@Stree", agency.Street);
+            cmd.Parameters.AddWithValue("@Street", agency.Street);
             cmd.Parameters.AddWithValue("@City", agency.City);
             cmd.Parameters.AddWithValue("@State", agency.State);
             cmd.Parameters.AddWithValue("@PostalCode", agency.PostalCode);

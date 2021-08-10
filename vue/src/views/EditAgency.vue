@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <form v-on:submit="onSubmit">
+    <form v-on:submit.prevent="onSubmit">
       <div class="form-group">
         <label for="name">Agency Name </label>
         <input
