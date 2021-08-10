@@ -17,5 +17,8 @@ export default {
         console.log(userId);
         return axios.delete(`/admin/${userId}`)
     },
+    updateUserPassword(user){
+        return axios.put(`/admin/users/${user.userId}`, user)
+    }
     
 }

@@ -28,6 +28,7 @@
 </template>
 
 <script>
+    import UserService from '@/services/UserService.js'
 export default {
     name: "reset-password",
     data(){
@@ -37,8 +38,13 @@ export default {
         }
     },
     methods: {
+        comparePasswords(){
+            return this.password === this.confirmPassword;
+        },
         onSubmit(){
-            
+            if(this.comparePasswords()){
+                UserService.updateUserPassword()
+            }
         }
     }
 
