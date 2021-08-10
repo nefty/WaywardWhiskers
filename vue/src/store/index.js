@@ -29,6 +29,8 @@ export default new Vuex.Store({
     matchedPets: [],
     rejectedPets: [],
     filter: {},
+    species: [],
+    breeds: [],
   },
   mutations: {
     SET_AUTH_TOKEN(state, token) {
@@ -89,19 +91,26 @@ export default new Vuex.Store({
     DELETE_AGENCY(state, agencyId) {
       state.agencies = this.state.agencies.filter(agency => agency.id != agencyId);
     },
-      UPDATE_CRITERIA(state, criteria) {
-      state.criteria = criteria;
-    },
-    ADD_PET_TO_MATCHED(state, petId){
+    ADD_PET_TO_MATCHED(state, petId) {
       state.matchedPets.push(petId);
       console.log(state.matchedPets);
     },
-    ADD_PET_TO_REJECTED(state, petId){
+    ADD_PET_TO_REJECTED(state, petId) {
       state.rejectedPets.push(petId);
       console.log(state.rejectedPets);
     },
-    SET_FILTER_CRITERIA(state, filter){
+    SET_SEARCH_CRITERIA(state, filter) {
       state.filter = filter;
+    },
+    SET_BREEDS(state, breeds) {
+      console.log("reached SET_BREEDS mutation");
+      state.breeds = breeds;
+      console.log(state.breeds);
+    },
+    SET_SPECIES(state, species) {
+      console.log("reached SET_SPECIES mutation");
+      state.species = species;
+      console.log(state.species);
     },
   }
 })
