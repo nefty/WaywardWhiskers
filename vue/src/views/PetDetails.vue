@@ -1,41 +1,44 @@
 <template>
-  <div>
-    <h1>{{pet.name}}</h1>
-    <h2>{{pet.id}}</h2>
+  <b-container>
+<b-carousel
+      id="carousel-1"
+      v-model="slide"
+      :interval="4000"
+      controls
+      indicators
+      background="#ababab"
+      img-width="1024"
+      img-height="480"
+      style="text-shadow: 1px 1px 2px #333;"
+      @sliding-start="onSlideStart"
+      @sliding-end="onSlideEnd"
+    >
+      <!-- Text slides with image -->
+      <b-carousel-slide
+        v-for="picture in pictures"
+        :key="picture.id"
+        v-bind:img-src="picture.url"
+        caption="First slide"
+        text="Nulla vitae elit libero, a pharetra augue mollis interdum."
+      ></b-carousel-slide>
+      
+    </b-carousel>
 
-  </div>
+  </b-container>
 </template>
 
 <script>
-import PetService from '../services/PetService.js'
-
+import PetService from '@/services/PetService.js'
 export default {
     name: 'pet-details',
-    data(){
-        return {
-            pet: {
-                id: 0,
-                name: '',
-                type: '',
-                breed: '',
-                age: 0,
-                description: '',
-                imageURL: '',
-            }
-        }
+    props: {
+        pet: Object,
     },
-    created() {
-        PetService
-            .getPet(this.$route.params.petID)
-            .then(() => {
-                this.$store.commit("SET_ACTIVE_PET", this.$route.params.petID);
-
-                this.pet = this.$store.state.pets.find(pet => pet.petID == this.$store.state.activePet);
-                return this.pet;
-            })
+    computed: {
+        pictures(){
+            return PetService.getPetPictures(this.pet.id);
+        }
     }
-    
-
 }
 </script>
 
