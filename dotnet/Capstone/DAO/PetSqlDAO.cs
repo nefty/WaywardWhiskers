@@ -38,12 +38,12 @@ namespace Capstone.DAO
             "VALUES (@SpeciesId, @BreedId, @AgencyId, @PrimaryImageId, @PrimaryImageUrl, " +
             "@ThumbnailUrl, @Name, @DescriptionText, @Sex, @AgeGroup, @AgeString, @ActivityLevel, " +
             "@ExerciseNeeds, @OwnerExperience, @SizeGroup, @VocalLevel);";
-        private readonly string sqlUpdatePet = "UPDATE pets SET species_id = (SELECT species_id FROM species WHERE species.name = @Species), " +
-            "breed_id = (SELECT breed_id FROM breeds WHERE breeds.name = @Breed), agency_id = @AgencyId, primary_image_id = @PrimaryImageId, " +
+        private readonly string sqlUpdatePet = "UPDATE pets SET species_id = @SpeciesId, " +
+            "breed_id = @BreedId, agency_id = @AgencyId, primary_image_id = @PrimaryImageId, " +
             "primary_image_url = @PrimaryImageUrl, thumbnail_url = @ThumbnailUrl, name = @Name, " +
             "description_text = @DescriptionText, sex = @Sex, age_group = @AgeGroup, age_string = @AgeString, " +
             "activity_level = @ActivityLevel, exercise_needs = @ExerciseNeeds, owner_experience = @OwnerExperience," +
-            "size_group = @SizeGroup, vocal_level = @VocalLevel;";
+            "size_group = @SizeGroup, vocal_level = @VocalLevel WHERE pet_id = @PetId";
         private readonly string sqlDeletePet = "DELETE FROM pets WHERE pet_id = @petId";
 
         public PetSqlDAO(string dbConnectionString)
@@ -267,6 +267,7 @@ namespace Capstone.DAO
             cmd.Parameters.AddWithValue("@OwnerExperience", pet.OwnerExperience);
             cmd.Parameters.AddWithValue("@SizeGroup", pet.SizeGroup);
             cmd.Parameters.AddWithValue("@VocalLevel", pet.VocalLevel);
+            cmd.Parameters.AddWithValue("@PetId", pet.PetId);
         }
 
         private Pet ReadPet(SqlDataReader reader)

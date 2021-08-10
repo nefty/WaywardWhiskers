@@ -78,7 +78,7 @@
 
       <b-form-group id="age-group" label="Age Group:" label-for="age-group">
         <b-form-select
-          id="input-age-groups"
+          id="age-groups"
           v-model="newPet.ageGroup"
           :options="ageGroupOptions"
           name="age-group"
@@ -147,10 +147,9 @@
       </b-form-group>
 
       <b-form-group id="description" label="Description:" label-for="description">
-        <b-form-input
+        <b-form-textarea
           id="description"
           v-model="newPet.descriptionText"
-          type="text"
           required
         />
       </b-form-group>
@@ -158,7 +157,7 @@
       <b-form-group id="imageUrl" label="Image URL:" label-for="imageUrl">
         <b-form-input
           id="imageUrl"
-          v-model="newPet.PrimaryImageUrl"
+          v-model="newPet.primaryImageUrl"
           type="text"
           required
         />
