@@ -6,21 +6,23 @@
           <th scope ="col">ID</th>
           <th scope="col">Name</th>
           <th scope="col">City/State</th>
-          <th scope="col">Description</th>
+          <th scope="col">About</th>
+          <th scope="col">Email</th>
           <th scope="col">Edit</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(agency) in agencies" v-bind:key="agency.id">
-          <td>{{ agency.id }}</td>
+        <tr v-for="(agency) in agencies" v-bind:key="agency.agencyId">
+          <td>{{ agency.agencyId }}</td>
           <td>{{ agency.name }}</td>
           <td>{{ agency.city }}, {{agency.state}}</td>
-          <td>{{ agency.description }}</td>
+          <td>{{ agency.about }}</td>
+          <td>{{agency.email}}</td>
           <td>
-            <router-link :to="{name: 'edit-agency', params: {id: agency.id}}">
+            <router-link :to="{name: 'edit-agency', params: {id: agency.agencyId}}">
               <button class="btn btn-warning" >Edit</button>
             </router-link>
-            <button class="btn btn-danger" v-on:click="deleteAgency(agency.id)" >Delete</button>
+            <button class="btn btn-danger" v-on:click="deleteAgency(agency.agencyId)" >Delete</button>
           </td>
         </tr>
       </tbody>

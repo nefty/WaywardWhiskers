@@ -1,6 +1,5 @@
 <template>
   <div class="container">
-
     <form v-on:submit="onSubmit">
       <div class="form-group">
         <label for="name">Agency Name </label>
@@ -14,24 +13,14 @@
         />
       </div>
       <div class="form-group">
-        <label for="address">Address </label>
+        <label for="street">Street Address </label>
         <input
           required
           type="text"
-          id="adress"
-          name="adress"
+          id="street"
+          name="street"
           class="form-control"
-          v-model="editedAgency.address"
-        />
-      </div>
-      <div class="form-group">
-        <label for="address2">Address 2 </label>
-        <input
-          type="text"
-          id="address2"
-          name="address2"
-          class="form-control"
-          v-model="editedAgency.address2"
+          v-model="editedAgency.street"
         />
       </div>
 
@@ -70,17 +59,45 @@
         />
       </div>
       <div class="form-group">
-          <label for="description">Description</label>
-          <input
-          required
+        <label for="email">Email </label>
+        <input
           type="text"
-          id="description"
-          name="description"
+          id="email"
+          name="email"
           class="form-control"
-          v-model.number="editedAgency.description"
+          v-model="editedAgency.email"
         />
       </div>
-
+      <div class="form-group">
+        <label for="phone">Phone Number </label>
+        <input
+          type="text"
+          id="phone"
+          name="phone"
+          class="form-control"
+          v-model="editedAgency.phone"
+        />
+      </div>
+      <div class="form-group">
+        <label for="about">About</label>
+        <input
+          type="text"
+          id="about"
+          name="about"
+          class="form-control"
+          v-model.number="editedAgency.about"
+        />
+      </div>
+      <div class="form-group">
+        <label for="url">Website URL</label>
+        <input
+          type="text"
+          id="url"
+          name="url"
+          class="form-control"
+          v-model.number="editedAgency.url"
+        />
+      </div>
       <input type="submit" class="btn btn-success" />
       <input
         type="button"
@@ -93,7 +110,7 @@
 </template>
 
 <script>
-import AgencyService from '../services/AgencyService.js'
+import AgencyService from "../services/AgencyService.js";
 
 export default {
   name: "edit-agency",
@@ -103,17 +120,18 @@ export default {
     };
   },
 
-  
-  created(){
+  created() {
     console.log("reached created method");
-    this.editedAgency = this.$store.state.agencies.find(agency => agency.id === this.$route.params.id);
+    this.editedAgency = this.$store.state.agencies.find(
+      (agency) => agency.agencyId === this.$route.params.id
+    );
     console.log(this.editedAgency);
   },
 
   methods: {
     onSubmit() {
       console.log("reached onSubmit method");
-      this.editedAgency.id = this.$route.params.id
+      this.editedAgency.AgencyId = this.$route.params.id;
       this.$store.commit("UPDATE_AGENCY", this.editedAgency);
 
       AgencyService.updateAgency(this.editedAgency)
@@ -122,7 +140,6 @@ export default {
           this.$router.go({ name: "agency-list" });
         })
         .catch((error) => {
-         
           if (error.response) {
             console.log("HTTP Response Code: ", error.response.data.status);
             console.log("Description: ", error.response.data.title);
@@ -134,12 +151,11 @@ export default {
     },
 
     returnToAgency() {
-      this.$router.push({name: "agency-list" });
-    }
+      this.$router.push({ name: "agency-list" });
+    },
   },
 };
 </script>
 
 <style>
-
 </style>
