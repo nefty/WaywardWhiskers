@@ -30,13 +30,13 @@ namespace Capstone.DAO
             "JOIN user_pet ON user_pet.pet_id = pets.pet_id " +
             "JOIN users ON users.user_id = user_pet.user_id " +
             "WHERE user_pet.user_id = @UserId";
-        private readonly string sqlAddPet = "INSERT INTO pets(pet_id, species_id, breed_id, agency_id, " +
+        private readonly string sqlAddPet = "INSERT INTO pets(species_id, breed_id, agency_id, " +
             "primary_image_id, primary_image_url, thumbnail_url, name, description_text, sex, age_group, " +
             "age_string, activity_level, exercise_needs, owner_experience, size_group, vocal_level) " +
-            "VALUES (@PetId, @SpeciesId, @BreedId, @AgencyId, @PrimaryImageId, @PrimaryImageUrl, " +
+            "VALUES (@SpeciesId, @BreedId, @AgencyId, @PrimaryImageId, @PrimaryImageUrl, " +
             "@ThumbnailUrl, @Name, @DescriptionText, @Sex, @AgeGroup, @AgeString, @ActivityLevel, " +
             "@ExerciseNeeds, @OwnerExperience, @SizeGroup, @VocalLevel);";
-        private readonly string sqlUpdatePet = "UPDATE pets SET pet_id = @PetId, species_id = @SpeciesId, " +
+        private readonly string sqlUpdatePet = "UPDATE pets SET species_id = @SpeciesId, " +
             "breed_id = @BreedId, agency_id = @AgencyId, primary_image_id = @PrimaryImageId, " +
             "primary_image_url = @PrimaryImageUrl, thumbnail_url = @ThumbnailUrl, name = @Name, " +
             "description_text = @DescriptionText, sex = @Sex, age_group = @AgeGroup, age_string = @AgeString, " +
@@ -235,7 +235,6 @@ namespace Capstone.DAO
         // Helper methods
         private void AddPetParameters(Pet pet, SqlCommand cmd)
         {
-            cmd.Parameters.AddWithValue("@PetId", pet.PetId);
             cmd.Parameters.AddWithValue("@SpeciesId", pet.SpeciesId);
             cmd.Parameters.AddWithValue("@BreedId", pet.BreedId);
             cmd.Parameters.AddWithValue("@AgencyId", pet.AgencyId);
