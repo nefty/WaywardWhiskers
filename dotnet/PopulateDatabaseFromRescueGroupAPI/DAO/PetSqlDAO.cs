@@ -13,10 +13,10 @@ namespace PopulateDatabaseFromRescueGroupAPI.DAO
         private readonly string connectionString;
 
 
-        private readonly string sqlAddPet = "INSERT INTO pets(pet_id, species_id, breed_id, agency_id, " +
+        private readonly string sqlAddPet = "INSERT INTO pets(species_id, breed_id, agency_id, " +
             "primary_image_id, primary_image_url, thumbnail_url, name, description_text, sex, age_group, " +
             "age_string, activity_level, exercise_needs, owner_experience, size_group, vocal_level) " +
-            "VALUES (@PetId, @SpeciesId, @BreedId, @AgencyId, @PrimaryImageId, @PrimaryImageUrl, " +
+            "VALUES (@SpeciesId, @BreedId, @AgencyId, @PrimaryImageId, @PrimaryImageUrl, " +
             "@ThumbnailUrl, @Name, @DescriptionText, @Sex, @AgeGroup, @AgeString, @ActivityLevel, " +
             "@ExerciseNeeds, @OwnerExperience, @SizeGroup, @VocalLevel);";
 
@@ -57,7 +57,6 @@ namespace PopulateDatabaseFromRescueGroupAPI.DAO
             bool result = false;
 
             SqlCommand cmd = new SqlCommand(sqlAddPet, conn);
-            cmd.Parameters.AddWithValue("@PetId", pet.PetId);
             cmd.Parameters.AddWithValue("@SpeciesId", pet.SpeciesId);
             cmd.Parameters.AddWithValue("@BreedId", pet.BreedId);
             cmd.Parameters.AddWithValue("@AgencyId", pet.AgencyId);
