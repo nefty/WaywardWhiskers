@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>{{pet.name}}</h1>
-    <h2>{{pet.id}}</h2>
+    <h2>{{pet.petId}}</h2>
 
   </div>
 </template>

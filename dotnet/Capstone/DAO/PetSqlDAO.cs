@@ -10,10 +10,12 @@ namespace Capstone.DAO
 {
     public class PetSqlDAO : IPetDAO
     {
+        private Random rand = new Random();
         private readonly string connectionString;
 
         private readonly string sqlGetPet = "SELECT * FROM pets WHERE pet_id = @PetId";
-        private readonly string sqlGetAllPets = "SELECT * FROM pets";
+        private readonly string sqlGetAllPets = "SELECT pets.*, species.name AS species_name, breeds.name AS breed_name FROM pets JOIN species ON pets.species_id = species.species_id " +
+                                                "JOIN breeds ON pets.breed_id = breeds.breed_id ORDER BY agency_id;";
         private readonly string sqlGetLikedPets = "SELECT * FROM pets " +
             "JOIN user_pet ON user_pet.pet_id = pets.pet_id " +
             "JOIN users ON users.user_id = user_pet.user_id " +
@@ -36,8 +38,8 @@ namespace Capstone.DAO
             "VALUES (@SpeciesId, @BreedId, @AgencyId, @PrimaryImageId, @PrimaryImageUrl, " +
             "@ThumbnailUrl, @Name, @DescriptionText, @Sex, @AgeGroup, @AgeString, @ActivityLevel, " +
             "@ExerciseNeeds, @OwnerExperience, @SizeGroup, @VocalLevel);";
-        private readonly string sqlUpdatePet = "UPDATE pets SET species_id = @SpeciesId, " +
-            "breed_id = @BreedId, agency_id = @AgencyId, primary_image_id = @PrimaryImageId, " +
+        private readonly string sqlUpdatePet = "UPDATE pets SET species_id = (SELECT species_id FROM species WHERE species.name = @Species), " +
+            "breed_id = (SELECT breed_id FROM breeds WHERE breeds.name = @Breed), agency_id = @AgencyId, primary_image_id = @PrimaryImageId, " +
             "primary_image_url = @PrimaryImageUrl, thumbnail_url = @ThumbnailUrl, name = @Name, " +
             "description_text = @DescriptionText, sex = @Sex, age_group = @AgeGroup, age_string = @AgeString, " +
             "activity_level = @ActivityLevel, exercise_needs = @ExerciseNeeds, owner_experience = @OwnerExperience," +
@@ -165,7 +167,7 @@ namespace Capstone.DAO
                     conn.Open();
 
                     SqlCommand cmd = BuildFilterSqlString(conn, search);
-                    
+
                     SqlDataReader reader = cmd.ExecuteReader();
 
                     while (reader.HasRows && reader.Read())
@@ -235,12 +237,26 @@ namespace Capstone.DAO
         // Helper methods
         private void AddPetParameters(Pet pet, SqlCommand cmd)
         {
-            cmd.Parameters.AddWithValue("@SpeciesId", pet.SpeciesId);
-            cmd.Parameters.AddWithValue("@BreedId", pet.BreedId);
+            int randId = rand.Next(9999, 1000000);
+            cmd.Parameters.AddWithValue("@Species", pet.Species);
+            cmd.Parameters.AddWithValue("@Breed", pet.Breed);
             cmd.Parameters.AddWithValue("@AgencyId", pet.AgencyId);
-            cmd.Parameters.AddWithValue("@PrimaryImageId", pet.PrimaryImageId);
+            if (pet.PrimaryImageId < 1)
+            {
+                cmd.Parameters.AddWithValue("@PrimaryImageId", randId);
+            }
+            else
+            {
+                cmd.Parameters.AddWithValue("@PrimaryImageId", pet.PrimaryImageId);
+            }
             cmd.Parameters.AddWithValue("@PrimaryImageUrl", pet.PrimaryImageUrl);
-            cmd.Parameters.AddWithValue("@ThumbnailUrl", pet.ThumbnailUrl);
+            if (pet.ThumbnailUrl == null)
+            {
+                cmd.Parameters.AddWithValue("@ThumbnailUrl", "");
+            } else
+            {
+                cmd.Parameters.AddWithValue("@ThumbnailUrl", pet.ThumbnailUrl);
+            }
             cmd.Parameters.AddWithValue("@Name", pet.Name);
             cmd.Parameters.AddWithValue("@DescriptionText", pet.DescriptionText);
             cmd.Parameters.AddWithValue("@Sex", pet.Sex);
@@ -259,7 +275,9 @@ namespace Capstone.DAO
 
             pet.PetId = Convert.ToInt32(reader["pet_id"]);
             pet.SpeciesId = Convert.ToInt32(reader["species_id"]);
+            pet.Species = Convert.ToString(reader["species_name"]);
             pet.BreedId = Convert.ToInt32(reader["breed_id"]);
+            pet.Breed = Convert.ToString(reader["breed_name"]);
             pet.AgencyId = Convert.ToInt32(reader["agency_id"]);
             pet.PrimaryImageId = Convert.ToInt32(reader["primary_image_id"]);
             pet.PrimaryImageUrl = Convert.ToString(reader["primary_image_url"]);

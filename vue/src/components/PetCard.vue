@@ -10,7 +10,7 @@
       class="mb-2"
       display="flex"
       v-on:click.prevent="writeLog"
-      v-if="this.$store.state.matchedPets.includes(pet.id) === false && this.$store.state.rejectedPets.includes(pet.id) === false"
+      v-if="this.$store.state.matchedPets.includes(pet.petId) === false && this.$store.state.rejectedPets.includes(pet.petId) === false"
     >
       <b-collapse id="collapse-1">
         <b-card>

@@ -9,7 +9,9 @@ namespace Capstone.Models
     {
         public int PetId { get; set; }
         public int SpeciesId { get; set; }
+        public string Species { get; set; }
         public int BreedId { get; set; }
+        public string Breed { get; set; }
         public int AgencyId { get; set; }
         public int PrimaryImageId { get; set; }
         public string PrimaryImageUrl { get; set; }
