@@ -103,5 +103,9 @@ export default new Vuex.Store({
     SET_FILTER_CRITERIA(state, filter){
       state.filter = filter;
     },
+    UPDATE_USER_PASSWORD(state, editedUser) {
+      state.users = this.state.users.filter(user => user.userId != editedUser.userId);
+      state.users = state.users.push(editedUser);
+    },
   }
 })

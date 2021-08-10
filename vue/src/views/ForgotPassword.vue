@@ -14,19 +14,26 @@
           placeholder="Enter email"
           required
         ></b-form-input>
-      <router-link :to="{name: 'reset-password', params: {resetCode: '5esmpjtymvx'}}">GO TO RESET PASSWORD PAGE</router-link>
+        <router-link
+          :to="{ name: 'reset-password', params: { resetCode: '5esmpjtymvx' } }"
+          >GO TO RESET PASSWORD PAGE</router-link
+        >
         <b-button type="submit" variant="primary">Submit</b-button>
         <router-link :to="{ name: 'login' }">
           <b-button type="reset" variant="secondary">Cancel</b-button>
         </router-link>
       </b-form-group>
     </b-form>
-    <p class="text-center" v-else>Thank you. An email has been sent with further instructions on resetting your password.</p>
+    <p class="text-center" v-else>
+      Thank you. An email has been sent with further instructions on resetting
+      your password.
+    </p>
   </b-container>
 </template>
 
 <script>
 import emailjs from "emailjs-com";
+import UserService from "@/services/UserService.js";
 export default {
   name: "forgot-password",
   data() {
@@ -34,32 +41,36 @@ export default {
       email: "",
       message: "http://localhost:8080/resetpassword/",
       from_name: "Wayward Whiskers",
-      showForm: true
+      showForm: true,
+      resetCode: "",
     };
   },
   methods: {
     onSubmit() {
-      try {
-        let user = this.$store.state.users.find(user => user.email === this.email);
-        this.message += user.passwordResetCode;
-          emailjs.send(
-            "service_ma4flzn",
-            "template_4pvo5su",
-            {
-              from_name: this.from_name,
-              message: this.message,
-              email: this.email,
-            },
-            "user_zwKLQJuOYaw9GImXa9FKt",
-          );
-          this.showForm = false;
-        
-      } catch (error) {
-        console.log({ error });
-      }
-      // Reset form field
-      this.email = "";
-      this.message = "";
+      UserService.getUserResetCodeFromEmailAddress(this.email).then(
+        (response) => {
+          if (response.status == 200) {
+            console.log(response);
+            this.sendEmail(this.message, response.data, this.email);
+          }
+        }
+      );
+
+      this.showForm = false;
+      
+    },
+    sendEmail(message, resetCode, emailAddress) {
+      let newURL = message + resetCode;
+      emailjs.send(
+        "service_ma4flzn",
+        "template_4pvo5su",
+        {
+          from_name: this.from_name,
+          message: newURL,
+          email: emailAddress,
+        },
+        "user_zwKLQJuOYaw9GImXa9FKt"
+      );
     },
     onReset() {},
   },

@@ -6,6 +6,7 @@ using Capstone.Models;
 using Capstone.DAO;
 using Capstone.DAO.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Capstone.Security;
 
 namespace Capstone.Controllers
 {
@@ -21,6 +22,21 @@ namespace Capstone.Controllers
                 this.adminDAO = adminDAO;
                 this.userDAO = userDAO;
             }
+
+        [HttpGet("{resetCode}")]
+        public ActionResult<User> GetUser(string resetCode)
+        {
+            return Ok(userDAO.GetUserFromPWResetCode(resetCode));
+        }
+
+        [HttpPut]
+        public ActionResult<bool> UpdateUserPasswordInfo(ResetPassword resetPassword)
+        {
+            return Ok(adminDAO.UpdateUserPasswordInfo(resetPassword));
+        }
         
+
+        
+
     }
 }

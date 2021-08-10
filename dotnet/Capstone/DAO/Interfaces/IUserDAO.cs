@@ -9,5 +9,8 @@ namespace Capstone.DAO.Interfaces
         User GetUser(int userId);
         List<User> GetUsers();
         User AddUser(string username, string password, string email, string role);
+
+        User GetUserFromPWResetCode(string resetCode);
+        string GetUserResetCodeFromEmail(string emailAddress);
     }
 }

@@ -13,10 +13,11 @@ namespace Capstone.DAO
     {
         private readonly string connectionString;
 
-        private readonly string sqlGetUserByName = "SELECT user_id, username, password_hash, salt, user_role FROM users WHERE username = @username";
-        private readonly string sqlGetUserById = "SELECT user_id, username, password_hash, salt, user_role FROM users WHERE user_id = @userId";
+        private readonly string sqlGetUserByName = "SELECT user_id, username,  email, password_hash, salt, password_reset_code, user_role FROM users WHERE username = @username";
+        private readonly string sqlGetUserById = "SELECT user_id, username,  email, password_hash, salt, password_reset_code, user_role FROM users WHERE user_id = @userId";
         private readonly string sqlGetUsers = "SELECT user_id, username, email, password_reset_code, user_role FROM users";
-        private readonly string sqlGetUserByPWResetCode = "SELECT user_id, username, password_hash, salt, user_role FROM users WHERE password_reset_code = @resetCode";
+        private readonly string sqlGetUserByPWResetCode = "SELECT user_id, email, username, password_reset_code, password_hash, salt, user_role FROM users WHERE password_reset_code = @resetCode";
+        private readonly string sqlGetUserByEmailAddress = "SELECT user_id, email, username, password_reset_code, password_hash, salt, user_role FROM users WHERE email = @email";
 
 
         public UserSqlDAO(string dbConnectionString)
@@ -186,7 +187,7 @@ namespace Capstone.DAO
 
                     if (reader.Read())
                     {
-                        returnUser = GetUserFromReader(reader);
+                        returnUser = GetLimitedUserFromReader(reader);
                     }
                 }
             }
@@ -196,6 +197,34 @@ namespace Capstone.DAO
             }
 
             return returnUser;
+        }
+
+        public string GetUserResetCodeFromEmail(string emailAddress)
+        {
+            string resetCode = "";
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand(sqlGetUserByEmailAddress, conn);
+                    cmd.Parameters.AddWithValue("@email", emailAddress);
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    if (reader.Read())
+                    {
+                        resetCode = Convert.ToString(reader["password_reset_code"]);
+                    }
+                }
+            }
+            catch (SqlException)
+            {
+                throw;
+            }
+
+            return resetCode;
         }
     }
 }
