@@ -39,8 +39,8 @@ namespace Capstone.Controllers
         }
 
         //todo [Authorize(Roles ="admin")]
-        [HttpPut]
-        public ActionResult<bool> UpdateUserRole(User user)
+        [HttpPut("users/{userId}")]
+        public ActionResult<bool> UpdateUserRole(User user, int userId)
         {
             return Ok(adminDAO.UpdateUserRole(user));
         }
