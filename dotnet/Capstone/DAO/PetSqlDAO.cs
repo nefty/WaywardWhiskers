@@ -238,8 +238,8 @@ namespace Capstone.DAO
         private void AddPetParameters(Pet pet, SqlCommand cmd)
         {
             int randId = rand.Next(9999, 1000000);
-            cmd.Parameters.AddWithValue("@Species", pet.Species);
-            cmd.Parameters.AddWithValue("@Breed", pet.Breed);
+            cmd.Parameters.AddWithValue("@SpeciesId", pet.SpeciesId);
+            cmd.Parameters.AddWithValue("@BreedId", pet.BreedId);
             cmd.Parameters.AddWithValue("@AgencyId", pet.AgencyId);
             if (pet.PrimaryImageId < 1)
             {

@@ -7,236 +7,273 @@
       >Add Pet</a
     >
 
-    <form v-on:submit.prevent="onSubmit" v-if="isFormShown">
-            <div class="form-group required-field">
-        <label for="agency_id">Agency: </label>
-  <select required class="form-control" @change="changeAgency($event)">
-    <option value="" selected disabled>Choose</option>
-    <option v-for="agency in agencies" :value="agency.agencyId" :key="agency.agencyId">{{ agency.name }}</option>
-  </select>
-      </div>
+    <b-form @submit="onSubmit" v-if="isFormShown">
+      <b-form-group id="agency" label="Agency:" label-for="agency">
+        <b-form-select
+          id="agency"
+          v-model="newPet.agencyId"
+          :options="agencies"
+          value-field="agencyId"
+          text-field="name"
+        >
+          <template #first>
+            <b-form-select-option :value="null" disabled
+              >Select an option</b-form-select-option
+            >
+          </template>
+        </b-form-select>
+      </b-form-group>
 
-      <div class="form-group required-field">
-        <label for="name">Name: </label>
-        <input
-          required
-          type="text"
+      <b-form-group id="name" label="Name:" label-for="name">
+        <b-form-input
           id="name"
-          name="name"
-          class="form-control"
           v-model="newPet.name"
-        />
-      </div>
-      <div class="form-group required-field">
-        <label for="species">Species: </label>
-     <select required class="form-control" @change="changeSpecies($event)">
-    <option value="" selected disabled>Choose</option>
-    <option v-for="pet in pets" :value="pet.speciesId" :key="pet.speciesId">{{ pet.species }}</option>
-  </select>
-      </div>
-      <div class="form-group required-field">
-        <label for="breed">Breed: </label>
-        <input
-          required
           type="text"
-          id="breed"
-          name="breed"
-          class="form-control"
+          placeholder="Enter Animal Name"
+          required
+        />
+      </b-form-group>
+
+      <b-form-group id="species" label="Species:" label-for="species">
+        <b-form-select
+          id="species"
+          v-model="newPet.speciesId"
+          :options="species"
+          value-field="speciesId"
+          text-field="name"
+        >
+          <template #first>
+            <b-form-select-option :value="null" disabled
+              >Select an option</b-form-select-option
+            >
+          </template>
+        </b-form-select>
+      </b-form-group>
+
+      <b-form-group id="breed" label="Breed:" label-for="breeds">
+        <b-form-select
+          id="input-breeds"
           v-model="newPet.breedId"
-        />
-      </div>
+          :options="speciesBreeds"
+          value-field="breedId"
+          text-field="name"
+        >
+          <template #first>
+            <b-form-select-option :value="null" disabled
+              >Select an option</b-form-select-option
+            >
+          </template>
+        </b-form-select>
+      </b-form-group>
 
-      <div class="form-group required-field">
-        <label for="sex">Sex: </label>
-        <input
-          type="text"
-          id="sex"
-          name="sex"
-          class="form-control"
-          v-model="newPet.sex"
-        />
-      </div>
-      <div class="form-group">
-        <label for="ageString">Age: (ex: 1 year 7 months) </label>
-        <input
-          type="text"
+      <b-form-group id="ageString" label="Age:" label-for="ageString">
+        <b-form-input
           id="ageString"
-          name="ageString"
-          class="form-control"
           v-model="newPet.ageString"
-        />
-      </div>
-      <div class="form-group required-field">
-        <label for="ageGroup">Age Group: </label>
-  <select required class="form-control" @change="changeAge($event)">
-    <option value="" selected disabled>Choose</option>
-    <option v-for="age in ageGroups" :value="age.name" :key="age.id">{{ age.name }} ({{age.desc}})</option>
-  </select>
-      </div>
-      <div class="form-group required-field">
-        <label for="activityLevel">Activity Level: </label>
-        <input
-          required
           type="text"
-          id="activityLevel"
-          name="activityLevel"
-          class="form-control"
+          placeholder="Enter Animal's Age"
+          description="Ex. 1 year 7 months"
+        />
+      </b-form-group>
+
+      <b-form-group id="age-group" label="Age Group:" label-for="age-group">
+        <b-form-select
+          id="input-age-groups"
+          v-model="newPet.ageGroup"
+          :options="ageGroupOptions"
+          name="age-group"
+        ></b-form-select>
+      </b-form-group>
+
+      <b-form-group
+        id="activity-level"
+        label="Activity Level:"
+        label-for="activity-level"
+      >
+        <b-form-select
+          id="activity-level"
           v-model="newPet.activityLevel"
-        />
-      </div>
-      <div class="form-group required-field">
-        <label for="exerciseNeeds">Exercise Needs: </label>
-        <input
-          required
-          type="text"
-          id="exerciseNeeds"
-          name="exerciseNeeds"
-          class="form-control"
+          :options="activityLevelOptions"
+          name="activity-level"
+        ></b-form-select>
+      </b-form-group>
+
+      <b-form-group
+        id="exercise-needs"
+        label="Exercise Needs:"
+        label-for="exercise-needs"
+      >
+        <b-form-select
+          id="input-exercise-needs"
           v-model="newPet.exerciseNeeds"
-        />
-      </div>
+          :options="exerciseNeedsOptions"
+          name="exercise-needs"
+        ></b-form-select>
+      </b-form-group>
 
-      <div class="form-group required-field">
-        <label for="ownerExperience">Owner Experience Required?: </label>
-  <select required class="form-control" @change="changeExperience($event)">
-    <option value="" selected disabled>Choose</option>
-    <option v-for="experience in experienceTypes" :value="experience.id" :key="experience.id">{{ experience.name }}</option>
-  </select>
-      </div>
+      <b-form-group
+        id="owner-experience"
+        label="Owner Experience Required:"
+        label-for="owner-experience"
+      >
+        <b-form-select
+          id="owner-experience"
+          v-model="newPet.ownerExperience"
+          :options="ownerExperienceOptions"
+          name="owner-experience"
+        ></b-form-select>
+      </b-form-group>
 
-      <div class="form-group required-field">
-        <label for="sizeGroup">Size Group: </label>
-        <input
-          required
-          type="text"
-          id="sizeGroup"
-          name="sizeGroup"
-          class="form-control"
+      <b-form-group id="size-group" label="Size Group:" label-for="size-group">
+        <b-form-select
+          id="input-size-group"
           v-model="newPet.sizeGroup"
-        />
-      </div>
+          :options="sizeGroupOptions"
+          name="size-group"
+        ></b-form-select>
+      </b-form-group>
 
-      <div class="form-group required-field">
-        <label for="vocalLevel">Vocal Level: </label>
-        <input
-          required
-          type="text"
-          id="vocalLevel"
-          name="vocalLevel"
-          class="form-control"
-          v-model="newPet.descriptionText"
-        />
-      </div>
+      <b-form-group
+        id="vocal-level"
+        label="Vocal Level:"
+        label-for="vocal-level"
+      >
+        <b-form-select
+          id="vocal-level"
+          v-model="newPet.vocalLevel"
+          :options="vocalLevelOptions"
+          name="vocal-level"
+        ></b-form-select>
+      </b-form-group>
 
-      <div class="form-group required-field">
-        <label for="description">Description: </label>
-        <input
-          required
-          type="text"
+      <b-form-group id="description" label="Description:" label-for="description">
+        <b-form-input
           id="description"
-          name="description"
-          class="form-control"
           v-model="newPet.descriptionText"
-        />
-      </div>
-
-      <div class="form-group required-field">
-        <label for="image">Primary Image URL: </label>
-        <input
+          type="text"
           required
-          type="text"
-          id="primaryImage"
-          name="primaryImage"
-          class="form-control"
-          v-model="newPet.PrimaryImageUrl"
         />
-      </div>
+      </b-form-group>
 
-      <div class="form-group">
-        <label for="thumbnail">Thumbnail URL: </label>
-        <input
+      <b-form-group id="imageUrl" label="Image URL:" label-for="imageUrl">
+        <b-form-input
+          id="imageUrl"
+          v-model="newPet.PrimaryImageUrl"
           type="text"
-          id="thumbnail"
-          name="thumbnail"
-          class="form-control"
-          v-model="newPet.ThumbnailUrl"
+          required
         />
-      </div>
+      </b-form-group>
+
+      <b-form-group id="thumbnailUrl" label="Thumbnail Url:" label-for="thumbnailUrl">
+        <b-form-input
+          id="thumbnailUrl"
+          v-model="newPet.thumbnailUrl"
+          type="text"
+          description="Can be the same as primary image."
+        />
+      </b-form-group>
 
       <div>
         <p class="required-field">Required field</p>
       </div>
 
-      <input type="submit" class="btn btn-success" />
+      <b-button type="submit" variant="primary">Submit</b-button>
       <input
         type="button"
         v-on:click.prevent="resetForm"
         class="btn btn-secondary"
         value="Cancel"
       />
-    </form>
+    </b-form>
   </div>
 </template>
 
 <script>
 import PetService from "../services/PetService.js";
+import SpeciesService from "@/services/SpeciesService.js";
+import BreedService from "@/services/BreedService.js";
 import AgencyService from "@/services/AgencyService.js";
 
 export default {
   name: "PetAdd",
-    computed: {
-    agencies() {
-      return this.$store.state.agencies;
-    },
-    pets() {
-      return this.$store.state.pets;
-    },
-  },
   data() {
     return {
       newPet: {},
 
       isFormShown: false,
 
-      experienceTypes: [
-        {name: "None", id: 0},
-        {name: "Species Specific", id: 1}
+ sexOptions: [
+        "Male",
+        "Female"
       ],
-            ageGroupOptions: [
-          { text: "Baby", value: "Baby" },
-          { text: "Young", value: "Young" },
-          { text: "Adult", value: "Adult" },
-          { text: "Senior", value: "Senior" },
-        ],
-      ageGroups: [
-        {name: "baby", desc:"<6 months", id: 0},
-        {name: "young", desc:"6 months - 2 years", id: 1},
-        {name: "adult", desc:"2 years - 6 years", id: 2},
-        {name: "senior", desc:"6+ years", id: 3}
+      ageGroupOptions: [
+        "Baby",
+        "Young",
+        "Adult",
+        "Senior"
       ],
-      energyLevels: [
-
-      ]
+      activityLevelOptions: [
+        "Not Active",
+        "Slightly Active",
+        "Moderately Active",
+        "Highly Active"
+      ],
+      exerciseNeedsOptions: [
+        "Not Required",
+        "Low",
+        "Moderate",
+        "High"
+      ],
+      ownerExperienceOptions: [
+        "None",
+        "Species",
+        "Breed"
+      ],
+      sizeGroupOptions: [          
+        "Small",
+        "Medium",
+        "Large",
+        "X-Large"
+      ],
+      vocalLevelOptions: [
+        "Quiet",
+        "Some",
+        "Lots"
+      ],
     };
   },
-created() {
-    AgencyService.getAllAgencies().then((response) => {
-      this.$store.commit("SET_AGENCIES", response.data); 
-    });
-    PetService.getAllPets().then((response) => {
-      this.$store.commit("SET_PETS", response.data);
-    });
+   computed: {
+   speciesBreeds: function () {
+      if (this.newPet.speciesId !== 0) {
+        return this.breeds.filter( (breed) => {          
+          return breed.speciesId === this.newPet.speciesId;
+        });
+        } else {
+          return this.breeds;
+        }
+    },
+    species: function () {
+      return this.$store.state.species;
+    },
+    breeds: function () {
+      return this.$store.state.breeds;
+    },
+    agencies: function () {
+      return this.$store.state.agencies;
+    },
   },
+  created() {
+      SpeciesService.getAllSpecies().then((response) => {
+        this.$store.commit("SET_SPECIES", response.data);
+      });
+      BreedService.getAllBreeds().then((response) => {
+        this.$store.commit("SET_BREEDS", response.data) 
+      });
+      AgencyService.getAllAgencies().then((response) => {
+        this.$store.commit("SET_AGENCIES", response.data) 
+      });
+    },
   methods: {
-        changeExperience(event) {
-      this.newpet.ownerExperience = event.target.options[event.target.options.selectedIndex].text
-    },
-    changeSpecies(event) {
-      this.newpet.speciesId = event.target.options[event.target.options.selectedIndex].text
-    },
-    changeAge(event) {
-      this.newpet.ageGroup = event.target.options[event.target.options.selectedIndex].text
-    },
     onSubmit() {
       this.$store.commit("ADD_PET", this.newPet);
 
