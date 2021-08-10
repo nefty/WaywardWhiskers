@@ -8,7 +8,7 @@
     >
 
     <form v-on:submit="onSubmit" v-if="isFormShown">
-      <div class="form-group">
+     <div class="form-group">
         <label for="name">Agency Name </label>
         <input
           required
@@ -20,24 +20,14 @@
         />
       </div>
       <div class="form-group">
-        <label for="address">Address </label>
+        <label for="street">Street Address </label>
         <input
           required
           type="text"
-          id="adress"
-          name="adress"
+          id="street"
+          name="street"
           class="form-control"
-          v-model="newAgency.address"
-        />
-      </div>
-      <div class="form-group">
-        <label for="address2">Address 2 </label>
-        <input
-          type="text"
-          id="address2"
-          name="address2"
-          class="form-control"
-          v-model="newAgency.address2"
+          v-model="newAgency.street"
         />
       </div>
 
@@ -76,21 +66,49 @@
         />
       </div>
       <div class="form-group">
-          <label for="description">Description</label>
-          <input
-          required
+        <label for="email">Email </label>
+        <input
           type="text"
-          id="description"
-          name="description"
+          id="email"
+          name="email"
           class="form-control"
-          v-model.number="newAgency.description"
+          v-model="newAgency.email"
         />
       </div>
-
+      <div class="form-group">
+        <label for="phone">Phone Number </label>
+        <input
+          type="text"
+          id="phone"
+          name="phone"
+          class="form-control"
+          v-model="newAgency.phone"
+        />
+      </div>
+      <div class="form-group">
+        <label for="about">About</label>
+        <input
+          type="text"
+          id="about"
+          name="about"
+          class="form-control"
+          v-model.number="newAgency.about"
+        />
+      </div>
+      <div class="form-group">
+        <label for="url">Website URL</label>
+        <input
+          type="text"
+          id="url"
+          name="url"
+          class="form-control"
+          v-model.number="newAgency.url"
+        />
+      </div>
       <input type="submit" class="btn btn-success" />
       <input
         type="button"
-        v-on:click="resetForm"
+        v-on:click="returnToAgency"
         class="btn btn-secondary"
         value="Cancel"
       />

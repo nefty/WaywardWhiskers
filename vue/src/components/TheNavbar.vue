@@ -2,6 +2,7 @@
   <div id="navbar">
     <b-navbar toggleable="lg" type="light" variant="light">
       <b-navbar-brand>
+        <img class="logo" :src="require('../assets/logo.png')" />
         <router-link class="navbar-brand" v-bind:to="{ name: 'home' }"
           >Wayward Whiskers</router-link
         >
@@ -53,3 +54,11 @@ export default {
   name: "the-navbar",
 };
 </script>
+
+<style>
+.logo {
+  height: 75px;
+  width: 75px;
+
+}
+</style>

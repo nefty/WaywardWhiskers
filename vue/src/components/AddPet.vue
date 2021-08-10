@@ -8,7 +8,17 @@
     >
 
     <form v-on:submit.prevent="onSubmit" v-if="isFormShown">
-      <div class="form-group">
+      <div class="form-group required-field">
+        <label for="agency_id">Agency ID:</label>
+        <input
+          type="number"
+          id="agency_id"
+          name="agency_id"
+          class="form-control"
+          v-model.number="newPet.agencyId"
+        />
+      </div>
+      <div class="form-group required-field">
         <label for="name">Name: </label>
         <input
           required
@@ -19,18 +29,18 @@
           v-model="newPet.name"
         />
       </div>
-      <div class="form-group">
-        <label for="type">Type: </label>
+      <div class="form-group required-field">
+        <label for="species">Species: </label>
         <input
           required
           type="text"
-          id="type"
-          name="type"
+          id="species"
+          name="species"
           class="form-control"
-          v-model="newPet.type"
+          v-model.number="newPet.speciesId"
         />
       </div>
-      <div class="form-group">
+      <div class="form-group required-field">
         <label for="breed">Breed: </label>
         <input
           required
@@ -38,22 +48,96 @@
           id="breed"
           name="breed"
           class="form-control"
-          v-model="newPet.breed"
+          v-model="newPet.breedId"
         />
       </div>
 
-      <div class="form-group">
-        <label for="age">Age: </label>
+      <div class="form-group required-field">
+        <label for="sex">Sex: </label>
         <input
-          type="number"
-          id="age"
+          type="text"
+          id="sex"
+          name="sex"
+          class="form-control"
+          v-model="newPet.sex"
+        />
+      </div>
+      <div class="form-group required-field">
+        <label for="ageString">Age: (ex: 1 year 7 months) </label>
+        <input
+          type="text"
+          id="ageString"
+          name="ageString"
+          class="form-control"
+          v-model="newPet.ageString"
+        />
+      </div>
+      <div class="form-group required-field">
+        <label for="ageGroup">Age Group: </label>
+        <input
+          type="text"
+          id="ageGroup"
           name="age"
           class="form-control"
-          v-model.number="newPet.age"
+          v-model="newPet.age"
         />
       </div>
-
-      <div class="form-group">
+      <div class="form-group required-field">
+        <label for="activityLevel">Activity Level: </label>
+        <input
+          required
+          type="text"
+          id="activityLevel"
+          name="activityLevel"
+          class="form-control"
+          v-model="newPet.activityLevel"
+        />
+      </div>
+      <div class="form-group required-field">
+        <label for="exerciseNeeds">Exercise Needs: </label>
+        <input
+          required
+          type="text"
+          id="exerciseNeeds"
+          name="exerciseNeeds"
+          class="form-control"
+          v-model="newPet.exerciseNeeds"
+        />
+      </div>
+      <div class="form-group required-field">
+        <label for="ownerExperience">Owner Experience Required?: </label>
+        <input
+          required
+          type="text"
+          id="ownerExperience"
+          name="ownerExperience"
+          class="form-control"
+          v-model="newPet.ownerExperience"
+        />
+      </div>
+      <div class="form-group required-field">
+        <label for="sizeGroup">Size Group: </label>
+        <input
+          required
+          type="text"
+          id="sizeGroup"
+          name="sizeGroup"
+          class="form-control"
+          v-model="newPet.sizeGroup"
+        />
+      </div>
+      <div class="form-group required-field">
+        <label for="vocalLevel">Vocal Level: </label>
+        <input
+          required
+          type="text"
+          id="vocalLevel"
+          name="vocalLevel"
+          class="form-control"
+          v-model="newPet.descriptionText"
+        />
+      </div>
+      <div class="form-group required-field">
         <label for="description">Description: </label>
         <input
           required
@@ -61,28 +145,32 @@
           id="description"
           name="description"
           class="form-control"
-          v-model="newPet.description"
+          v-model="newPet.descriptionText"
+        />
+      </div>
+      <div class="form-group required-field">
+        <label for="image">Primary Image URL: </label>
+        <input
+          required
+          type="text"
+          id="primaryImage"
+          name="primaryImage"
+          class="form-control"
+          v-model="newPet.PrimaryImageUrl"
         />
       </div>
       <div class="form-group">
-        <label for="image">Image URL: </label>
+        <label for="thumbnail">Thumbnail URL: </label>
         <input
           type="text"
-          id="image"
-          name="image"
+          id="thumbnail"
+          name="thumbnail"
           class="form-control"
-          v-model="newPet.imageUrl"
+          v-model="newPet.ThumbnailUrl"
         />
       </div>
-      <div class="form-group">
-          <label for="agency_id">Agency ID:</label>
-          <input
-          type="number"
-          id="agency_id"
-          name="agency_id"
-          class="form-control"
-          v-model.number="newPet.agencyId"
-        />
+      <div>
+        <p class="required-field">Required field</p>
       </div>
 
       <input type="submit" class="btn btn-success" />
@@ -119,7 +207,6 @@ export default {
           // this.$router.push({ name: "pets-list" });
         })
         .catch((error) => {
-         
           if (error.response) {
             console.log("HTTP Response Code: ", error.response.data.status);
             console.log("Description: ", error.response.data.title);
@@ -140,5 +227,9 @@ export default {
 </script>
 
 <style>
-
+.required-field::before {
+  content: "*";
+  color: red;
+  margin-right: 2px;
+}
 </style>

@@ -7,10 +7,12 @@ using Capstone.Security;
 using Capstone.Security.Models;
 
 
+
 namespace Capstone.DAO
 {
     public class AgencySqlDAO : IAgencyDAO
     {
+        private Random rand = new Random();
         private readonly string connectionString;
 
         private readonly string sqlGetAgency = "SELECT * FROM agencies WHERE agency_id = @agencyId;";
@@ -159,7 +161,15 @@ namespace Capstone.DAO
         // Helper Methods
         private void AddAgencyParameters(Agency agency, SqlCommand cmd)
         {
-            cmd.Parameters.AddWithValue("@AgencyId", agency.AgencyId);
+            int randomId = rand.Next(9999);
+            if (agency.AgencyId < 1)
+            {
+                cmd.Parameters.AddWithValue("@AgencyId", randomId);
+            }
+            else
+            {
+                cmd.Parameters.AddWithValue("@AgencyId", agency.AgencyId);
+            }
             cmd.Parameters.AddWithValue("@Name", agency.Name);
             cmd.Parameters.AddWithValue("@Stree", agency.Street);
             cmd.Parameters.AddWithValue("@City", agency.City);
