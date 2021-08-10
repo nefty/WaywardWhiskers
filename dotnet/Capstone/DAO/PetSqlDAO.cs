@@ -18,7 +18,7 @@ namespace Capstone.DAO
             "JOIN user_pet ON user_pet.pet_id = pets.pet_id " +
             "JOIN users ON users.user_id = user_pet.user_id " +
             "WHERE users.user_id = @userId;";
-        private string sqlGetFilteredPetsBase = "SELECT pet_id, species_id, breed_id, agency_id, primary_image_id, primary_image_url, " +
+        private string sqlGetFilteredPetsPrefix = "SELECT pet_id, species_id, breed_id, agency_id, primary_image_id, primary_image_url, " +
             "thumbnail_url, name, description_text, sex, age_group, age_string, activity_level, exercise_needs, " +
             "owner_experience, size_group, vocal_level " +
             "FROM pets WHERE 1=1 ";
@@ -164,26 +164,7 @@ namespace Capstone.DAO
                 {
                     conn.Open();
 
-                    SqlCommand cmd = new SqlCommand(sqlGetFilteredPetsBase, conn);
-                    cmd.Parameters.AddWithValue("@UserId", search.UserId);
-
-                    if (search.SpeciesId != 0)
-                    {
-                        cmd.CommandText = cmd.CommandText + " AND species_id = @SpeciesId ";
-                        cmd.Parameters.AddWithValue("@SpeciesId", search.SpeciesId);
-                    }
-                    if (search.BreedIds != null)
-                    {
-                        cmd.CommandText += " AND ( 1=0";
-                        for (int i = 0; i < search.BreedIds.Count; i++)
-                        {
-                            cmd.CommandText = cmd.CommandText + $" OR breed_id = @breedId{i}";
-                            cmd.Parameters.AddWithValue($"@breedId{i}", search.BreedIds[i]);
-                        }
-                        cmd.CommandText += ") ";
-                    }
-
-                    cmd.CommandText += sqlGetFilteredPetsSuffix;
+                    SqlCommand cmd = BuildFilterSqlString(conn, search);
                     
                     SqlDataReader reader = cmd.ExecuteReader();
 
@@ -296,6 +277,107 @@ namespace Capstone.DAO
             pet.VocalLevel = Convert.ToString(reader["vocal_level"]);
 
             return pet;
+        }
+
+        private SqlCommand BuildFilterSqlString(SqlConnection conn, SearchCriteria search)
+        {
+            SqlCommand cmd = new SqlCommand(sqlGetFilteredPetsPrefix, conn);
+            cmd.Parameters.AddWithValue("@UserId", search.UserId);
+
+            if (search.SpeciesId != 0)
+            {
+                cmd.CommandText += " AND species_id = @SpeciesId ";
+                cmd.Parameters.AddWithValue("@SpeciesId", search.SpeciesId);
+            }
+            if (search.BreedIds != null)
+            {
+                cmd.CommandText += " AND ( 1=0";
+                for (int i = 0; i < search.BreedIds.Count; i++)
+                {
+                    cmd.CommandText += $" OR breed_id = @breedId{i}";
+                    cmd.Parameters.AddWithValue($"@breedId{i}", search.BreedIds[i]);
+                }
+                cmd.CommandText += ") ";
+            }
+            if (search.AgencyIds != null)
+            {
+                cmd.CommandText += " AND ( 1=0";
+                for (int i = 0; i < search.AgencyIds.Count; i++)
+                {
+                    cmd.CommandText += $" OR agency_id = @agencyId{i}";
+                    cmd.Parameters.AddWithValue($"@agencyId{i}", search.AgencyIds[i]);
+                }
+                cmd.CommandText += ") ";
+            }
+            if (search.Sex != null)
+            {
+                cmd.CommandText += $" AND sex = @sex ";
+                cmd.Parameters.AddWithValue("@sex", search.Sex);
+            }
+            if (search.AgeGroups != null)
+            {
+                cmd.CommandText += " AND ( 1=0";
+                for (int i = 0; i < search.AgeGroups.Count; i++)
+                {
+                    cmd.CommandText += $" OR age_group = @ageGroup{i}";
+                    cmd.Parameters.AddWithValue($"@ageGroup{i}", search.AgeGroups[i]);
+                }
+                cmd.CommandText += ") ";
+            }
+            if (search.ActivityLevels != null)
+            {
+                cmd.CommandText += " AND ( 1=0";
+                for (int i = 0; i < search.ActivityLevels.Count; i++)
+                {
+                    cmd.CommandText += $" OR activity_level = @activityLevel{i}";
+                    cmd.Parameters.AddWithValue($"@activityLevel{i}", search.ActivityLevels[i]);
+                }
+                cmd.CommandText += ") ";
+            }
+            if (search.AllExerciseNeeds != null)
+            {
+                cmd.CommandText += " AND ( 1=0";
+                for (int i = 0; i < search.AllExerciseNeeds.Count; i++)
+                {
+                    cmd.CommandText += $" OR exercise_needs = @exerciseNeeds{i}";
+                    cmd.Parameters.AddWithValue($"@exerciseNeeds{i}", search.AllExerciseNeeds[i]);
+                }
+                cmd.CommandText += ") ";
+            }
+            if (search.OwnerExperiences != null)
+            {
+                cmd.CommandText += " AND ( 1=0";
+                for (int i = 0; i < search.OwnerExperiences.Count; i++)
+                {
+                    cmd.CommandText += $" OR owner_experience = @ownerExperience{i}";
+                    cmd.Parameters.AddWithValue($"@ownerExperience{i}", search.OwnerExperiences[i]);
+                }
+                cmd.CommandText += ") ";
+            }
+            if (search.SizeGroups != null)
+            {
+                cmd.CommandText += " AND ( 1=0";
+                for (int i = 0; i < search.SizeGroups.Count; i++)
+                {
+                    cmd.CommandText += $" OR size_group = @sizeGroup{i}";
+                    cmd.Parameters.AddWithValue($"@sizeGroup{i}", search.SizeGroups[i]);
+                }
+                cmd.CommandText += ") ";
+            }
+            if (search.VocalLevels != null)
+            {
+                cmd.CommandText += " AND ( 1=0";
+                for (int i = 0; i < search.VocalLevels.Count; i++)
+                {
+                    cmd.CommandText += $" OR vocal_level = @vocalLevel{i}";
+                    cmd.Parameters.AddWithValue($"@vocalLevel{i}", search.VocalLevels[i]);
+                }
+                cmd.CommandText += ") ";
+            }
+
+            cmd.CommandText += sqlGetFilteredPetsSuffix;
+
+            return cmd;
         }
     }
 }

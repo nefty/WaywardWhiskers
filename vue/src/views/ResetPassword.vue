@@ -1,6 +1,6 @@
 <template>
   <b-container class="reset-password-form">
-      <b-form >
+      <b-form @submit.prevent="onSubmit">
       <b-form-group
         id="input-group-1"
         label="New Password:"
@@ -35,7 +35,13 @@ export default {
             password: '',
             confirmPassword: '',
         }
+    },
+    methods: {
+        onSubmit(){
+            
+        }
     }
+
 
 }
 </script>
