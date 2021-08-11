@@ -1,6 +1,6 @@
 <template>
-
-      <div class="form-group">
+  <b-container>
+  <div class="form-group">
     <form v-on:submit.prevent="onSubmit" >
         <h3>Please Select A Role For "{{editedUser.username}}"</h3>
   <select class="form-control" @change="changeSelectedRole($event)">
@@ -19,6 +19,7 @@
       />
     </form>
   </div>
+  </b-container>
 </template>
 
 <script>
