@@ -23,9 +23,9 @@ export default {
   name: "single-instance-map",
   data() {
     return {
-      zoom: 4,
-      center: {lat: agency.lat.number, lng: agency.lon.number},
+      zoom: 9,
       url: "https://api.mapbox.com/styles/v1/mapbox/light-v10/tiles/{z}/{x}/{y}?access_token=pk.eyJ1Ijoid2F5d2FyZHdoaXNrZXJzIiwiYSI6ImNrczZ2cmRqeDA1eGkzMnBjZG56ZTNjd20ifQ.gEc2Jf8bIdDFzmmcrdZ4nw",
+      attribution:
         '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors | Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
       mapOptions: {
         zoomSnap: 0.5,
@@ -40,4 +40,5 @@ export default {
 };
 </script>
 
+<style>
 </style>
