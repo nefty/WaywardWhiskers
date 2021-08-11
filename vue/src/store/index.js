@@ -59,8 +59,8 @@ export default new Vuex.Store({
       state.user = {};
       axios.defaults.headers.common = {};
     },
-    SET_ACTIVE_PET(state, petId) {
-      state.activePet = petId;
+    SET_ACTIVE_PET(state, pet) {
+      state.activePet = pet;
     },
     SET_PETS(state, pets) {
       state.pets = pets;

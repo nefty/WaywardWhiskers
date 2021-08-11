@@ -22,6 +22,11 @@
               >Pet Matcher</router-link
             >
           </b-nav-item>
+          <b-nav-item v-if="$store.state.token != ''">
+            <router-link class="nav-link" v-bind:to="{ name: 'matches' }"
+              >My Matches</router-link
+            >
+          </b-nav-item>
           <b-nav-item v-if="$store.state.user.role == 'admin'">
             <router-link class="nav-link" v-bind:to="{ name: 'admin' }"
               >Admin</router-link
