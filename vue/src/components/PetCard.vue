@@ -21,7 +21,7 @@
         >Toggle Collapse
       </b-button>
       <accept-reject-icons-bar  />
-      <router-link :to="{ name: 'pet-details', params: {id: pet.petId} }" :pet="pet">DETAILS</router-link>
+      <router-link :to="{ name: 'pet-details', params: {id: pet.petId} }" >DETAILS</router-link>
     </b-card>
 </template>
 

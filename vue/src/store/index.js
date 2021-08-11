@@ -75,8 +75,8 @@ export default new Vuex.Store({
     DELETE_PET(state, petId) {
       state.pets = this.state.pets.filter(pet => pet.petId != petId);
     },
-    SET_ACTIVE_AGENCY(state, agencyId) {
-      state.activeAgency = agencyId;
+    SET_ACTIVE_AGENCY(state, agency) {
+      state.activeAgency = agency;
     },
     SET_AGENCIES(state, agencies) {
       state.agencies = agencies;
