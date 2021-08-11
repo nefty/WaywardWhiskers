@@ -2,15 +2,14 @@
   <b-container>
     <div style="height: 500px; width: 100%">
       <l-map
-          :zoom="zoom"
-          :center="center"
-          :options="mapOptions"
-          style="height: 80%"
+        :zoom="zoom"
+        :center="center"
+        :options="mapOptions"
+        style="height: 80%"
       >
         <l-tile-layer
           :url="url"
           :attribution="attribution"
-
         />
         <l-marker
           v-for="agency in agencies"
