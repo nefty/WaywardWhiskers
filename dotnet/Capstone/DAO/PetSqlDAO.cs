@@ -50,6 +50,9 @@ namespace Capstone.DAO
             "activity_level = @ActivityLevel, exercise_needs = @ExerciseNeeds, owner_experience = @OwnerExperience," +
             "size_group = @SizeGroup, vocal_level = @VocalLevel WHERE pet_id = @PetId";
         private readonly string sqlDeletePet = "DELETE FROM pets WHERE pet_id = @petId";
+        private readonly string sqlLikePet = "INSERT INTO user_pet (user_id, pet_id) " +
+            "VALUES (@userId, @petId);";
+        private readonly string sqlUnlikePet = "DELETE FROM user_pet WHERE user_id = @userId AND pet_id = @petId;";
 
         public PetSqlDAO(string dbConnectionString)
         {
@@ -235,11 +238,83 @@ namespace Capstone.DAO
             {
                 Console.WriteLine(ex.Message);
             }
-            return result;
 
+            return result;
+        }
+
+        public bool LikePets(int userId, IEnumerable<Pet> likedPets)
+        {
+            bool result = false;
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    foreach (Pet likedPet in likedPets)
+                    {
+                        LikePet(userId, likedPet, conn);
+                    }
+                    result = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+
+            return result;
+        }
+
+        public bool UnlikePet(int userId, Pet unlikedPet)
+        {
+            bool result = false;
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand(sqlUnlikePet, conn);
+                    cmd.Parameters.AddWithValue("@userId", userId);
+                    cmd.Parameters.AddWithValue("@petId", unlikedPet.PetId);
+
+                    int rows = cmd.ExecuteNonQuery();
+                    if (rows > 0)
+                        result = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+
+            return result;
         }
 
         // Helper methods
+        private bool LikePet(int userId, Pet likedPet, SqlConnection conn)
+        {
+            bool result = false;
+            try
+            {
+                SqlCommand cmd = new SqlCommand(sqlLikePet, conn);
+                cmd.Parameters.AddWithValue("@userId", userId);
+                cmd.Parameters.AddWithValue("@petId", likedPet.PetId);
+
+                int rows = cmd.ExecuteNonQuery();
+                if (rows > 0)
+                    result = true;
+            }
+            catch (Exception ex)
+            {
+            }
+
+            return result;
+        }
+
         private void AddPetParameters(Pet pet, SqlCommand cmd)
         {
             int randId = rand.Next(9999, 1000000);
@@ -258,7 +333,8 @@ namespace Capstone.DAO
             if (pet.ThumbnailUrl == null)
             {
                 cmd.Parameters.AddWithValue("@ThumbnailUrl", "");
-            } else
+            }
+            else
             {
                 cmd.Parameters.AddWithValue("@ThumbnailUrl", pet.ThumbnailUrl);
             }

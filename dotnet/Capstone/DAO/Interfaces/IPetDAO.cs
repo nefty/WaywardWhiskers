@@ -15,5 +15,7 @@ namespace Capstone.DAO.Interfaces
         IEnumerable<Pet> GetFilteredPets(SearchCriteria search);
         bool UpdatePet(Pet pet);
         bool DeletePet(int petId);
+        bool LikePets(int userId, IEnumerable<Pet> likedPets);
+        bool UnlikePet(int userId, Pet unlikedPet);
     }
 }

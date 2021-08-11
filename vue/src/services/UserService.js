@@ -26,6 +26,12 @@ export default {
     getUserResetCodeFromEmailAddress(emailAddress){
         console.log(emailAddress);
         return axios.get(`/forgotpassword/${emailAddress}`)
+    },
+    likePets(likedPets) {
+        return axios.post(`/user/pets/liked`, likedPets)
+    },
+    unlikePet(unlikedPet) {
+        return axios.delete(`/user/pets/liked`, unlikedPet)
     }
     
 }
