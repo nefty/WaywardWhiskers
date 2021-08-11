@@ -19,6 +19,7 @@ import AgencyList from '@/components/AgencyList.vue'
 import EditAgency from '@/views/EditAgency.vue'
 import ForgotPassword from '@/views/ForgotPassword.vue'
 import ResetPassword from '@/views/ResetPassword.vue'
+import Matches from '@/views/Matches.vue'
 
 
 Vue.use(Router)
@@ -188,6 +189,14 @@ const router = new Router({
     meta: {
       requiresAuth: true,
       requiresAdmin: true
+    }
+  },
+  {
+    path: "/mymatches",
+    name: "matches",
+    component: Matches,
+    meta: {
+      requiresAuth: true,
     }
   }
   ]

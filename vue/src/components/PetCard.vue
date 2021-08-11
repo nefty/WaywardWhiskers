@@ -9,19 +9,19 @@
       style="max-width: 20rem"
       class="mb-2"
       display="flex"
-      v-on:click.prevent="writeLog"
-      v-if="this.$store.state.matchedPets.includes(pet.petId) === false && this.$store.state.rejectedPets.includes(pet.petId) === false"
+      v-if="(this.$store.state.matchedPets.includes(pet) === false && this.$store.state.rejectedPets.includes(pet) === false) || isMatchedPage === true"
+      v-on:mouseover="setActivePet"
     >
       <b-collapse id="collapse-1">
-        <b-card>
+        
           <p class="card-text">{{ pet.descriptionText }}</p>
-        </b-card>
+        
       </b-collapse>
       <b-button v-b-toggle.collapse-1 variant="primary"
         >Toggle Collapse
       </b-button>
       <accept-reject-icons-bar  />
-      <router-link :to="{ name: 'pet-details', params: {id: pet.petId} }" >DETAILS</router-link>
+      <router-link v-show="isMatchedPage" :to="{ name: 'pet-details', params: {id: pet.petId} }" >DETAILS</router-link>
     </b-card>
 </template>
 
@@ -32,19 +32,17 @@ export default {
   components: { AcceptRejectIconsBar },
   name: "pet-card",
   props: {
+    isMatchedPage: Boolean,
     pet: {
       type: Object,
     },
   },
   methods: {
-    writeLog(){
-      console.log(this.pet)
+    setActivePet(){
+      this.$store.commit("SET_ACTIVE_PET", this.pet);
     },
-    
   },
-  created(){
-    this.$store.state.activePet = this.pet;
-  }
+  
   
 };
 </script>
