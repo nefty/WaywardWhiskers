@@ -3,14 +3,14 @@
     <div style="height: 500px; width: 100%">
       <l-map
         :zoom="zoom"
-        :center="center"
+        :center="this.center"
         :options="mapOptions"
         style="height: 80%"
       >
         <l-tile-layer :url="url" :attribution="attribution" />
-        <l-marker :lat-lng="[agency.lat, agency.lon]">
+        <l-marker v-bind:lat-lng="this.center">
           <l-popup>
-            {{ agency.name }}
+            {{ this.$store.state.activeAgency.name }}
           </l-popup>
         </l-marker>
       </l-map>
@@ -24,8 +24,7 @@ export default {
 
   data() {
     return {
-      zoom: 4,
-      center: {},
+      zoom: 9,
       url:
         "https://api.mapbox.com/styles/v1/mapbox/light-v10/tiles/{z}/{x}/{y}?access_token=pk.eyJ1Ijoid2F5d2FyZHdoaXNrZXJzIiwiYSI6ImNrczZ2cmRqeDA1eGkzMnBjZG56ZTNjd20ifQ.gEc2Jf8bIdDFzmmcrdZ4nw",
       attribution:
@@ -33,12 +32,13 @@ export default {
       mapOptions: {
         zoomSnap: 0.5,
       },
-      agency: {},
     };
   },
-  created() {
-      this.agency = this.$store.state.activeAgency;
-  },
+  computed: {
+    center() {
+      return [ this.$store.state.activeAgency.lat, this.$store.state.activeAgency.lon ];
+    },
+  }
 };
 </script>
 

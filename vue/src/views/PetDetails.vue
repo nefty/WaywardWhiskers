@@ -68,6 +68,7 @@
         </b-col>
         <b-col>
 
+          <single-instance-map></single-instance-map>
 
         </b-col>
       </b-row>
@@ -85,9 +86,11 @@
 import PetService from "@/services/PetService.js";
 import AgencyService from "@/services/AgencyService.js";
 import ContactAgencyForm from '../components/ContactAgencyForm.vue';
+import SingleInstanceMap from '../components/SingleInstanceMap.vue';
+
 export default {
   name: "pet-details",
-  components: {ContactAgencyForm},
+  components: {ContactAgencyForm, SingleInstanceMap},
   data() {
     return {
       slide: 0,
