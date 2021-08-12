@@ -8,7 +8,7 @@
             scale="2"
             class="heart-button"
             style="color: #ff69b4"
-            @click="addPetToMatched(pet.petId)"
+            @click="addPetToMatched(pet)"
           ></b-icon>
         </b-button>
       </b-col>
@@ -19,7 +19,7 @@
             scale="2"
             variant="danger"
             class="skip-button"
-            @click="addPetToRejected(pet.petId)"
+            @click="addPetToRejected(pet)"
           ></b-icon>
         </b-button>
       </b-col>
@@ -32,16 +32,18 @@ export default {
   components: {},
   pet: {},
   methods: {
-    addPetToMatched(petId) {
-      this.$store.commit("ADD_PET_TO_MATCHED", petId);
+    addPetToMatched(pet) {
+      this.$store.commit("ADD_PET_TO_MATCHED", pet);
     },
-    addPetToRejected(petId) {
-      this.$store.commit("ADD_PET_TO_REJECTED", petId);
+    addPetToRejected(pet) {
+      this.$store.commit("ADD_PET_TO_REJECTED", pet);
     },
   },
-  created() {
-    this.pet = this.$store.state.activePet;
-  },
+  computed: {
+      pet: function() {
+       return this.$store.state.activePet;
+      }
+  }
 };
 </script>
 
