@@ -37,7 +37,7 @@ CREATE TABLE agencies (
 	phone nvarchar(255),
 	lat float NOT NULL,
 	lon float NOT NULL,
-	about ntext,
+	about nvarchar(max),
 	url nvarchar(255)
 )
 
@@ -56,7 +56,7 @@ CREATE TABLE breeds (
 )
 
 CREATE TABLE pets (
-	pet_id int NOT NULL IDENTITY PRIMARY KEY,
+	pet_id int NOT NULL PRIMARY KEY,
 	species_id int FOREIGN KEY REFERENCES species(species_id) NOT NULL,
 	breed_id int FOREIGN KEY REFERENCES breeds(breed_id) NOT NULL,
 	agency_id int FOREIGN KEY REFERENCES agencies(agency_id) NOT NULL,
@@ -64,7 +64,7 @@ CREATE TABLE pets (
 	primary_image_url nvarchar(255) NOT NULL,
 	thumbnail_url nvarchar(255) NOT NULL,
 	name nvarchar(255) NOT NULL,
-	description_text ntext,
+	description_text nvarchar(max),
 	sex nvarchar(6),
 	age_group nvarchar(20),
 	age_string nvarchar(255),
