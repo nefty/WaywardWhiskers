@@ -17,11 +17,16 @@
           <p class="card-text">{{ pet.descriptionText }}</p>
         
       </b-collapse>
-      <b-button v-b-toggle.collapse-1 variant="primary"
-        >Toggle Collapse
+      <b-button v-b-toggle.collapse-1 variant="primary" v-show="!isMatchedPage"
+        >About {{pet.name}}
       </b-button>
-      <accept-reject-icons-bar  />
-      <router-link v-show="isMatchedPage" :to="{ name: 'pet-details', params: {id: pet.petId} }" >DETAILS</router-link>
+      <accept-reject-icons-bar  v-show="!isMatchedPage"/>
+      <router-link v-show="isMatchedPage" :to="{ name: 'pet-details', params: {id: pet.petId} }" >
+        
+      <b-button variant="primary"> View Adoption Details
+      </b-button>
+        
+        </router-link>
     </b-card>
 </template>
 
