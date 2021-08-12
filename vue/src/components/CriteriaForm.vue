@@ -11,7 +11,7 @@
             text-field="name"
           >
             <template #first>
-              <b-form-select-option :value="0" disabled
+              <b-form-select-option :value="0" 
                 >Select an option</b-form-select-option
               >
             </template>
