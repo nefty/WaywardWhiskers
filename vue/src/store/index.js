@@ -91,9 +91,12 @@ export default new Vuex.Store({
     DELETE_AGENCY(state, agencyId) {
       state.agencies = this.state.agencies.filter(agency => agency.id != agencyId);
     },
-    ADD_PET_TO_MATCHED(state, petId) {
-      state.matchedPets.push(petId);
+    ADD_PET_TO_MATCHED(state, pet) {
+      state.matchedPets.push(pet);
       console.log(state.matchedPets);
+    },
+    SET_MATCHED_PETS(state, matchedPets) {
+      state.matchedPets = matchedPets;
     },
     ADD_PET_TO_REJECTED(state, petId) {
       state.rejectedPets.push(petId);
