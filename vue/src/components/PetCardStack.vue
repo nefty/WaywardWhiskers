@@ -4,11 +4,11 @@
       @throwin="throwin"
       :config="config"
       v-for="pet in pets"
-      @throwoutright="throwoutMatch(pet.petId)"
-      @throwoutleft="throwoutReject(pet.petId)"
+      @throwoutright="throwoutMatch(pet)"
+      @throwoutleft="throwoutReject(pet)"
       :key="pet.petId"
     >
-      <pet-card :pet="pet" class="card" />
+      <pet-card :pet="pet" :isMatchedPage="false" class="card" />
     </vue-swing>
   </div>
 </template>
@@ -63,11 +63,11 @@ export default {
   },
   methods: {
     throwin() {},
-    throwoutMatch(petId) {
-      this.$store.commit("ADD_PET_TO_MATCHED", petId);
+    throwoutMatch(pet) {
+      this.$store.commit("ADD_PET_TO_MATCHED", pet);
     },
-    throwoutReject(petId) {
-      this.$store.commit("ADD_PET_TO_REJECTED", petId);
+    throwoutReject(pet) {
+      this.$store.commit("ADD_PET_TO_REJECTED", pet);
     },
   },
 };

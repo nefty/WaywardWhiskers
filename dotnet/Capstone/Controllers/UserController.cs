@@ -37,5 +37,19 @@ namespace Capstone.Controllers
             search.UserId = int.Parse(this.User.FindFirst("sub").Value);
             return Ok(petDAO.GetFilteredPets(search));
         }
+
+        [HttpPost("pets/liked")]
+        public ActionResult<bool> LikePets(List<Pet> likedPets)
+        {
+            int userId = int.Parse(this.User.FindFirst("sub").Value);
+            return Ok(petDAO.LikePets(userId, likedPets));
+        }
+
+        [HttpDelete("pets/liked")]
+        public ActionResult<bool> UnlikePet(Pet unlikedPet)
+        {
+            int userId = int.Parse(this.User.FindFirst("sub").Value);
+            return Ok(petDAO.UnlikePet(userId, unlikedPet));
+        }
     }
 }

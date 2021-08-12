@@ -59,8 +59,8 @@ export default new Vuex.Store({
       state.user = {};
       axios.defaults.headers.common = {};
     },
-    SET_ACTIVE_PET(state, petId) {
-      state.activePet = petId;
+    SET_ACTIVE_PET(state, pet) {
+      state.activePet = pet;
     },
     SET_PETS(state, pets) {
       state.pets = pets;
@@ -75,8 +75,8 @@ export default new Vuex.Store({
     DELETE_PET(state, petId) {
       state.pets = this.state.pets.filter(pet => pet.petId != petId);
     },
-    SET_ACTIVE_AGENCY(state, agencyId) {
-      state.activeAgency = agencyId;
+    SET_ACTIVE_AGENCY(state, agency) {
+      state.activeAgency = agency;
     },
     SET_AGENCIES(state, agencies) {
       state.agencies = agencies;
