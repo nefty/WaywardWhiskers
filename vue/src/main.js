@@ -10,9 +10,9 @@ import './scss/custom.scss'
 import VueSwing from 'vue-swing'
 
 // Leaflet Maps
+
 import { LMap, LTileLayer, LMarker, LPopup } from 'vue2-leaflet';
 import 'leaflet/dist/leaflet.css';
-
 import { Icon } from 'leaflet';
 
 delete Icon.Default.prototype._getIconUrl;
