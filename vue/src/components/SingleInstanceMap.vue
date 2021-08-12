@@ -1,6 +1,6 @@
 <template>
-  <b-container @shown="containerShown">
-    <div style="height: 500px; width: 100%">
+  <b-container >
+    <div style="height: 500px; width: 100%" @shown="containerShown" class="activeAgencyMap">
       <l-map
         :zoom="zoom"
         :center="this.center"
@@ -40,12 +40,18 @@ export default {
   },
   methods:{
     containerShown(){
-      console.log(this.$refs.myMap.data);
-      this.$refs.myMap.mapObject.invalidateSize();
+      setTimeout(() => {
+        console.log(this.$refs.myMap.data);
+        this.$refs.myMap.mapObject.invalidateSize();
+      }, 100);
     }
   }
 };
 </script>
 
-<style>
+<style lang="scss" scoped>
+.activeAgencyMap {
+  width: 100%;
+    height: 400px;
+}
 </style>
