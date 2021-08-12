@@ -1,10 +1,5 @@
 <template>
   <div class="container">
-    <b-card
-      title="Find Your Purrfect Furry Friend!"
-      class="mb-3"
-      bg-variant="light"
-    >
       <b-form @submit.prevent="onSubmit" @reset="onReset">
         <b-form-group id="species" label="Species:" label-for="input-species">
           <b-form-select
@@ -15,14 +10,11 @@
             text-field="name"
           >
             <template #first>
-              <b-form-select-option :value="null"
+              <b-form-select-option :value="0" 
                 >Select an option</b-form-select-option
               >
             </template>
           </b-form-select>
-          <div class="mt-3">
-            Selected: <strong>{{ filter.speciesId }}</strong>
-          </div>
         </b-form-group>
 
         <b-form-group id="breed" label="Breed:" label-for="input-breeds">
@@ -35,14 +27,11 @@
             multiple
           >
             <template #first>
-              <b-form-select-option :value="null" 
+              <b-form-select-option :value="0" 
                 >Select an option</b-form-select-option
               >
             </template>
           </b-form-select>
-          <div class="mt-3">
-            Selected: <strong>{{ filter.breedIds }}</strong>
-          </div>
         </b-form-group>
 
         <b-form-group
@@ -59,14 +48,11 @@
             multiple
           >
             <template #first>
-              <b-form-select-option :value="null"
+              <b-form-select-option :value="0"
                 >Select an option</b-form-select-option
               >
             </template>
           </b-form-select>
-          <div class="mt-3">
-            Selected: <strong>{{ filter.agencyIds }}</strong>
-          </div>
         </b-form-group>
 
         <b-form-group id="sex" label="Sex:" label-for="input-sex">
@@ -75,9 +61,6 @@
             v-model="filter.sex"
             :options="sexOptions"
           ></b-form-radio-group>
-          <div class="mt-3">
-            Selected: <strong>{{ filter.sex }}</strong>
-          </div>
         </b-form-group>
 
         <b-form-group
@@ -91,9 +74,6 @@
             :options="ageGroupOptions"
             name="age-group-checkbox"
           ></b-form-checkbox-group>
-          <div class="mt-3">
-            Selected: <strong>{{ filter.ageGroups }}</strong>
-          </div>
         </b-form-group>
 
         <b-form-group
@@ -107,9 +87,6 @@
             :options="activityLevelOptions"
             name="activity-level-checkbox"
           ></b-form-checkbox-group>
-          <div class="mt-3">
-            Selected: <strong>{{ filter.activityLevels }}</strong>
-          </div>
         </b-form-group>
 
         <b-form-group
@@ -123,9 +100,6 @@
             :options="exerciseNeedsOptions"
             name="exercise-needs-checkbox"
           ></b-form-checkbox-group>
-          <div class="mt-3">
-            Selected: <strong>{{ filter.allExerciseNeeds }}</strong>
-          </div>
         </b-form-group>
 
         <b-form-group
@@ -139,9 +113,6 @@
             :options="ownerExperienceOptions"
             name="owner-experience-checkbox"
           ></b-form-checkbox-group>
-          <div class="mt-3">
-            Selected: <strong>{{ filter.ownerExperiences }}</strong>
-          </div>
         </b-form-group>
 
         <b-form-group
@@ -155,9 +126,6 @@
             :options="sizeGroupOptions"
             name="size-group-checkbox"
           ></b-form-checkbox-group>
-          <div class="mt-3">
-            Selected: <strong>{{ filter.ownerExperiences }}</strong>
-          </div>
         </b-form-group>
 
         <b-form-group
@@ -171,15 +139,13 @@
             :options="vocalLevelOptions"
             name="vocal-level-checkbox"
           ></b-form-checkbox-group>
-          <div class="mt-3">
-            Selected: <strong>{{ filter.vocalLevels }}</strong>
-          </div>
         </b-form-group>
 
-        <b-button type="submit" variant="primary">Submit</b-button>
-        <b-button type="reset" variant="secondary">Reset Choices</b-button>
+        <div class="my-3">
+        <b-button class="mx-1" type="submit" variant="primary" v-b-toggle.criteria >Submit</b-button>
+        <b-button class="mx-1" type="reset" variant="secondary">Reset Choices</b-button>
+        </div>
       </b-form>
-    </b-card>
   </div>
 </template>
 
@@ -248,7 +214,6 @@ export default {
       PetService.getFilteredPets(this.filter).then((response) => {
         this.$store.commit("SET_PETS", response.data);
       });
-      this.$router.push("/petmatcher");
     },
     onReset() {
       this.filter = {

@@ -8,6 +8,8 @@
 
 <script>
 import PetCard from "@/components/PetCard.vue";
+import UserService from "@/services/UserService.js";
+
 export default {
   name: "matches",
   components: { PetCard },
@@ -23,7 +25,9 @@ export default {
     };
   },
   created() {
-    this.matchedPets = this.$store.state.matchedPets;
+    UserService.getLikedPets().then((response) => {
+      this.$store.commit("SET_MATCHED_PETS", response.data);
+    });
     console.log(this.matchedPets);
   },
 };

@@ -16,9 +16,35 @@
 
 <script>
 import AgencyMap from "@/components/AgencyMap.vue";
+import PetService from "@/services/PetService.js"
 
 export default {
   name: "home",
-  components: { AgencyMap }
+  components: { AgencyMap },
+  data(){
+    return {
+    filter: {
+        userId: 0,
+        speciesId: 0,
+        breedIds: [],
+        agencyIds: [],
+        sex: "",
+        ageGroups: [],
+        activityLevels: [],
+        allExerciseNeeds: [],
+        ownerExperiences: [],
+        sizeGroups: [],
+        vocalLevels: [],
+      },
+    }
+  },
+  created(){
+    this.$store.commit("SET_SEARCH_CRITERIA", this.filter);
+      console.log(this.$store.state.filter);
+
+      PetService.getFilteredPets(this.filter).then((response) => {
+        this.$store.commit("SET_PETS", response.data);
+      });
+  }
 }
 </script>

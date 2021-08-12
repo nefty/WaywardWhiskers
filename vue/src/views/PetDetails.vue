@@ -1,5 +1,5 @@
 <template>
-  <b-container>
+  <b-container fluid="md" >
     <b-tabs content-class="mt-3">
       <b-tab v-bind:title="pet.name">
         <b-card
@@ -8,9 +8,9 @@
           v-bind:title="pet.name"
           tag="article"
           style="max-width: 200rem"
-          display="flex"
+          wrap="wrap"
         >
-          <b-row>
+          <b-row cols="1" cols-sm="2">
             <b-col>
               <b-carousel
                 id="carousel-1"
@@ -63,7 +63,7 @@
           style="max-width: 200rem"
           display="flex"
         >
-          <b-row>
+          <b-row cols="1" cols-sm="2">
             <b-col>
               <h6>About</h6>
               <b-card-text>{{ agency.about }}</b-card-text>
@@ -91,11 +91,12 @@
 import PetService from "@/services/PetService.js";
 import AgencyService from "@/services/AgencyService.js";
 import ContactAgencyForm from "../components/ContactAgencyForm.vue";
+import SingleInstanceMap from "@/components/SingleInstanceMap.vue"
 
 
 export default {
   name: "pet-details",
-  components: { ContactAgencyForm},
+  components: { ContactAgencyForm, SingleInstanceMap},
   data() {
     return {
       slide: 0,
@@ -120,7 +121,6 @@ export default {
       });
     });
   },
-
   methods: {
     onSlideStart(slide) {
       console.log(slide);
@@ -134,5 +134,9 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+b-container {
+  display: flex;
+  flex-wrap: nowrap;
+}
 </style>

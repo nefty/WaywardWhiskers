@@ -16,6 +16,7 @@
 <script>
 import PetCard from "./PetCard.vue";
 import VueSwing from "vue-swing";
+import UserService from "@/services/UserService.js";
 
 export default {
   name: "pet-card-stack",
@@ -31,6 +32,10 @@ export default {
   created() {
     console.log("Created PetCardStack component");
     console.log(this.pets);
+  },
+  beforeDestroy() {
+    console.log("Reached beforeDestroy lifecycle hook")
+    UserService.likePets(this.$store.state.matchedPets)
   },
   data() {
     return {
