@@ -126,12 +126,6 @@ export default {
       newAgency: {
       },
       isFormShown: false,
-
-//       https://geocoder.ls.hereapi.com/search/6.2/geocode.json
-// ?languages=en-US
-// &maxresults=4
-// &searchtext=Sunnyvale
-// &apiKey={YOUR_API_KEY}
     };
   },
 

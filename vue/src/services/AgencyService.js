@@ -1,6 +1,8 @@
 import axios from 'axios';
 
 
+
+
 export default {
     getAllAgencies() {
         console.log("Reached Get All Agencies in AgencyService")
@@ -9,12 +11,9 @@ export default {
     getAgency(agencyId) {
         return axios.get(`/agency/${agencyId}`)
     },
-    async getAgencyCoords(address) {
-        let response = await fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${address}.json?limit=1&access_token=pk.eyJ1Ijoid2F5d2FyZHdoaXNrZXJzIiwiYSI6ImNrczZ2cmRqeDA1eGkzMnBjZG56ZTNjd20ifQ.gEc2Jf8bIdDFzmmcrdZ4nw`)
-        let data = await response.json();
-        data = JSON.stringify(data);
-        data = JSON.parse(data);
-        return data;
+     getAgencyCoords(address) {
+    let response = axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${address}.json?limit=1&access_token=pk.eyJ1Ijoid2F5d2FyZHdoaXNrZXJzIiwiYSI6ImNrczZ2cmRqeDA1eGkzMnBjZG56ZTNjd20ifQ.gEc2Jf8bIdDFzmmcrdZ4nw`)
+    return response.data['features'][0];
     },
     addAgency(agency) {
         console.log(agency);
