@@ -56,7 +56,7 @@ CREATE TABLE breeds (
 )
 
 CREATE TABLE pets (
-	pet_id int NOT NULL PRIMARY KEY,
+	pet_id int NOT NULL IDENTITY PRIMARY KEY,
 	species_id int FOREIGN KEY REFERENCES species(species_id) NOT NULL,
 	breed_id int FOREIGN KEY REFERENCES breeds(breed_id) NOT NULL,
 	agency_id int FOREIGN KEY REFERENCES agencies(agency_id) NOT NULL,
