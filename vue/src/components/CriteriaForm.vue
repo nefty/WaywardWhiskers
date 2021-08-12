@@ -1,13 +1,6 @@
 <template>
   <div class="container">
       <b-form @submit.prevent="onSubmit" @reset="onReset">
-        <b-form-group id="postalCode" label="Zipcode:" label-for="input-postalCode">
-          <b-form-input
-          id="input-postalCode"
-          v-model.number="filter.postalCode"
-          type="number"
-        ></b-form-input>
-        </b-form-group>
 
         <b-form-group id="species" label="Species:" label-for="input-species">
           <b-form-select
@@ -180,7 +173,6 @@ export default {
       sizeGroupOptions: ["Small", "Medium", "Large", "X-Large"],
       vocalLevelOptions: ["Quiet", "Some", "Lots"],
       filter: {
-        postalCode: 0,
         userId: 0,
         speciesId: 0,
         breedIds: [],
@@ -226,7 +218,6 @@ export default {
     },
     onReset() {
       this.filter = {
-        postalCode: 0,
         userId: 0,
         speciesId: 0,
         breedIds: [],

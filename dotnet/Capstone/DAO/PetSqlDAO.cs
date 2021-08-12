@@ -41,10 +41,10 @@ namespace Capstone.DAO
             "JOIN user_pet ON user_pet.pet_id = pets.pet_id " +
             "JOIN users ON users.user_id = user_pet.user_id " +
             "WHERE user_pet.user_id = @UserId";
-        private readonly string sqlAddPet = "INSERT INTO pets(species_id, breed_id, agency_id, " +
+        private readonly string sqlAddPet = "INSERT INTO pets(pet_id, species_id, breed_id, agency_id, " +
             "primary_image_id, primary_image_url, thumbnail_url, name, description_text, sex, age_group, " +
             "age_string, activity_level, exercise_needs, owner_experience, size_group, vocal_level) " +
-            "VALUES (@SpeciesId, @BreedId, @AgencyId, @PrimaryImageId, @PrimaryImageUrl, " +
+            "VALUES (@PetId, @SpeciesId, @BreedId, @AgencyId, @PrimaryImageId, @PrimaryImageUrl, " +
             "@ThumbnailUrl, @Name, @DescriptionText, @Sex, @AgeGroup, @AgeString, @ActivityLevel, " +
             "@ExerciseNeeds, @OwnerExperience, @SizeGroup, @VocalLevel);";
         private readonly string sqlUpdatePet = "UPDATE pets SET species_id = @SpeciesId, " +
@@ -347,18 +347,19 @@ namespace Capstone.DAO
 
         private void AddPetParameters(Pet pet, SqlCommand cmd)
         {
-            int randId = rand.Next(9999, 1000000);
+            if (pet.PetId < 1)
+            {
+                pet.PetId = rand.Next(1, 9999);
+            }
+            cmd.Parameters.AddWithValue("@PetId", pet.PetId);
             cmd.Parameters.AddWithValue("@SpeciesId", pet.SpeciesId);
             cmd.Parameters.AddWithValue("@BreedId", pet.BreedId);
             cmd.Parameters.AddWithValue("@AgencyId", pet.AgencyId);
             if (pet.PrimaryImageId < 1)
             {
-                cmd.Parameters.AddWithValue("@PrimaryImageId", randId);
+                pet.PrimaryImageId = rand.Next(9999, 1000000); ;
             }
-            else
-            {
                 cmd.Parameters.AddWithValue("@PrimaryImageId", pet.PrimaryImageId);
-            }
             cmd.Parameters.AddWithValue("@PrimaryImageUrl", pet.PrimaryImageUrl);
             if (pet.ThumbnailUrl == null)
             {

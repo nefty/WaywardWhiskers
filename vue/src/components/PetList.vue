@@ -27,17 +27,14 @@
         </tr>
       </tbody>
     </table>
-    <add-pet />
   </b-container>
 </template>
 
 <script>
 import PetService from "@/services/PetService.js";
-import AddPet from '../components/AddPet.vue';
 
 export default {
   name: "pets-list",
-  components: { AddPet },
   computed: {
     pets() {
       return this.$store.state.pets;
