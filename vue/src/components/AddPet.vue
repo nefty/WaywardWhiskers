@@ -9,7 +9,7 @@
 
     <b-form @submit="onSubmit" v-if="isFormShown">
       <b-form-group id="agency" label="Agency:" label-for="agency">
-        <b-form-select-input
+        <b-form-select
         type="text"
           id="agency"
           v-model="newPet.agencyId"
@@ -22,7 +22,7 @@
               >Select an option</b-form-select-option
             >
           </template>
-        </b-form-select-input>
+        </b-form-select>
       </b-form-group>
 
       <b-form-group id="name" label="Name:" label-for="name">
