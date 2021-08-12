@@ -15,7 +15,7 @@ namespace Capstone.DAO
 
         private readonly string sqlGetPet = "SELECT pets.*, species.name AS species_name, breeds.name AS breed_name FROM pets " +
             "JOIN species ON pets.species_id = species.species_id " +
-            "JOIN breeds ON pets.breed_id = breeds.breed_id WHERE pet_id = @PetId";
+            "JOIN breeds ON pets.breed_id = breeds.breed_id WHERE pets.pet_id = @PetId";
         private readonly string sqlGetAllPets = "SELECT pets.*, species.name AS species_name, breeds.name AS breed_name FROM pets " +
             "JOIN species ON pets.species_id = species.species_id " +
             "JOIN breeds ON pets.breed_id = breeds.breed_id;";

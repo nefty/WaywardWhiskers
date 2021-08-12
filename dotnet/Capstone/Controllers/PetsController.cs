@@ -28,11 +28,8 @@ namespace Capstone.Controllers
         {
             return Ok(petDAO.GetAllPets());
         }
-        [HttpGet("{agencyId}")]
-        public ActionResult<List<Pet>> GetAgencyPets(int agencyId)
-        {
-            return Ok(petDAO.GetAgencyPets(agencyId));
-        }
+
+        
 
         [HttpGet("{petId}")]
         public ActionResult<Pet> GetPet(int petId)
