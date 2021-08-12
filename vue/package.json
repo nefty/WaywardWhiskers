@@ -12,6 +12,7 @@
   "dependencies": {
     "@mapbox/geojson-coords": "0.0.1",
     "@mapbox/mapbox-sdk": "^0.13.0",
+    "@turf/turf": "^6.5.0",
     "axios": "^0.21.1",
     "bootstrap": "4.5.3",
     "bootstrap-vue": "^2.21.2",
