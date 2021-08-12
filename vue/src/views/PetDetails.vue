@@ -91,11 +91,11 @@
 import PetService from "@/services/PetService.js";
 import AgencyService from "@/services/AgencyService.js";
 import ContactAgencyForm from "../components/ContactAgencyForm.vue";
-import SingleInstanceMap from "../components/SingleInstanceMap.vue";
+
 
 export default {
   name: "pet-details",
-  components: { ContactAgencyForm, SingleInstanceMap },
+  components: { ContactAgencyForm},
   data() {
     return {
       slide: 0,
@@ -111,7 +111,7 @@ export default {
     });
     PetService.getPet(this.$route.params.id).then((response) => {
       this.pet = response.data;
-      this.$store.commit("SET_ACTIVE_PET", this.pet);
+      this.$store.commit("SET_ACTIVE_PET", this.pet.petId);
     });
     PetService.getPet(this.$route.params.id).then((response) => {
       AgencyService.getAgency(response.data.agencyId).then((response) => {
