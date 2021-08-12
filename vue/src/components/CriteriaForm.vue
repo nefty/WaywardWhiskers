@@ -1,10 +1,5 @@
 <template>
   <div class="container">
-    <b-card
-      title="Find Your Purrfect Furry Friend!"
-      class="mb-3"
-      bg-variant="light"
-    >
       <b-form @submit.prevent="onSubmit" @reset="onReset">
         <b-form-group id="species" label="Species:" label-for="input-species">
           <b-form-select
@@ -146,10 +141,11 @@
           ></b-form-checkbox-group>
         </b-form-group>
 
-        <b-button type="submit" variant="primary">Submit</b-button>
-        <b-button type="reset" variant="secondary">Reset Choices</b-button>
+        <div class="my-3">
+        <b-button class="mx-1" type="submit" variant="primary" v-b-toggle.criteria >Submit</b-button>
+        <b-button class="mx-1" type="reset" variant="secondary">Reset Choices</b-button>
+        </div>
       </b-form>
-    </b-card>
   </div>
 </template>
 
@@ -218,7 +214,6 @@ export default {
       PetService.getFilteredPets(this.filter).then((response) => {
         this.$store.commit("SET_PETS", response.data);
       });
-      this.$router.push("/petmatcher");
     },
     onReset() {
       this.filter = {
