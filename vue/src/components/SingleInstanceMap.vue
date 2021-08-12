@@ -1,11 +1,12 @@
 <template>
-  <b-container>
+  <b-container @shown="containerShown">
     <div style="height: 500px; width: 100%">
       <l-map
         :zoom="zoom"
         :center="this.center"
         :options="mapOptions"
         style="height: 80%"
+        ref="myMap"
       >
         <l-tile-layer :url="url" :attribution="attribution" />
         <l-marker v-bind:lat-lng="this.center">
@@ -36,6 +37,12 @@ export default {
     center() {
       return [ this.$store.state.activeAgency.lat, this.$store.state.activeAgency.lon ];
     },
+  },
+  methods:{
+    containerShown(){
+      console.log(this.$refs.myMap.data);
+      this.$refs.myMap.mapObject.invalidateSize();
+    }
   }
 };
 </script>

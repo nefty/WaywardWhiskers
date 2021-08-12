@@ -9,7 +9,8 @@
 
     <b-form @submit="onSubmit" v-if="isFormShown">
       <b-form-group id="agency" label="Agency:" label-for="agency">
-        <b-form-select
+        <b-form-select-input
+        type="text"
           id="agency"
           v-model="newPet.agencyId"
           :options="agencies"
@@ -21,7 +22,7 @@
               >Select an option</b-form-select-option
             >
           </template>
-        </b-form-select>
+        </b-form-select-input>
       </b-form-group>
 
       <b-form-group id="name" label="Name:" label-for="name">
@@ -32,6 +33,22 @@
           placeholder="Enter Animal Name"
           required
         />
+      </b-form-group>
+
+            <b-form-group id="sex" label="Sex:" label-for="sex">
+        <b-form-select
+          id="sex"
+          v-model="newPet.sex"
+          :options="sexOptions"
+          value-field="sex"
+          text-field="sex"
+        >
+          <template #first>
+            <b-form-select-option :value="null" disabled
+              >Select an option</b-form-select-option
+            >
+          </template>
+        </b-form-select>
       </b-form-group>
 
       <b-form-group id="species" label="Species:" label-for="species">

@@ -21,9 +21,28 @@ import PetService from "@/services/PetService.js"
 export default {
   name: "home",
   components: { AgencyMap },
+  data(){
+    return {
+    filter: {
+        userId: 0,
+        speciesId: 0,
+        breedIds: [],
+        agencyIds: [],
+        sex: "",
+        ageGroups: [],
+        activityLevels: [],
+        allExerciseNeeds: [],
+        ownerExperiences: [],
+        sizeGroups: [],
+        vocalLevels: [],
+      },
+    }
+  },
   created(){
-    PetService.getAllPets().then((response) => {
-      console.log(response.data);
+    this.$store.commit("SET_SEARCH_CRITERIA", this.filter);
+      console.log(this.$store.state.filter);
+
+      PetService.getFilteredPets(this.filter).then((response) => {
         this.$store.commit("SET_PETS", response.data);
       });
   }
