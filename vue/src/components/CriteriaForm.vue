@@ -27,7 +27,7 @@
             multiple
           >
             <template #first>
-              <b-form-select-option :value="null" disabled
+              <b-form-select-option :value="0" 
                 >Select an option</b-form-select-option
               >
             </template>
@@ -48,7 +48,7 @@
             multiple
           >
             <template #first>
-              <b-form-select-option :value="0" disabled
+              <b-form-select-option :value="0"
                 >Select an option</b-form-select-option
               >
             </template>

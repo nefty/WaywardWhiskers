@@ -8,5 +8,6 @@ namespace PopulateDatabaseFromRescueGroupAPI.Services.Interfaces
 {
     interface IRescueGroupService
     {
+        
     }
 }

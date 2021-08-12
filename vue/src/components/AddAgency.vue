@@ -124,22 +124,20 @@ export default {
   data() {
     return {
       newAgency: {
+        lat: 0,
+        lon: 0
       },
       isFormShown: false,
     };
   },
 
   methods: {
-    onSubmit() {
-        let result = AgencyService.getAgencyCoords(`${this.newAgency.street} ${this.newAgency.city} ${this.newAgency.state} ${this.newAgency.postalCode}`);
-     console.log(result);
-        
-      this.$store.commit("ADD_AGENCY", this.newAgency)
-        
-      AgencyService.addAgency(this.newAgency)
+    async onSubmit() {
+        await AgencyService.getAgencyCoords(`${this.newAgency.street} ${this.newAgency.city} ${this.newAgency.state} ${this.newAgency.postalCode}`)
         .then((response) => {
-          console.log("promise was success", response);
-          this.$router.go({ name: "agency-list" });
+          console.log("promise was success", response.data['features'][0]['center']);
+          this.newAgency.lon = response.data['features'][0]['center'][0];
+          this.newAgency.lat = response.data['features'][0]['center'][1];
         })
         .catch((error) => {
          
@@ -149,10 +147,26 @@ export default {
           } else {
             console.log("Network Error");
           }
+        })
+        
+      AgencyService.addAgency(this.newAgency)
+        .then((response) => {
+          console.log("promise was success", response);
+          this.$router.go({ name: "agency-list" });
+        })
+        .catch((error) => {
+          
+          if (error.response) {
+            console.log("HTTP Response Code: ", error.response.data.status);
+            console.log("Description: ", error.response.data.title);
+          } else {
+            console.log("Network Error");
+          }
         });
 
-      this.resetForm();
-    },
+          this.$store.commit("ADD_AGENCY", this.newAgency);
+          this.resetForm();
+        },
 
     resetForm() {
       this.newAgency = {};
