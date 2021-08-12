@@ -10,16 +10,16 @@ using PopulateDatabaseFromRescueGroupAPI.Models;
 
 namespace PopulateDatabaseFromRescueGroupAPI.Services
 {
-    public class RescueGroupJsonFileDAO : IRescueGroupService
+    public class RescueGroupJsonFileDAO
     {
-        public string JsonString { get; set; }
+        private string jsonFilePath = @"C:\Users\Student\final-capstone-net-14-orange-november\dotnet\PopulateDatabaseFromRescueGroupAPI\Services\Data\";
         public Dictionary<int, Pet> Pets { get; set; }
         public Dictionary<int, Picture> Pictures { get; set; }
         public Dictionary<int, Breed> Breeds { get; set; }
         public Dictionary<int, Species> Species { get; set; }
         public Dictionary<int, Agency> Agencies { get; set; }
 
-        public RescueGroupJsonFileDAO(string jsonFilePath)
+        public RescueGroupJsonFileDAO()
         {
             Pets = new Dictionary<int, Pet>();
             Pictures = new Dictionary<int, Picture>();
@@ -27,25 +27,31 @@ namespace PopulateDatabaseFromRescueGroupAPI.Services
             Species = new Dictionary<int, Species>();
             Agencies = new Dictionary<int, Agency>();
 
-            try
+
+            for (int i = 1; i <= 4 ; i++)
             {
-                JsonString = File.ReadAllText(jsonFilePath);
-            }
-            catch (IOException e)
-            {
-                Console.WriteLine("Error reading the file");
-                Console.WriteLine(e.Message);
+                string jsonString = "";
+                try
+                {
+                     jsonString = File.ReadAllText(jsonFilePath + $"page{i}.json");
+                }
+                catch (IOException e)
+                {
+                    Console.WriteLine("Error reading the file");
+                    Console.WriteLine(e.Message);
+                }
+
+                ParseJson(jsonString);
             }
 
-            ParseJson();
         }
 
-        private void ParseJson()
+        private void ParseJson(string jsonString)
         {
-            using (JsonDocument document = JsonDocument.Parse(JsonString))
+            using (JsonDocument document = JsonDocument.Parse(jsonString))
             {
                 JsonElement root = document.RootElement;
-                
+
                 JsonElement dataElement = root.GetProperty("data");
                 foreach (JsonElement animalElement in dataElement.EnumerateArray())
                 {

@@ -19,7 +19,7 @@ namespace PopulateDatabaseFromRescueGroupAPI
             PetSqlDAO petDAO = new PetSqlDAO(connectionString);
             PictureSqlDAO pictureDAO = new PictureSqlDAO(connectionString);
 
-            RescueGroupJsonFileDAO rescueGroup = new RescueGroupJsonFileDAO(jsonFilePath);
+            RescueGroupJsonFileDAO rescueGroup = new RescueGroupJsonFileDAO();
 
             speciesDAO.AddAllSpecies(rescueGroup.Species.Values);
             breedDAO.AddBreeds(rescueGroup.Breeds.Values);

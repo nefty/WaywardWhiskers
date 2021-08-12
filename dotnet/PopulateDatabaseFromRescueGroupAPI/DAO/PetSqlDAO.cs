@@ -36,9 +36,12 @@ namespace PopulateDatabaseFromRescueGroupAPI.DAO
 
                     foreach (Pet pet in pets)
                     {
-                        if (!AddPet(pet, conn))
+                        if (pet.PrimaryImageUrl != null && pet.PrimaryImageUrl != "")
                         {
-                            result = false;
+                            if (!AddPet(pet, conn))
+                            {
+                                result = false;
+                            }
                         }
                     }
                 }

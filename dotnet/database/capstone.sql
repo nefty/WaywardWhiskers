@@ -37,7 +37,7 @@ CREATE TABLE agencies (
 	phone nvarchar(255),
 	lat float NOT NULL,
 	lon float NOT NULL,
-	about nvarchar(4000),
+	about ntext,
 	url nvarchar(255)
 )
 
@@ -64,7 +64,7 @@ CREATE TABLE pets (
 	primary_image_url nvarchar(255) NOT NULL,
 	thumbnail_url nvarchar(255) NOT NULL,
 	name nvarchar(255) NOT NULL,
-	description_text nvarchar(4000),
+	description_text ntext,
 	sex nvarchar(6),
 	age_group nvarchar(20),
 	age_string nvarchar(255),
