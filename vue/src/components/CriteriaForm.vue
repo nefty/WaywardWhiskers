@@ -15,7 +15,7 @@
             text-field="name"
           >
             <template #first>
-              <b-form-select-option :value="null" disabled
+              <b-form-select-option :value="null"
                 >Select an option</b-form-select-option
               >
             </template>
@@ -35,7 +35,7 @@
             multiple
           >
             <template #first>
-              <b-form-select-option :value="null" disabled
+              <b-form-select-option :value="null" 
                 >Select an option</b-form-select-option
               >
             </template>
@@ -59,7 +59,7 @@
             multiple
           >
             <template #first>
-              <b-form-select-option :value="null" disabled
+              <b-form-select-option :value="null"
                 >Select an option</b-form-select-option
               >
             </template>
