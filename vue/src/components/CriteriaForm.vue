@@ -20,9 +20,6 @@
               >
             </template>
           </b-form-select>
-          <div class="mt-3">
-            Selected: <strong>{{ filter.speciesId }}</strong>
-          </div>
         </b-form-group>
 
         <b-form-group id="breed" label="Breed:" label-for="input-breeds">
@@ -40,9 +37,6 @@
               >
             </template>
           </b-form-select>
-          <div class="mt-3">
-            Selected: <strong>{{ filter.breedIds }}</strong>
-          </div>
         </b-form-group>
 
         <b-form-group
@@ -64,9 +58,6 @@
               >
             </template>
           </b-form-select>
-          <div class="mt-3">
-            Selected: <strong>{{ filter.agencyIds }}</strong>
-          </div>
         </b-form-group>
 
         <b-form-group id="sex" label="Sex:" label-for="input-sex">
@@ -75,9 +66,6 @@
             v-model="filter.sex"
             :options="sexOptions"
           ></b-form-radio-group>
-          <div class="mt-3">
-            Selected: <strong>{{ filter.sex }}</strong>
-          </div>
         </b-form-group>
 
         <b-form-group
@@ -91,9 +79,6 @@
             :options="ageGroupOptions"
             name="age-group-checkbox"
           ></b-form-checkbox-group>
-          <div class="mt-3">
-            Selected: <strong>{{ filter.ageGroups }}</strong>
-          </div>
         </b-form-group>
 
         <b-form-group
@@ -107,9 +92,6 @@
             :options="activityLevelOptions"
             name="activity-level-checkbox"
           ></b-form-checkbox-group>
-          <div class="mt-3">
-            Selected: <strong>{{ filter.activityLevels }}</strong>
-          </div>
         </b-form-group>
 
         <b-form-group
@@ -123,9 +105,6 @@
             :options="exerciseNeedsOptions"
             name="exercise-needs-checkbox"
           ></b-form-checkbox-group>
-          <div class="mt-3">
-            Selected: <strong>{{ filter.allExerciseNeeds }}</strong>
-          </div>
         </b-form-group>
 
         <b-form-group
@@ -139,9 +118,6 @@
             :options="ownerExperienceOptions"
             name="owner-experience-checkbox"
           ></b-form-checkbox-group>
-          <div class="mt-3">
-            Selected: <strong>{{ filter.ownerExperiences }}</strong>
-          </div>
         </b-form-group>
 
         <b-form-group
@@ -155,9 +131,6 @@
             :options="sizeGroupOptions"
             name="size-group-checkbox"
           ></b-form-checkbox-group>
-          <div class="mt-3">
-            Selected: <strong>{{ filter.ownerExperiences }}</strong>
-          </div>
         </b-form-group>
 
         <b-form-group
@@ -171,9 +144,6 @@
             :options="vocalLevelOptions"
             name="vocal-level-checkbox"
           ></b-form-checkbox-group>
-          <div class="mt-3">
-            Selected: <strong>{{ filter.vocalLevels }}</strong>
-          </div>
         </b-form-group>
 
         <b-button type="submit" variant="primary">Submit</b-button>

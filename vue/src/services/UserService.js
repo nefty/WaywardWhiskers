@@ -32,6 +32,9 @@ export default {
     },
     unlikePet(unlikedPet) {
         return axios.delete(`/user/pets/liked`, unlikedPet)
+    },
+    getLikedPets() {
+        return axios.get(`/user/pets/liked`)
     }
     
 }
