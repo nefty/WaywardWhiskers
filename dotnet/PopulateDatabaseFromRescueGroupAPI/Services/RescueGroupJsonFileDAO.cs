@@ -28,7 +28,7 @@ namespace PopulateDatabaseFromRescueGroupAPI.Services
             Agencies = new Dictionary<int, Agency>();
 
 
-            for (int i = 1; i <= 1 ; i++)
+            for (int i = 0; i <= 2 ; i++)
             {
                 string jsonString = "";
                 try

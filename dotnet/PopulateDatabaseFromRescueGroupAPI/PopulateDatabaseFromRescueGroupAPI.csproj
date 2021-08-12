@@ -10,7 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Services\Data\catsAndDogsAllWithPicsOrgsBreedsSpecies.json">
+    <None Update="Services\Data\page0.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
