@@ -70,8 +70,8 @@
               <b-card-text
                 >Located in: {{ agency.city }}, {{ agency.state }}</b-card-text
               >
-              <b-link v-bind:href="agency.url"
-                >Visit {{ agency.name }}'s Website</b-link
+              <a :href="agency.url"
+                >Visit {{ agency.name }}'s Website</a
               >
             </b-col>
             <b-col>

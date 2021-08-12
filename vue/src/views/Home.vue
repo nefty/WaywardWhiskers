@@ -53,7 +53,7 @@ export default {
       PetService.getFilteredPets(this.filter).then((response) => {
         this.$store.commit("SET_PETS", response.data);
       });
-      AgencyService.getAgencies().then((response) => {
+      AgencyService.getAllAgencies().then((response) => {
         this.$store.commit("SET_AGENCIES", response.data);
       });
   }
