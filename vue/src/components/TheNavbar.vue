@@ -12,11 +12,6 @@
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
           <b-nav-item v-if="$store.state.token != ''">
-            <router-link class="nav-link" v-bind:to="{ name: 'criteria-form' }"
-              >Update Search</router-link
-            >
-          </b-nav-item>
-          <b-nav-item v-if="$store.state.token != ''">
             <router-link class="nav-link" v-bind:to="{ name: 'pet-matcher' }"
               >Pet Matcher</router-link
             >

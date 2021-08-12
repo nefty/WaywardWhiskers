@@ -9,7 +9,6 @@ import Register from '../views/Register.vue'
 import PetDetails from '../views/PetDetails.vue'
 import PetList from '@/components/PetList.vue'
 import EditPet from '@/views/EditPet.vue'
-import CriteriaForm from '@/components/CriteriaForm.vue'
 import PetMatcher from '@/views/PetMatcher.vue'
 import Admin from '@/views/Admin.vue'
 import Restricted from '@/views/Restricted.vue'
@@ -123,15 +122,6 @@ const router = new Router({
       path: "/pets/",
       name: "pets-list",
       component: PetList,
-      meta: {
-        requiresAuth: true,
-        requiresAdmin: false
-      }
-    },
-    {
-      path: '/criteria',
-      name: 'criteria-form',
-      component: CriteriaForm,
       meta: {
         requiresAuth: true,
         requiresAdmin: false
