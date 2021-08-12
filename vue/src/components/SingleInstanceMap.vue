@@ -1,12 +1,13 @@
 <template>
   <b-container >
-    <div style="height: 500px; width: 100%" @shown="containerShown" class="activeAgencyMap">
+    <div style="height: 500px; width: 100%"  class="activeAgencyMap">
       <l-map
         :zoom="zoom"
-        :center="this.center"
+        :center="center"
         :options="mapOptions"
         style="height: 80%"
         ref="myMap"
+        @ready="containerShown"
       >
         <l-tile-layer :url="url" :attribution="attribution" />
         <l-marker v-bind:lat-lng="this.center">
@@ -20,6 +21,8 @@
 </template>
 
 <script>
+import 'leaflet/dist/leaflet.css';
+
 export default {
   name: "single-instance-map",
   data() {
@@ -31,21 +34,26 @@ export default {
       mapOptions: {
         zoomSnap: 0.5,
       },
+      center: [],
+      map: null
     };
   },
-  computed: {
-    center() {
-      return [ this.$store.state.activeAgency.lat, this.$store.state.activeAgency.lon ];
-    },
+  created() {
+    this.center = [ this.$store.state.activeAgency.lat, this.$store.state.activeAgency.lon ];
   },
   methods:{
     containerShown(){
-      setTimeout(() => {
-        console.log(this.$refs.myMap.data);
+      this.$nextTick(() => {
+        console.log(this.$refs.myMap.mapObject);
         this.$refs.myMap.mapObject.invalidateSize();
-      }, 100);
+      });
     }
-  }
+  },
+  mounted() {
+      this.$nextTick(() => {
+        this.map = this.$refs.myMap.mapObject;
+      });
+    },
 };
 </script>
 
