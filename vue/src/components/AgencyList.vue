@@ -6,7 +6,6 @@
           <th scope ="col">ID</th>
           <th scope="col">Name</th>
           <th scope="col">City/State</th>
-          <th scope="col">About</th>
           <th scope="col">Email</th>
           <th scope="col">Edit</th>
         </tr>
@@ -16,7 +15,6 @@
           <td>{{ agency.agencyId }}</td>
           <td>{{ agency.name }}</td>
           <td>{{ agency.city }}, {{agency.state}}</td>
-          <td>{{ agency.about }}</td>
           <td>{{agency.email}}</td>
           <td>
             <router-link :to="{name: 'edit-agency', params: {id: agency.agencyId}}">
@@ -53,6 +51,7 @@ export default {
       if(confirm(`Are you sure you want to delete this? This will remove all pets associated as well.`))
       {AgencyService.deleteAgency(agencyId)
       .then(() => this.$store.commit("DELETE_AGENCY", agencyId))
+      this.$router.go('agency-list')
     }
     }
   }
