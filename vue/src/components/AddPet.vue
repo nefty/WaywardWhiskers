@@ -8,7 +8,7 @@
     >
 
     <b-form @submit="onSubmit" v-if="isFormShown">
-      <b-form-group id="agency" label="Agency:" label-for="agency">
+      <!-- <b-form-group id="agency" label="Agency:" label-for="agency">
         <b-form-select
         type="text"
           id="agency"
@@ -23,7 +23,7 @@
             >
           </template>
         </b-form-select>
-      </b-form-group>
+      </b-form-group> -->
 
       <b-form-group id="name" label="Name:" label-for="name">
         <b-form-input
@@ -211,7 +211,8 @@ export default {
   name: "PetAdd",
   data() {
     return {
-      newPet: {},
+      newPet: {
+      },
 
       isFormShown: false,
 
@@ -273,8 +274,8 @@ export default {
     },
     agencies: function () {
       return this.$store.state.agencies;
+    }
     },
-  },
   created() {
       SpeciesService.getAllSpecies().then((response) => {
         this.$store.commit("SET_SPECIES", response.data);
