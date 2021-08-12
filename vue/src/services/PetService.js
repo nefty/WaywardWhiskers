@@ -6,6 +6,10 @@ export default {
         console.log("Reached Get All Pets in PetService");
         return axios.get('/pets');
     },
+    getAgencyPets(agencyId) {
+        console.log("Reached Get Agency Pets in PetService");
+        return axios.get(`/pets/${agencyId}`);
+    },
     getPet(petId) {
         return axios.get(`/pets/${petId}`);
     },

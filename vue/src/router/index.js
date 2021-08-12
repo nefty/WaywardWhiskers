@@ -19,6 +19,7 @@ import EditAgency from '@/views/EditAgency.vue'
 import ForgotPassword from '@/views/ForgotPassword.vue'
 import ResetPassword from '@/views/ResetPassword.vue'
 import Matches from '@/views/Matches.vue'
+import AgencyPetList from '@/components/AgencyPetList.vue'
 
 
 Vue.use(Router)
@@ -125,6 +126,15 @@ const router = new Router({
       meta: {
         requiresAuth: true,
         requiresAdmin: false
+      }
+    },
+    {
+      path: "/pets/:id",
+      name: "agency-pet-list",
+      component: AgencyPetList,
+      meta: {
+        requiresAuth: true,
+        requiresAgency: true
       }
     },
     {

@@ -19,6 +19,10 @@ namespace Capstone.DAO
         private readonly string sqlGetAllPets = "SELECT pets.*, species.name AS species_name, breeds.name AS breed_name FROM pets " +
             "JOIN species ON pets.species_id = species.species_id " +
             "JOIN breeds ON pets.breed_id = breeds.breed_id;";
+        private readonly string sqlGetAgencyPets = "SELECT pets.*, species.name AS species_name, breeds.name AS breed_name FROM pets " +
+    "JOIN species ON pets.species_id = species.species_id " +
+    "JOIN breeds ON pets.breed_id = breeds.breed_id WHERE pets.agency_id = @AgencyId;";
+
         private readonly string sqlGetLikedPets = "SELECT pets.*, species.name AS species_name, breeds.name AS breed_name FROM pets " +
             "JOIN species ON pets.species_id = species.species_id " +
             "JOIN breeds ON pets.breed_id = breeds.breed_id " +
@@ -122,6 +126,32 @@ namespace Capstone.DAO
                     conn.Open();
 
                     SqlCommand cmd = new SqlCommand(sqlGetAllPets, conn);
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.HasRows && reader.Read())
+                    {
+                        result.Add(ReadPet(reader));
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return result;
+        }
+        public IEnumerable<Pet> GetAgencyPets(int agencyId)
+        {
+            List<Pet> result = new List<Pet>();
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand(sqlGetAgencyPets, conn);
+                    cmd.Parameters.AddWithValue("@AgencyId", agencyId);
                     SqlDataReader reader = cmd.ExecuteReader();
 
                     while (reader.HasRows && reader.Read())

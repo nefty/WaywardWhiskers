@@ -31,6 +31,7 @@ export default new Vuex.Store({
     filter: {},
     species: [],
     breeds: [],
+    agencyPets: []
   },
   mutations: {
     SET_AUTH_TOKEN(state, token) {
@@ -64,6 +65,9 @@ export default new Vuex.Store({
     },
     SET_PETS(state, pets) {
       state.pets = pets;
+    },
+    SET_AGENCY_PETS(state, pets) {
+      state.agencyPets = pets;
     },
     ADD_PET(state, pet) {
       state.pets.push(pet)
