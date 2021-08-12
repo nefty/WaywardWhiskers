@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Text;
 using Capstone.DAO.Interfaces;
 using Capstone.Models;
 using Capstone.Security;

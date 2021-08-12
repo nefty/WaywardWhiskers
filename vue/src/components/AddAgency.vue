@@ -7,7 +7,7 @@
       >Add Agency</a
     >
 
-    <form v-on:submit="onSubmit" v-if="isFormShown">
+    <form v-on:submit.prevent="onSubmit" v-if="isFormShown">
      <div class="form-group">
         <label for="name">Agency Name </label>
         <input
@@ -62,7 +62,7 @@
           id="postal-code"
           name="postal-code"
           class="form-control"
-          v-model.number="newAgency.postalCode"
+          v-model="newAgency.postalCode"
         />
       </div>
       <div class="form-group">
@@ -87,8 +87,7 @@
       </div>
       <div class="form-group">
         <label for="about">About</label>
-        <input
-          type="text"
+        <textarea
           id="about"
           name="about"
           class="form-control"
@@ -108,7 +107,7 @@
       <input type="submit" class="btn btn-success" />
       <input
         type="button"
-        v-on:click="returnToAgency"
+        v-on:click.prevent="resetForm"
         class="btn btn-secondary"
         value="Cancel"
       />
@@ -119,20 +118,30 @@
 <script>
 import AgencyService from "../services/AgencyService.js";
 
+
 export default {
   name: "agency-add",
   data() {
     return {
-      newAgency: {},
-
+      newAgency: {
+      },
       isFormShown: false,
+
+//       https://geocoder.ls.hereapi.com/search/6.2/geocode.json
+// ?languages=en-US
+// &maxresults=4
+// &searchtext=Sunnyvale
+// &apiKey={YOUR_API_KEY}
     };
   },
 
   methods: {
     onSubmit() {
-      this.$store.commit("ADD_AGENCY", this.newAgency);
-
+        let result = AgencyService.getAgencyCoords(`${this.newAgency.street} ${this.newAgency.city} ${this.newAgency.state} ${this.newAgency.postalCode}`);
+     console.log(result);
+        
+      this.$store.commit("ADD_AGENCY", this.newAgency)
+        
       AgencyService.addAgency(this.newAgency)
         .then((response) => {
           console.log("promise was success", response);
@@ -158,7 +167,6 @@ export default {
   },
 };
 </script>
-
 <style>
 
 </style>

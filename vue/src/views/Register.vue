@@ -42,6 +42,19 @@
         v-model="user.confirmPassword"
         required
       />
+      <br>
+      <!-- <b-form>
+
+      <b-form-group id="role" label="User or Agency:" label-for="role">
+        <b-form-select
+          id="role"
+          v-model="user.role"
+          :options="roleOptions"
+          name="role"
+        ></b-form-select>
+      </b-form-group>
+
+      </b-form> -->
       <router-link :to="{ name: 'login' }">Have an account?</router-link>
       <button class="btn btn-lg btn-primary btn-block" type="submit">
         Create Account
@@ -66,6 +79,10 @@ export default {
       },
       registrationErrors: false,
       registrationErrorMsg: 'There were problems registering this user.',
+      roleOptions: [
+        'user',
+        'agency'
+      ]
     };
   },
   methods: {

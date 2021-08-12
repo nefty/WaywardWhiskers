@@ -192,7 +192,7 @@ const router = new Router({
     }
   },
   {
-    path: "/mymatches",
+    path: "/mymatches/",
     name: "matches",
     component: Matches,
     meta: {

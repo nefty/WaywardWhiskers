@@ -19,7 +19,7 @@ import VueSwing from "vue-swing";
 
 export default {
   name: "pet-card-stack",
-  components: { PetCard },
+  components: { PetCard},
   computed: {
     pets() {
       return this.$store.state.pets;
