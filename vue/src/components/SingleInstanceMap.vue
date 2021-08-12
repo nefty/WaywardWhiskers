@@ -10,7 +10,7 @@
         @ready="containerShown"
       >
         <l-tile-layer :url="url" :attribution="attribution" />
-        <l-marker v-bind:lat-lng="this.center">
+        <l-marker v-bind:lat-lng="center">
           <l-popup>
             {{ this.$store.state.activeAgency.name }}
           </l-popup>
@@ -34,12 +34,13 @@ export default {
       mapOptions: {
         zoomSnap: 0.5,
       },
-      center: [],
       map: null
     };
   },
-  created() {
-    this.center = [ this.$store.state.activeAgency.lat, this.$store.state.activeAgency.lon ];
+  computed: {
+    center: function() {
+      return [ this.$store.state.activeAgency.lat, this.$store.state.activeAgency.lon ];
+    }
   },
   methods:{
     containerShown(){

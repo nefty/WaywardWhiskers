@@ -17,10 +17,32 @@
 <script>
 import PetCardStack from "@/components/PetCardStack.vue";
 import CriteriaForm from "@/components/CriteriaForm.vue";
+import PetService from "@/services/PetService.js";
 
 export default {
   components: { PetCardStack, CriteriaForm },
   name: "pet-matcher",
+  beforeCreate() {
+      this.filter = {
+        postalCode: 0,
+        userId: 0,
+        speciesId: 0,
+        breedIds: [],
+        agencyIds: [],
+        sex: "",
+        ageGroups: [],
+        activityLevels: [],
+        allExerciseNeeds: [],
+        ownerExperiences: [],
+        sizeGroups: [],
+        vocalLevels: [],
+      };
+      this.$store.commit("SET_SEARCH_CRITERIA", this.filter);
+      console.log(this.$store.state.filter);
+            PetService.getFilteredPets(this.filter).then((response) => {
+        this.$store.commit("SET_PETS", response.data);
+      });
+  },
 };
 </script>
 
