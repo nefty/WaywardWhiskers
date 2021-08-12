@@ -31,7 +31,7 @@ namespace Capstone.Controllers
 
         
 
-        [HttpGet("/details/{petId}")]
+        [HttpGet("{petId}")]
         public ActionResult<Pet> GetPet(int petId)
         {
             return Ok(petDAO.GetPet(petId));
