@@ -1,6 +1,6 @@
 <template>
   <div id="navbar">
-    <b-navbar toggleable="lg" type="light" variant="light">
+    <b-navbar toggleable="md" type="light" variant="light">
       <b-navbar-brand>
         <router-link class="navbar-brand" v-bind:to="{ name: 'home' }"
           ><img class="logo" :src="require('../assets/TransparentLogo3.png')" /></router-link
@@ -21,11 +21,20 @@
               >My Matches</router-link
             >
           </b-nav-item>
-          <b-nav-item v-if="$store.state.user.role == 'admin'">
-            <router-link class="nav-link" v-bind:to="{ name: 'admin' }"
-              >Admin</router-link
-            >
+          <b-nav-item>
+          <b-nav-item-dropdown v-if="$store.state.user.role == 'admin'" text="Admin">
+            <b-dropdown-item >
+              <router-link class="nav-link" v-bind:to="{ name: 'user-list' }">Users</router-link>
+            </b-dropdown-item>
+            <b-dropdown-item>
+              <router-link class="nav-link" v-bind:to="{ name: 'agency-list' }">Agencies</router-link>
+            </b-dropdown-item>
+            <b-dropdown-item>
+              <router-link class="nav-link" v-bind:to="{ name: 'pets-list' }">Pets</router-link>
+            </b-dropdown-item>
+          </b-nav-item-dropdown>
           </b-nav-item>
+
           <b-nav-item v-if="$store.state.user.role == 'agency'">
             <router-link class="nav-link" v-bind:to="{ name: 'agency' }"
               >Agency</router-link
