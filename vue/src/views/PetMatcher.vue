@@ -1,7 +1,9 @@
 <template>
   <b-container>
+    <b-container id="new-search">
     <b-button v-b-toggle.criteria variant="outline-primary"
       class="mx-2 my-2" pill block>New Search</b-button>
+    </b-container>
     <b-sidebar id="criteria" title="Search Criteria" shadow>
       <template class="px-3 py-2" >
         <criteria-form />
@@ -23,5 +25,7 @@ export default {
 </script>
 
 <style scoped>
-
+  #new-search {
+    width: 350px;
+  }
 </style>
