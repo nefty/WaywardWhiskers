@@ -16,9 +16,16 @@
 
 <script>
 import AgencyMap from "@/components/AgencyMap.vue";
+import PetService from "@/services/PetService.js"
 
 export default {
   name: "home",
-  components: { AgencyMap }
+  components: { AgencyMap },
+  created(){
+    PetService.getAllPets().then((response) => {
+      console.log(response.data);
+        this.$store.commit("SET_PETS", response.data);
+      });
+  }
 }
 </script>
