@@ -1,5 +1,5 @@
 <template>
-  <b-container>
+  <b-container class="mt-3">
     <table class="table table-bordered table-hover">
       <thead>
         <tr>

@@ -75,7 +75,7 @@
               >
             </b-col>
             <b-col>
-              <single-instance-map />
+              <single-instance-map :center="center"/>
             </b-col>
           </b-row>
         </b-card>
@@ -120,6 +120,10 @@ export default {
         this.$store.commit("SET_ACTIVE_AGENCY", this.agency);
       });
     });
+    
+  },
+  computed: {
+    center: function(){return [this.$store.state.activeAgency.lat, this.$store.state.activeAgency.lon]}
   },
   methods: {
     onSlideStart(slide) {

@@ -4,22 +4,22 @@
       <b-col>
         <b-button variant="light">
           <b-icon
-            icon="heart-fill"
+            icon="x-circle-fill"
             scale="2"
-            class="heart-button"
-            style="color: #ff69b4"
-            @click="addPetToMatched(pet)"
+            variant="danger"
+            class="skip-button"
+            @click="addPetToRejected(pet)"
           ></b-icon>
         </b-button>
       </b-col>
       <b-col>
         <b-button variant="light">
           <b-icon
-            icon="x-circle-fill"
+            icon="heart-fill"
             scale="2"
-            variant="danger"
-            class="skip-button"
-            @click="addPetToRejected(pet)"
+            class="heart-button"
+            style="color: #ff69b4"
+            @click="addPetToMatched(pet)"
           ></b-icon>
         </b-button>
       </b-col>

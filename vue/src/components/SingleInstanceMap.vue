@@ -3,11 +3,11 @@
     <div style="height: 500px; width: 100%"  class="activeAgencyMap">
       <l-map
         :zoom="zoom"
-        :center="center"
         :options="mapOptions"
         style="height: 80%"
         ref="myMap"
         @ready="containerShown"
+        :center="center"
       >
         <l-tile-layer :url="url" :attribution="attribution" />
         <l-marker v-bind:lat-lng="center">
@@ -21,8 +21,7 @@
 </template>
 
 <script>
-import 'leaflet/dist/leaflet.css';
-
+import "leaflet/dist/leaflet.css";
 export default {
   name: "single-instance-map",
   data() {
@@ -37,10 +36,8 @@ export default {
       map: null
     };
   },
-  computed: {
-    center: function() {
-      return [ this.$store.state.activeAgency.lat, this.$store.state.activeAgency.lon ];
-    }
+  props: {
+    center: Array,
   },
   methods:{
     setActiveAgency() {
