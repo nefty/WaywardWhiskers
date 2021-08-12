@@ -112,7 +112,7 @@ export default {
     });
     PetService.getPet(this.$route.params.id).then((response) => {
       this.pet = response.data;
-      this.$store.commit("SET_ACTIVE_PET", this.pet.petId);
+      this.$store.commit("SET_ACTIVE_PET", this.pet);
     });
     PetService.getPet(this.$route.params.id).then((response) => {
       AgencyService.getAgency(response.data.agencyId).then((response) => {

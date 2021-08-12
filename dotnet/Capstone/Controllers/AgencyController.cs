@@ -16,10 +16,12 @@ namespace Capstone.Controllers
     public class AgencyController : ControllerBase
     {
         private IAgencyDAO agencyDAO;
+        private IPetDAO petDAO;
 
-        public AgencyController(IAgencyDAO agencyDAO)
+        public AgencyController(IAgencyDAO agencyDAO, IPetDAO petDAO)
         {
             this.agencyDAO = agencyDAO;
+            this.petDAO = petDAO;
         }
         
         [HttpGet]
@@ -32,6 +34,12 @@ namespace Capstone.Controllers
         public ActionResult<Agency> GetAgency(int agencyId)
         {
             return Ok(agencyDAO.GetAgency(agencyId));
+        }
+        
+        [HttpGet("{agencyId}/pets")]
+        public ActionResult<List<Pet>> GetAgencyPets(int agencyId)
+        {
+            return Ok(petDAO.GetAgencyPets(agencyId));
         }
 
         //todo Add Authorization
