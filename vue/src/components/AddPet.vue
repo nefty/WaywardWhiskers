@@ -171,8 +171,9 @@
         />
       </b-form-group>
 
-      <b-form-group id="imageUrl" label="Image URL:" label-for="imageUrl">
+      <b-form-group  id="imageUrl" label="Image URL:" label-for="imageUrl">
         <b-form-input
+          class="required-field"
           id="imageUrl"
           v-model="newPet.primaryImageUrl"
           type="text"
@@ -188,10 +189,6 @@
           description="Can be the same as primary image."
         />
       </b-form-group>
-
-      <div>
-        <p class="required-field">Required field</p>
-      </div>
 
       <b-button type="submit" variant="primary">Submit</b-button>
       <input
