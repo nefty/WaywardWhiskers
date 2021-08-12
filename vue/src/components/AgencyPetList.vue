@@ -21,7 +21,7 @@
           <td>
             <router-link :to="{name: 'edit-pet', params: {id: pet.petId}}">
               <button class="btn btn-warning" >Edit</button>
-            </router-link>
+            </router-link> 
             <button class="btn btn-danger" v-on:click="deletePet(pet.petId)" >Delete</button>
           </td>
         </tr>
