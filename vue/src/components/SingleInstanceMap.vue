@@ -40,6 +40,9 @@ export default {
     center: Array,
   },
   methods:{
+    setActiveAgency() {
+      this.$store.commit("SET_ACTIVE_AGENCY", this.agency);
+    },
     containerShown(){
       this.$nextTick(() => {
         console.log(this.$refs.myMap.mapObject);

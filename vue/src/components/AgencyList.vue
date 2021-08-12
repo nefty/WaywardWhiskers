@@ -6,7 +6,7 @@
           <th scope ="col">ID</th>
           <th scope="col">Name</th>
           <th scope="col">City/State</th>
-          <th scope="col">Email</th>
+          <th scope="col">Lat/Long</th>
           <th scope="col">Pets</th>
           <th scope="col">Edit</th>
         </tr>
@@ -16,7 +16,7 @@
           <td>{{ agency.agencyId }}</td>
           <td>{{ agency.name }}</td>
           <td>{{ agency.city }}, {{agency.state}}</td>
-          <td>{{agency.email}}</td>
+          <td> {{agency.lat}} {{agency.lon}}</td>
           <td>
             <router-link :to="{name: 'agency-pet-list', params: {id: agency.agencyId}}">
               <button class="btn btn-success" >Pets</button>
