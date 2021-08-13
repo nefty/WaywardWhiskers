@@ -70,12 +70,8 @@
               <b-card-text
                 >Located in: {{ agency.city }}, {{ agency.state }}</b-card-text
               >
-              <a :href="agency.url" v-show="agency.url !== ''"
-                >Visit {{ agency.name }}'s Website</a
-              >
-            </b-col>
-            <b-col>
-              <single-instance-map :center="center"/>
+              <b-link :href="agency.url" v-show="agency.url !== ''">Visit {{ agency.name }}'s Website
+                </b-link>
             </b-col>
           </b-row>
         </b-card>
@@ -91,12 +87,11 @@
 import PetService from "@/services/PetService.js";
 import AgencyService from "@/services/AgencyService.js";
 import ContactAgencyForm from "../components/ContactAgencyForm.vue";
-import SingleInstanceMap from "@/components/SingleInstanceMap.vue"
 
 
 export default {
   name: "pet-details",
-  components: { ContactAgencyForm, SingleInstanceMap},
+  components: { ContactAgencyForm},
   data() {
     return {
       slide: 0,
