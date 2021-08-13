@@ -10,7 +10,7 @@
     </b-jumbotron>
     <p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Viverra vitae congue eu consequat. Facilisis mauris sit amet massa vitae tortor condimentum lacinia quis.</p>
     <p >Vestibulum mattis ullamcorper velit sed ullamcorper morbi tincidunt ornare massa. Est ullamcorper eget nulla facilisi etiam dignissim diam. Convallis convallis tellus id interdum velit laoreet id donec ultrices. Vitae justo eget magna fermentum. Hendrerit dolor magna eget est. Interdum velit euismod in pellentesque massa placerat duis. Fames ac turpis egestas sed tempus urna et pharetra pharetra. Vitae aliquet nec ullamcorper sit amet risus. Lectus sit amet est placerat in egestas erat imperdiet. Potenti nullam ac tortor vitae purus faucibus ornare. Ac ut consequat semper viverra nam. Interdum posuere lorem ipsum dolor sit amet consectetur adipiscing elit. Posuere sollicitudin aliquam ultrices sagittis orci. Tristique senectus et netus et. Leo duis ut diam quam. Auctor elit sed vulputate mi sit amet mauris commodo quis. Sit amet tellus cras adipiscing enim eu. Semper viverra nam libero justo laoreet sit. Tincidunt praesent semper feugiat nibh sed pulvinar.</p>
-    <h2>Now partnering with {{ numberOfAgencies }} organizations!</h2>
+    <h2>Now supporting {{ numberOfAgencies }} organizations!</h2>
     <agency-map></agency-map>
     </b-container>
   </div>
