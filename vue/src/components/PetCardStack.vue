@@ -3,10 +3,11 @@
     <vue-swing
       @throwin="throwin"
       :config="config"
-      v-for="pet in pets"
+      v-for="(pet, index) in pets"
       @throwoutright="throwoutMatch(pet)"
       @throwoutleft="throwoutReject(pet)"
       :key="pet.petId"
+      v-show="index === pets.length - 1"
     >
       <pet-card :pet="pet" :isMatchedPage="false" class="card" />
     </vue-swing>
@@ -20,7 +21,7 @@ import UserService from "@/services/UserService.js";
 
 export default {
   name: "pet-card-stack",
-  components: { PetCard},
+  components: { PetCard },
   computed: {
     pets() {
       return this.$store.state.pets;
@@ -34,8 +35,8 @@ export default {
     console.log(this.pets);
   },
   beforeDestroy() {
-    console.log("Reached beforeDestroy lifecycle hook")
-    UserService.likePets(this.$store.state.matchedPets)
+    console.log("Reached beforeDestroy lifecycle hook");
+    UserService.likePets(this.$store.state.matchedPets);
   },
   data() {
     return {
@@ -70,9 +71,11 @@ export default {
     throwin() {},
     throwoutMatch(pet) {
       this.$store.commit("ADD_PET_TO_MATCHED", pet);
+      this.pets.pop();
     },
     throwoutReject(pet) {
       this.$store.commit("ADD_PET_TO_REJECTED", pet);
+      this.pets.pop();
     },
   },
 };
