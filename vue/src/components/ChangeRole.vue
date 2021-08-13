@@ -40,9 +40,7 @@ data() {
 
   
   created(){
-    console.log("reached created method");
     this.editedUser = this.$store.state.users.find(user => user.userId === this.$route.params.id);
-    console.log(this.editedUser);
   },
 
   methods: {

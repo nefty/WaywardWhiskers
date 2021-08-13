@@ -61,7 +61,7 @@ export default {
           pet_name: this.petName,
           to_name: to_name,
           message: message,
-          to_email: "dgoodrich94@gmail.com",
+          to_email: to_email,
           from_email: from_email,
           reply_to: from_email,
         },
