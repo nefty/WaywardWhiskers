@@ -123,5 +123,8 @@ export default new Vuex.Store({
       state.species = species;
       console.log(state.species);
     },
+    POP_PET_OFF_STATE(state){
+      state.pets.pop();
+    }
   }
 })

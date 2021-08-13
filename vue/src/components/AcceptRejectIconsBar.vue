@@ -34,9 +34,11 @@ export default {
   methods: {
     addPetToMatched(pet) {
       this.$store.commit("ADD_PET_TO_MATCHED", pet);
+      this.$store.commit("POP_PET_OFF_STATE");
     },
     addPetToRejected(pet) {
       this.$store.commit("ADD_PET_TO_REJECTED", pet);
+      this.$store.commit("POP_PET_OFF_STATE");
     },
   },
   computed: {
