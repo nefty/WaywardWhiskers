@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="card-stack">
     <vue-swing
       @throwin="throwin"
       :config="config"
