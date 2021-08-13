@@ -70,7 +70,7 @@
               <b-card-text
                 >Located in: {{ agency.city }}, {{ agency.state }}</b-card-text
               >
-              <b-link :href="agency.url" v-show="agency.url !== ''">Visit {{ agency.name }}'s Website
+              <b-link :href="'http://' + agency.url" v-show="agency.url !== ''">Visit {{ agency.name }}'s Website
                 </b-link>
             </b-col>
           </b-row>
