@@ -76,9 +76,7 @@ export default {
   display: flex;
 }
 .mb-2 img {
-  height: 220px;
-  border-radius: 20px;
-  margin: 5px;
+  max-height: 220px;
   pointer-events: none;
 }
 </style>

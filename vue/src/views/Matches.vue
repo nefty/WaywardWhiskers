@@ -1,8 +1,10 @@
 <template>
   <b-container>
-    <div v-for="(pet, index) of pets" v-bind:key="index" >
+    <b-card-group deck class="mt-4">
+    <div v-for="(pet, index) of pets" v-bind:key="index">
       <pet-card :pet="pet" :isMatchedPage="isMatchedPage" class="card" />
     </div>
+    </b-card-group>
   </b-container>
 </template>
 
