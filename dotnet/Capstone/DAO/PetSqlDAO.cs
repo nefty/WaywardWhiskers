@@ -379,7 +379,6 @@ namespace Capstone.DAO
             cmd.Parameters.AddWithValue("@OwnerExperience", pet.OwnerExperience);
             cmd.Parameters.AddWithValue("@SizeGroup", pet.SizeGroup);
             cmd.Parameters.AddWithValue("@VocalLevel", pet.VocalLevel);
-            cmd.Parameters.AddWithValue("@PetId", pet.PetId);
         }
 
         private Pet ReadPet(SqlDataReader reader)

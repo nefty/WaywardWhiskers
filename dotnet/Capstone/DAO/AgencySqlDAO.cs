@@ -17,7 +17,7 @@ namespace Capstone.DAO
         private readonly string connectionString;
 
         private readonly string sqlGetAgency = "SELECT * FROM agencies WHERE agency_id = @agencyId;";
-        private readonly string sqlGetAllAgencies = "SELECT * FROM agencies ORDER BY state DESC;";
+        private readonly string sqlGetAllAgencies = "UPDATE  agencies SET agencies.url = REPLACE(agencies.url, 'http://', ''); UPDATE  agencies SET agencies.url = REPLACE(agencies.url, 'https://', ''); SELECT * FROM agencies ORDER BY state DESC;";
         private readonly string sqlAddAgency =
             "INSERT INTO agencies(agency_id, name, street, city, state, postal_code, email, phone, lat, lon, about, url) " +
             "VALUES (@AgencyId, @Name, @Street, @City, @State, @PostalCode, @Email, @Phone, @Lat, @Lon, @About, @Url);";
