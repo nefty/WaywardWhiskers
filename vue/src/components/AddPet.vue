@@ -7,8 +7,8 @@
       >Add Pet</a
     >
 
-    <b-form @submit="onSubmit" v-if="isFormShown">
-      <!-- <b-form-group id="agency" label="Agency:" label-for="agency">
+    <b-form @submit.prevent="onSubmit" v-if="isFormShown">
+      <b-form-group id="agency" label="Agency:" label-for="agency">
         <b-form-select
         type="text"
           id="agency"
@@ -23,7 +23,7 @@
             >
           </template>
         </b-form-select>
-      </b-form-group> -->
+      </b-form-group>
 
       <b-form-group id="name" label="Name:" label-for="name">
         <b-form-input
@@ -288,8 +288,8 @@ export default {
       });
     },
   methods: {
-    onSubmit() {
-      this.$store.commit("ADD_PET", this.newPet);
+    async onSubmit() {
+      await this.$store.commit("ADD_PET", this.newPet);
 
       PetService.addPet(this.newPet)
         .then((response) => {
@@ -311,6 +311,7 @@ export default {
     resetForm() {
       this.newPet = {};
       this.isFormShown = false;
+      this.$router.go({ name: "agency-pet-list" });
     },
   },
 };

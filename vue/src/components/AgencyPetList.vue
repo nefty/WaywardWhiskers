@@ -53,7 +53,7 @@ export default {
       if(confirm('Are you sure you want to DELETE this pet?')){
       PetService.deletePet(petId)
       .then(() => this.$store.commit("DELETE_PET", petId))
-    }
+    } this.$router.go({name: 'agency-pet-list'})
     }
   }
 };
