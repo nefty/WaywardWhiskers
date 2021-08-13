@@ -14,10 +14,6 @@
           placeholder="Enter email"
           required
         ></b-form-input>
-        <router-link
-          :to="{ name: 'reset-password', params: { resetCode: '5esmpjtymvx' } }"
-          >GO TO RESET PASSWORD PAGE</router-link
-        >
         <b-button type="submit" variant="primary">Submit</b-button>
         <router-link :to="{ name: 'login' }">
           <b-button type="reset" variant="secondary">Cancel</b-button>
