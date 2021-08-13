@@ -1,6 +1,6 @@
 <template>
   <b-container>
-    <table class="table table-bordered table-hover">
+    <table class="table table-bordered table-hover my-3">
       <thead>
         <tr>
           <th scope ="col">Thumbnail</th>
@@ -20,9 +20,9 @@
           <td>{{ pet.breed }}</td>
           <td>
             <router-link :to="{name: 'edit-pet', params: {id: pet.petId}}">
-              <button class="btn btn-warning" >Edit</button>
+              <button class="btn btn-warning mb-1" >Edit</button>
             </router-link> 
-            <button class="btn btn-danger" v-on:click="deletePet(pet.petId)" >Delete</button>
+            <button class="btn btn-danger mb-1" v-on:click="deletePet(pet.petId)" >Delete</button>
           </td>
         </tr>
       </tbody>
