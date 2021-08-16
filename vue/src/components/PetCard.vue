@@ -7,7 +7,7 @@
     img-alt="Image"
     tag="article"
     style="max-width: 20rem"
-    class="mb-2"
+    class="shadow mb-2"
     display="flex"
     v-if="
       (this.$store.state.matchedPets.includes(pet) === false &&
